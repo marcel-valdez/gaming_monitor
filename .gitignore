@@ -1,0 +1,14 @@
+# Active Logs (Contains raw session logs)
+roblox_connections.log
+
+# Generated HTML Reports
+reporte_roblox.html
+
+# Temporary Files and System Metadata
+tmp/
+*.tmp
+*.temp
+*.swp
+*~
+.DS_Store
+Thumbs.db
