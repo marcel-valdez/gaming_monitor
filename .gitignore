@@ -1,8 +1,9 @@
 # Active Logs (Contains raw session logs)
 roblox_connections.log
 
-# Generated HTML Reports
+# Generated Data and Reports
 reporte_roblox.html
+public/data.json
 
 # Temporary Files and System Metadata
 tmp/

@@ -1,12 +1,12 @@
 # Roblox Activity Monitor & HTML Reporter 🎮📊
 
-A lightweight, non-invasive activity monitoring and analytics system for Roblox sessions. By inspecting connection state tables directly from a Huawei/WAP gateway router, this project monitors when specific local devices (PC and Phone) are connected to Roblox servers, distinguishes gameplay from lobby/chat menus, sends desktop notifications on new/resumed sessions, and generates a beautiful, auto-refreshing HTML dashboard.
+A lightweight, non-invasive activity monitoring and analytics system for Roblox sessions. By inspecting connection state tables directly from a Huawei/WAP gateway router, this project monitors when specific local devices (PC and Phone) are connected to Roblox servers, distinguishes gameplay from lobby/chat menus, sends desktop notifications on new/resumed sessions, and provides a modern web-based dashboard served via a local HTTP server.
 
 ---
 
 ## 🏗️ Architecture Overview
 
-The system is decoupled into two lightweight Bash-based daemons communicating via a single log file (`roblox_connections.log`):
+The system is decoupled into three main components:
 
 ```
                        +-----------------------------+
@@ -32,37 +32,42 @@ The system is decoupled into two lightweight Bash-based daemons communicating vi
                                      |
                                      v
                   +-----------------------------------+
-                  |     generate_roblox_report.sh     |  <-- Daemon
+                  |     generate_roblox_data.sh       |  <-- Backend Daemon
                   +------------------+----------------+
                                      |
-                        Regenerates interactive HTML
+                           Generates public/data.json
+                                     |
+                                     v
+                  +-----------------------------------+
+                  |        start_server.sh            |  <-- HTTP Server
+                  |    (Serves the public/ folder)    |
+                  +------------------+----------------+
+                                     |
+                        Static HTML/JS UI (AJAX)
                                      |
                                      v
                         +-------------------------+
-                        |   reporte_roblox.html   |  <-- Live dashboard
+                        |    Browser Dashboard    |  <-- http://localhost:8080
                         +-------------------------+
 ```
 
-1. **The Monitor (`monitor_roblox_connections.sh`):** Automates a Telnet session to the primary gateway router using `expect`, extracts the active connection tables for target device IPs, detects Roblox server connections, calculates precise inactivity times, triggers notifications, and writes clean events to the log file.
-2. **The Reporter (`generate_roblox_report.sh`):** Listens for updates to the log file (using high-performance `inotify-tools` with a polling fallback). It processes log events via a stateful `awk` processor to reconstruct sessions, maps protocols to activity types, and compiles a highly polished, modern, auto-updating HTML dashboard.
+1. **The Monitor (`monitor_roblox_connections.sh`):** Automates a Telnet session to the primary gateway router using `expect`, extracts the active connection tables, and writes state events to the log file.
+2. **The Data Generator (`generate_roblox_data.sh`):** Watches the log file and uses `awk` to process session state. Instead of building HTML, it outputs a clean `public/data.json` array.
+3. **The Web Frontend (`public/`):** A modern, decoupled web application (`index.html`, `style.css`, `app.js`) that fetches data via AJAX and renders the UI dynamically.
+4. **The Server (`start_server.sh`):** A helper script that launches a lightweight HTTP server (using Python or PHP) to host the dashboard.
 
 ---
 
 ## ✨ Features
 
-- **Non-Invasive Tracking:** No software or agent needs to be installed on the PC or Phone being monitored. All tracking is done via the router's NAT/connection state tables.
+- **Decoupled Architecture:** Clean separation between shell-based data processing and the web-based UI.
+- **Non-Invasive Tracking:** No software or agent needs to be installed on the PC or Phone being monitored.
 - **Smart Protocol Mapping:** 
   - **UDP Connections** $\rightarrow$ mapped to **🎮 Gameplay (Active)**.
   - **TCP Connections** $\rightarrow$ mapped to **⚙️ Menus, Lobby, or Chat**.
-- **Roblox IP Detection:** Filters specifically for Roblox infrastructure IP blocks (targeting the `128.116.0.0/16` subnet).
-- **Intelligent Session Recovery:** Uses router expiration timestamps to calculate exact idle/inactive durations, gracefully ignoring brief network dropouts or "ghost" connections.
-- **Real-Time Notifications:** Integrates with `notify-send` (Linux Desktop) and `tmux-notify` to alert you of:
-  - Brand new sessions.
-  - Session resumption after more than 30 minutes of inactivity.
-- **Live HTML Dashboard:** Generates `reporte_roblox.html`, featuring:
-  - Auto-refresh every 10 seconds.
-  - Dynamic JavaScript timer that increments the active session duration tick-by-tick in real-time.
-  - Responsive, modern CSS UI with distinct cards grouped by day.
+- **Real-Time AJAX Updates:** The dashboard fetches `data.json` every 5 seconds without reloading the page.
+- **Live JavaScript Timers:** Active sessions show a ticking clock incremented second-by-second in the browser.
+- **Desktop Notifications:** Integrated alerts for session starts and significant resumptions.
 
 ---
 
@@ -129,33 +134,26 @@ sudo apt-get install expect telnet inotify-tools libnotify-bin
 
 ## 🏃 Running the Services
 
-For continuous monitoring, it is recommended to run both scripts in the background (e.g., inside a `tmux` session, `screen`, or as systemd services).
+For continuous monitoring, it is recommended to run the services in the background (e.g., inside a `tmux` session, `screen`, or as systemd services).
 
 ### Step 1: Start the Connection Monitor
 This daemon queries your gateway router every 60 seconds and records state changes.
 ```bash
 ./monitor_roblox_connections.sh
 ```
-*Console Output Example:*
-```text
-=== [2026-08-08 14:32:00] Roblox Monitor ===
-[Phone] Roblox [UDP] -> 🟢 ACTIVE  | Started: 2026-08-08 02:25:10 PM | Duration: 00:06:50
-[PC   ] Roblox [TCP] -> ⏱  IDLE    | Last Active: 2026-08-08 01:15:20 PM | Inactive: 0 days, 01:16:40
-------------------------------------------------------
-Monitoring active. Waiting 60 seconds...
+
+### Step 2: Start the JSON Data Generator
+This daemon watches `roblox_connections.log` and automatically updates the JSON data on every change.
+```bash
+./generate_roblox_data.sh
 ```
 
-### Step 2: Start the HTML Report Generator
-This daemon watches `roblox_connections.log` and automatically builds the HTML dashboard on every change.
+### Step 3: Start the Web Server
+Launch the lightweight HTTP server to serve the dashboard.
 ```bash
-./generate_roblox_report.sh
+./start_server.sh
 ```
-*Console Output Example:*
-```text
-Iniciando generador de reportes HTML...
-[14:32:05] Reporte regenerado -> reporte_roblox.html
-Escuchando eventos de archivo mediante inotifywait...
-```
+*The dashboard will be available at:* `http://localhost:8080`
 
 ---
 
