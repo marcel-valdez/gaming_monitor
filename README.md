@@ -76,45 +76,37 @@ The system is decoupled into three main components:
 
 ---
 
-## ⚙️ How It Works (Under the Hood)
+## 📋 Prerequisites & Installation
 
-### 1. Connection Tracking Heuristics
-The router gateway tracks active UDP and TCP connections with an expiration countdown timer. 
-For a standard Huawei/WAP gateway, an inactive/idle NAT translation has a default maximum lifetime of **5 days** (432,000 seconds).
+To install dependencies on Debian/Ubuntu-based systems, you can use the automated scripts:
 
-The Python logic in `process_connections.py` parses the expiration time ($T_{\text{expiry}}$) and computes the inactive duration ($T_{\text{inactive}}$):
-$$T_{\text{inactive}} = 5\text{ days} - T_{\text{expiry}}$$
-
-- If $T_{\text{inactive}} < 5\text{ minutes}$ (300 seconds), the session is marked as **ACTIVE**.
-- If $T_{\text{inactive}} \ge 5\text{ minutes}$, the session is marked as **IDLE**.
-- If the connection disappears from the table, it eventually transitions to **OFFLINE**.
-
-### 2. Python Reporter State Machine
-The `generate_data.py` script parses `roblox_connections.log` chronologically. It pairs `ACTIVE` and `IDLE` events for the same device and protocol to calculate precise session durations and formats the output with Spanish locale support for the dashboard.
-
----
-
-## 📋 Prerequisites & Requirements
-
-- **Python 3.x:** Required for core business logic.
-- **Shell environment:** `bash` version 4.0 or higher.
-- **Utilities:** `telnet`, `expect`, `jq`, and `inotify-tools`.
-- **Notifications (Optional):** `notify-send` and `tmux-notify`.
-
-To install dependencies:
+**For running the system only:**
 ```bash
-sudo apt-get install python3 expect telnet inotify-tools libnotify-bin jq
+chmod +x install_runtime_dependencies.sh
+./install_runtime_dependencies.sh
+```
+
+**For development and running all tests:**
+```bash
+chmod +x dev_setup.sh
+./dev_setup.sh
+```
+
+*Note: You can pass the `-y` flag to these scripts to skip all confirmation prompts.*
+
+### Manual Installation
+Alternatively, you can install the dependencies manually:
+```bash
+sudo apt-get update
+sudo apt-get install python3 expect telnet inotify-tools libnotify-bin jq nodejs npm
 ```
 
 ---
 
-## 🚀 Installation & Setup
+## 🚀 Setup & Execution
 
-1. **Clone or copy the scripts** into your preferred directory (e.g., `~/gaming-notifier`).
-2. **Make the scripts executable**:
-   ```bash
-   chmod +x monitor_roblox_connections.sh generate_roblox_report.sh
-   ```
+1. **Clone or copy the scripts** into your preferred directory.
+2. **Run the installation script** (see above).
 3. **Verify Configuration:**
    Open `monitor_roblox_connections.sh` and verify the IP variables to match your network configuration:
    - Gateway IP: `192.168.100.1`
@@ -129,7 +121,7 @@ sudo apt-get install python3 expect telnet inotify-tools libnotify-bin jq
 
 ## 🏃 Running the Services
 
-The most reliable way to run the system is using the included **Master Supervisor**. This script manages the three core services, handles independent failures, and implements an exponential backoff (up to 5 minutes) to ensure high availability.
+The most reliable way to run the system is using the included **Master Supervisor**:
 
 ```bash
 ./start_all.sh
@@ -140,13 +132,26 @@ This single command starts:
 2.  **Data Generator:** Converts logs to `public/data.json` in real-time.
 3.  **Web Server:** Hosts the dashboard at `http://localhost:8080`.
 
-*Note: Press `Ctrl+C` to gracefully stop all background services at once.*
+---
+
+## 🧪 Testing
+
+The project includes a comprehensive test suite (Unit, Integration, and E2E):
+
+```bash
+./run_tests.sh
+```
+
+This will execute:
+- **Python Unit Tests**: Verifying individual logic components.
+- **Integration Tests**: Verifying the data transformation pipeline.
+- **E2E Rendering Test**: Verifying actual JS/HTML rendering using JSDOM.
 
 ---
 
 ## 📂 Log Format Definition
 
-All states are captured in `roblox_connections.log` in a clean, anonymized (no external IP addresses logged), bar-separated format:
+All states are captured in `roblox_connections.log` in a clean, anonymized format:
 
 ```text
 [Timestamp] | Device Alias - Roblox | Protocol | State | Message
@@ -155,29 +160,7 @@ All states are captured in `roblox_connections.log` in a clean, anonymized (no e
 **Example logs:**
 ```text
 [2026-08-08 14:15:20] | PC - Roblox      | TCP | ACTIVE | Session started.
-[2026-08-08 14:25:10] | Phone - Roblox   | UDP | ACTIVE | Session started.
 [2026-08-08 14:30:15] | PC - Roblox      | TCP | IDLE   | Session ended. Total Duration: 895s.
-```
-
----
-
-## 🖥️ Dashboard UI Preview
-
-The generated `reporte_roblox.html` uses an ultra-clean, Apple-style responsive card design. Here is a visual representation of how the dashboard organizes activity:
-
-```
-+-------------------------------------------------------------+
-|               Reporte de Actividad de Roblox                |
-|          Un resumen consolidado del tiempo de juego         |
-+-------------------------------------------------------------+
-
- 📅 08 de agosto de 2026
- +-----------------------------------------------------------+
- | Dispositivo | Tipo de Actividad     | Inicio   | Fin      | Tiempo |
- +-------------+-----------------------+----------+----------+--------+
- | 📱 Celular  | 🎮 Jugando (Activo)   | 02:25 PM | 🟢Activa | 7m 12s | <-- Counts up live!
- | 💻 PC       | ⚙️ Menús / Chat       | 02:15 PM | 02:30 PM | 14m 55s|
- +-----------------------------------------------------------+
 ```
 
 ---
@@ -185,4 +168,4 @@ The generated `reporte_roblox.html` uses an ultra-clean, Apple-style responsive 
 ## 🔒 Security & Privacy Notes
 
 - **Credential Storage:** Router login details are stored inside the `monitor_roblox_connections.sh` script. Ensure this file's permissions are restricted to your local user (`chmod 700 monitor_roblox_connections.sh`).
-- **Data Minimization:** No actual game content, chats, usernames, or destination IP addresses are logged. The script strictly records the local device alias, connection protocol, activity state, and session duration.
+- **Data Minimization:** No actual game content, chats, usernames, or destination IP addresses are logged.
