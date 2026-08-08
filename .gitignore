@@ -13,3 +13,9 @@ tmp/
 *~
 .DS_Store
 Thumbs.db
+# State files
+state.json
+integration_state.json
+integration_roblox.log
+integration_data.json
+__pycache__/
