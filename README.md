@@ -18,7 +18,8 @@ The system is decoupled into three main components:
                                       |
                                       v
                   +-----------------------------------+
-                  |   monitor_roblox_connections.sh   |  <-- Runs every 60s
+                  |   monitor_roblox_connections.sh   |  <-- Orchestrator
+                  |  (Calls scripts/process_connections.py)
                   +------------------+----------------+
                                      |
                          Appends state-change logs
@@ -33,6 +34,7 @@ The system is decoupled into three main components:
                                      v
                   +-----------------------------------+
                   |     generate_roblox_data.sh       |  <-- Backend Daemon
+                  |  (Calls scripts/generate_data.py) |
                   +------------------+----------------+
                                      |
                            Generates public/data.json
@@ -51,16 +53,19 @@ The system is decoupled into three main components:
                         +-------------------------+
 ```
 
-1. **The Monitor (`monitor_roblox_connections.sh`):** Automates a Telnet session to the primary gateway router using `expect`, extracts the active connection tables, and writes state events to the log file.
-2. **The Data Generator (`generate_roblox_data.sh`):** Watches the log file and uses `awk` to process session state. Instead of building HTML, it outputs a clean `public/data.json` array.
-3. **The Web Frontend (`public/`):** A modern, decoupled web application (`index.html`, `style.css`, `app.js`) that fetches data via AJAX and renders the UI dynamically.
-4. **The Server (`start_server.sh`):** A helper script that launches a lightweight HTTP server (using Python or PHP) to host the dashboard.
+1. **The Monitor (`monitor_roblox_connections.sh`):** Automates a Telnet session to the primary gateway router. It delegates state management and connection analysis to **`scripts/process_connections.py`**, which maintains session state in `state.json`.
+2. **The Data Generator (`generate_roblox_data.sh`):** Watches the log file and uses **`scripts/generate_data.py`** to process session history and output a clean `public/data.json`.
+3. **The Web Frontend (`public/`):** A modern web application that fetches data via AJAX and renders the UI dynamically.
+4. **The Server (`start_server.sh`):** A helper script that launches a lightweight HTTP server to host the dashboard.
 
 ---
 
 ## ✨ Features
 
-- **Decoupled Architecture:** Clean separation between shell-based data processing and the web-based UI.
+- **Python-Powered Logic:** Business logic (parsing, duration calculation, state machine) is extracted into Python for better maintainability and testability.
+- **Robust State Management:** Session tracking is persisted in `state.json`, ensuring consistency across restarts.
+- **Comprehensive Test Suite:** Includes unit and integration tests to verify the entire data pipeline.
+- **Decoupled Architecture:** Clean separation between shell-based I/O and Python-based business logic.
 - **Non-Invasive Tracking:** No software or agent needs to be installed on the PC or Phone being monitored.
 - **Smart Protocol Mapping:** 
   - **UDP Connections** $\rightarrow$ mapped to **🎮 Gameplay (Active)**.
@@ -77,38 +82,28 @@ The system is decoupled into three main components:
 The router gateway tracks active UDP and TCP connections with an expiration countdown timer. 
 For a standard Huawei/WAP gateway, an inactive/idle NAT translation has a default maximum lifetime of **5 days** (432,000 seconds).
 
-When the monitoring script queries the router using `display connection IP <device_ip>`, the router returns connection entries in the following format:
-```text
-udp ... 4 days, 23:55:00 ... 192.168.100.37:XXXX --> 128.116.X.X:XXXX
-```
-
-The script parses this expiration time ($T_{\text{expiry}}$) using Bash regex and computes the inactive duration ($T_{\text{inactive}}$) using the formula:
+The Python logic in `process_connections.py` parses the expiration time ($T_{\text{expiry}}$) and computes the inactive duration ($T_{\text{inactive}}$):
 $$T_{\text{inactive}} = 5\text{ days} - T_{\text{expiry}}$$
 
 - If $T_{\text{inactive}} < 5\text{ minutes}$ (300 seconds), the session is marked as **ACTIVE**.
 - If $T_{\text{inactive}} \ge 5\text{ minutes}$, the session is marked as **IDLE**.
-- If the connection disappears entirely from the table (or exceeds 5 days), the device is marked **OFFLINE**.
+- If the connection disappears from the table, it eventually transitions to **OFFLINE**.
 
-### 2. AWK State Machine Reporter
-The reporter script parses `roblox_connections.log` chronologically. It employs a state machine inside `awk` that pairs `ACTIVE` and `IDLE` events for the same device and protocol key (`Device_Protocol`):
-- Upon finding an `ACTIVE` state, it marks the start boundary of a session.
-- Upon finding an `IDLE` state, it checks if a corresponding active session was tracking, calculates the total active elapsed time, and outputs a formatted record.
-- Any session that has an `ACTIVE` event but no succeeding `IDLE` event is treated as **currently active** (`🟢 Activa`) and dynamically calculated relative to the host machine's current system time.
+### 2. Python Reporter State Machine
+The `generate_data.py` script parses `roblox_connections.log` chronologically. It pairs `ACTIVE` and `IDLE` events for the same device and protocol to calculate precise session durations and formats the output with Spanish locale support for the dashboard.
 
 ---
 
 ## 📋 Prerequisites & Requirements
 
-- **Shell environment:** `bash` version 4.0 or higher (required for associative arrays).
-- **Network utilities:** `telnet` and `expect` (for router command automation).
-- **Gateway access:** A router located at `192.168.100.1` supporting connection-table display commands (e.g., Huawei WAP gateways).
-- **Notifications (Optional):** `notify-send` (libnotify) for desktop environments, `tmux-notify` for tmux integration.
-- **Instant Reporting (Optional):** `inotify-tools` (specifically `inotifywait`) to trigger report generation instantly when the log updates.
+- **Python 3.x:** Required for core business logic.
+- **Shell environment:** `bash` version 4.0 or higher.
+- **Utilities:** `telnet`, `expect`, `jq`, and `inotify-tools`.
+- **Notifications (Optional):** `notify-send` and `tmux-notify`.
 
-To install dependencies on Debian/Ubuntu-based systems:
+To install dependencies:
 ```bash
-sudo apt-get update
-sudo apt-get install expect telnet inotify-tools libnotify-bin
+sudo apt-get install python3 expect telnet inotify-tools libnotify-bin jq
 ```
 
 ---
