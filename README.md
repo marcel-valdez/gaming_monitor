@@ -134,26 +134,18 @@ sudo apt-get install expect telnet inotify-tools libnotify-bin
 
 ## 🏃 Running the Services
 
-For continuous monitoring, it is recommended to run the services in the background (e.g., inside a `tmux` session, `screen`, or as systemd services).
+The most reliable way to run the system is using the included **Master Supervisor**. This script manages the three core services, handles independent failures, and implements an exponential backoff (up to 5 minutes) to ensure high availability.
 
-### Step 1: Start the Connection Monitor
-This daemon queries your gateway router every 60 seconds and records state changes.
 ```bash
-./monitor_roblox_connections.sh
+./start_all.sh
 ```
 
-### Step 2: Start the JSON Data Generator
-This daemon watches `roblox_connections.log` and automatically updates the JSON data on every change.
-```bash
-./generate_roblox_data.sh
-```
+This single command starts:
+1.  **Monitor:** Queries the router every 60s.
+2.  **Data Generator:** Converts logs to `public/data.json` in real-time.
+3.  **Web Server:** Hosts the dashboard at `http://localhost:8080`.
 
-### Step 3: Start the Web Server
-Launch the lightweight HTTP server to serve the dashboard.
-```bash
-./start_server.sh
-```
-*The dashboard will be available at:* `http://localhost:8080`
+*Note: Press `Ctrl+C` to gracefully stop all background services at once.*
 
 ---
 
