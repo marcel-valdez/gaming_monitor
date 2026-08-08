@@ -13,9 +13,13 @@ tmp/
 *~
 .DS_Store
 Thumbs.db
-# State files
+# Node dependencies
+node_modules/
+package-lock.json
+package.json
 state.json
 integration_state.json
 integration_roblox.log
 integration_data.json
 __pycache__/
+node_modules/

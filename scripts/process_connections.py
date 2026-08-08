@@ -74,7 +74,7 @@ class ConnectionProcessor:
 
                 for info_line in potential_info_lines:
                     # Proto match
-                    proto_match = re.search(r'^(tcp|udp)', info_line, re.IGNORECASE)
+                    proto_match = re.search(r'^\s*(tcp|udp)', info_line, re.IGNORECASE)
                     if proto_match:
                         proto = proto_match.group(1).upper()
                     

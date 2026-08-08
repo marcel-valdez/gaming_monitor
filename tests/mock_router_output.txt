@@ -1,0 +1,9 @@
+WAP>display connection IP 192.168.100.37
+udp          [REPLIED]           0                                            4 days, 23:59:00             N/A
+    INIT: 192.168.100.37:45994 - 128.116.95.3:443  RESP: 128.116.95.3:443 - 10.76.185.47:45994
+Total : 1
+WAP>display connection IP 192.168.100.66
+tcp          [ASSURED]           TCP_ESTABLISHED                              4 days, 23:50:00             NAPT
+    INIT: 192.168.100.66:35798 - 128.116.1.1:53  RESP: 128.116.1.1:53 - 10.76.185.47:35798
+Total : 1
+WAP>quit
