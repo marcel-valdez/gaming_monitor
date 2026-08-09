@@ -9,6 +9,7 @@ async function fetchData() {
         lastFetchedData = data;
         render(data);
         updateStatistics();
+        updateWeeklySummary();
     } catch (error) {
         console.error('Error al cargar los datos:', error);
     }
@@ -49,6 +50,23 @@ function formatTimeFromSeconds(seconds) {
     return `${hrs12}:${mins.toString().padStart(2, '0')} ${ampm}`;
 }
 
+function updateGeminiDeeplink(containerId, timeframeLabel, totalSeconds) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const link = container.querySelector('#gemini-analysis-link');
+    if (!link) return;
+
+    const totalHours = (totalSeconds / 3600).toFixed(1) + " horas";
+    const prompt = `Analiza los hábitos de juego de un adolescente para el periodo ${timeframeLabel}, donde ha jugado un total de ${totalHours}. 
+A partir de estos datos, proporciona un análisis detallado respondiendo:
+- ¿Qué desafíos futuros (sociales, académicos, de salud) enfrentará si mantiene estos hábitos?
+- ¿Cómo se compara este tiempo de juego con el promedio de su edad? Indica el percentil de normalidad (ej. 1 de cada 1000 adolescentes juegan tanto).
+- Muestra una comparativa de lo que podría haber alcanzado en este mismo tiempo si lo hubiera dedicado a actividades productivas o aprendizaje de habilidades. Usa ejemplos concretos de figuras históricas o contemporáneas exitosas que dedicaron tiempos similares a sus pasiones (menciona la regla de las 10,000 horas de Gladwell para la maestría).
+Utiliza un tono empático y fácil de entender para alguien sin formación científica, pero incluye citas académicas y referencias a estudios científicos que respalden tus afirmaciones. Responde íntegramente en español.`;
+
+    link.href = `https://gemini.google.com/app?q=${encodeURIComponent(prompt)}`;
+}
+
 // Start of current week (Monday 00:00:00)
 function getStartOfCurrentWeek() {
     const now = new Date();
@@ -66,6 +84,8 @@ function getStartOfCurrentMonth() {
     return new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
 }
 
+var weeklyOffset = 0;
+
 // Tab switcher globally accessible for JSDOM and inline html onclick
 window.switchTab = function(tabId) {
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -74,11 +94,161 @@ window.switchTab = function(tabId) {
     if (tabId === 'history') {
         document.getElementById('tab-btn-history').classList.add('active');
         document.getElementById('tab-history').classList.add('active');
+    } else if (tabId === 'weekly') {
+        document.getElementById('tab-btn-weekly').classList.add('active');
+        document.getElementById('tab-weekly').classList.add('active');
+        updateWeeklySummary();
     } else if (tabId === 'stats') {
         document.getElementById('tab-btn-stats').classList.add('active');
         document.getElementById('tab-stats').classList.add('active');
     }
 };
+
+window.changeWeek = function(offset) {
+    weeklyOffset += offset;
+    updateWeeklySummary();
+};
+
+window.getLogicalDayString = function(epoch) {
+    const dt = new Date(epoch * 1000);
+    // 5 AM rollover
+    if (dt.getHours() < 5) {
+        dt.setDate(dt.getDate() - 1);
+    }
+    return dt.toISOString().split('T')[0];
+};
+
+window.getShift = function(epoch) {
+    const dt = new Date(epoch * 1000);
+    const h = dt.getHours();
+    if (h >= 5 && h < 14) return 'morning';
+    return 'afternoon';
+};
+
+window.getWeeklyRange = function(offset) {
+    const now = new Date();
+    // Monday at 5 AM
+    const startOfWeek = new Date(now);
+    const day = startOfWeek.getDay(); // 0 is Sunday, 1 is Monday
+    const diff = (day === 0 ? -6 : 1 - day); // Distance to Monday
+    startOfWeek.setDate(startOfWeek.getDate() + diff + (offset * 7));
+    startOfWeek.setHours(5, 0, 0, 0);
+
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(endOfWeek.getDate() + 7); // Next Monday 5 AM
+
+    return { start: startOfWeek, end: endOfWeek };
+};
+
+function updateWeeklySummary() {
+    const grid = document.getElementById('weekly-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    const range = window.getWeeklyRange(weeklyOffset);
+    const startEpoch = range.start.getTime() / 1000;
+    const endEpoch = range.end.getTime() / 1000;
+
+    // Update Label
+    const label = document.getElementById('weekly-range-label');
+    if (label) {
+        const options = { day: 'numeric', month: 'short' };
+        label.innerText = `Semana del ${range.start.toLocaleDateString('es-ES', options)} al ${new Date(range.end.getTime() - 1000).toLocaleDateString('es-ES', options)}`;
+    }
+
+    // Filter sessions in range
+    const weeklySessions = lastFetchedData.filter(s => s.start_epoch >= startEpoch && s.start_epoch < endEpoch);
+
+    // Group by logical day
+    const days = [];
+    for (let i = 0; i < 7; i++) {
+        const d = new Date(range.start);
+        d.setDate(d.getDate() + i);
+        const dateStr = d.toISOString().split('T')[0];
+        days.push({
+            dateStr: dateStr,
+            display: d.toLocaleDateString('es-ES', { weekday: 'long' }).toUpperCase(),
+            dateFmt: d.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }),
+            morning: { start: null, end: null, duration: 0, devices: new Set() },
+            afternoon: { start: null, end: null, duration: 0, devices: new Set() },
+            total: 0
+        });
+    }
+
+    let weeklyTotalSecs = 0;
+
+    weeklySessions.forEach(session => {
+        const logicalDay = window.getLogicalDayString(session.start_epoch);
+        const shift = window.getShift(session.start_epoch);
+        const duration = getSessionLiveDuration(session);
+        
+        const dayData = days.find(d => d.dateStr === logicalDay);
+        if (dayData) {
+            const sData = dayData[shift];
+            if (sData.start === null || session.start_epoch < sData.start) sData.start = session.start_epoch;
+            
+            // End time
+            let endEpoch = session.start_epoch + session.duration_sec;
+            if (session.end === '🟢 Activa') endEpoch = Math.floor(Date.now() / 1000);
+            if (sData.end === null || endEpoch > sData.end) sData.end = endEpoch;
+            
+            sData.duration += duration;
+            dayData.total += duration;
+            weeklyTotalSecs += duration;
+            sData.devices.add(session.device);
+        }
+    });
+
+    // Render cards
+    days.forEach(day => {
+        const card = document.createElement('div');
+        card.className = 'weekly-day-card';
+        
+        const renderShift = (title, data) => {
+            if (data.duration === 0) return `<div class="shift-block"><div class="shift-title">${title}</div><div class="shift-metrics">Sin actividad</div></div>`;
+            
+            const startStr = formatTimeFromSeconds(getSecondsSinceMidnight(new Date(data.start * 1000)));
+            // For end time, if it crosses midnight, it might be > 86400
+            const endStr = formatTimeFromSeconds(getSecondsSinceMidnight(new Date(data.end * 1000)));
+            
+            let deviceIcons = '';
+            if (data.devices.has('PC')) deviceIcons += '<span title="Jugado en PC">💻</span>';
+            if (data.devices.has('Phone')) deviceIcons += '<span title="Jugado en Celular">📱</span>';
+
+            return `
+                <div class="shift-block">
+                    <div class="shift-title">${title}</div>
+                    <div class="shift-metrics">
+                        <span>🕒 ${startStr} - ${endStr}</span>
+                        <span>⏳ ${formatDuration(data.duration)}</span>
+                        <div class="shift-devices">${deviceIcons}</div>
+                    </div>
+                </div>
+            `;
+        };
+
+        card.innerHTML = `
+            <div class="weekly-day-header">
+                <span class="weekly-day-name">${day.display}</span>
+                <span class="weekly-day-date">${day.dateFmt}</span>
+            </div>
+            ${renderShift('🌅 MAÑANA', day.morning)}
+            ${renderShift('🌇 TARDE / NOCHE', day.afternoon)}
+            <div class="day-total-footer">
+                Total: ${formatDuration(day.total)}
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+
+    const weeklyTotalEl = document.getElementById('stat-weekly-total-hours');
+    if (weeklyTotalEl) {
+        weeklyTotalEl.innerText = formatDuration(weeklyTotalSecs);
+    }
+
+    const rangeLabel = document.getElementById('weekly-range-label') ? document.getElementById('weekly-range-label').innerText : "esta semana";
+    updateGeminiDeeplink('tab-weekly', rangeLabel, weeklyTotalSecs);
+}
 
 // Filter setters
 window.setStatsTimeWindow = function(days) {
@@ -203,6 +373,7 @@ function updateActiveTimes() {
     // Automatically recalculate day totals and statistics on every second to allow live-ticking active sessions
     updateDayTotals();
     updateStatistics();
+    updateWeeklySummary();
 }
 
 function updateDayTotals() {
@@ -250,6 +421,7 @@ function updateStatistics() {
         cutoffTime = cutoffDate.getTime();
     }
 
+    let totalSecs = 0;
     const filtered = lastFetchedData.filter(session => {
         if (statsTimeWindow !== 'all' && (session.start_epoch * 1000 < cutoffTime)) {
             return false;
@@ -257,8 +429,21 @@ function updateStatistics() {
         if (statsActivityType === 'game' && session.proto !== 'UDP') {
             return false;
         }
+        totalSecs += getSessionLiveDuration(session);
         return true;
     });
+
+    // Display total hours
+    const totalHoursEl = document.getElementById('stat-total-hours');
+    if (totalHoursEl) {
+        totalHoursEl.innerText = formatDuration(totalSecs);
+    }
+
+    let timeframeLabel = "todo el historial";
+    if (statsTimeWindow !== 'all') {
+        timeframeLabel = `los últimos ${statsTimeWindow} días`;
+    }
+    updateGeminiDeeplink('tab-stats', timeframeLabel, totalSecs);
 
     if (filtered.length === 0) {
         resetStatsDisplay();
@@ -373,6 +558,9 @@ function updateGroupDOM(idPrefix, group) {
 
 function resetStatsDisplay() {
     document.getElementById('stat-weekly-hours-avg').innerText = "0 horas / semana";
+    const totalHoursEl = document.getElementById('stat-total-hours');
+    if (totalHoursEl) totalHoursEl.innerText = "0s";
+    
     const prefixes = ['mon-thu', 'fri', 'sat', 'sun'];
     prefixes.forEach(prefix => {
         document.getElementById(`stat-${prefix}-start`).innerText = "Sin registros";

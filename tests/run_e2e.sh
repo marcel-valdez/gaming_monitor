@@ -66,6 +66,7 @@ python3 scripts/generate_data.py
 
 # 5. Run JS Unit Tests
 node tests/test_app_units.js
+node tests/test_weekly_units.js
 
 # 6. Run JS/HTML Rendering Test
 echo "Step 5: Verifying UI rendering with JSDOM..."

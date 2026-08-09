@@ -15,6 +15,7 @@
         <!-- Pestañas (Tabs) Navigation -->
         <div class="tabs">
             <button id="tab-btn-history" class="tab-btn active" onclick="switchTab('history')">📅 Historial Diario</button>
+            <button id="tab-btn-weekly" class="tab-btn" onclick="switchTab('weekly')">📅 Resumen Semanal</button>
             <button id="tab-btn-stats" class="tab-btn" onclick="switchTab('stats')">📊 Estadísticas y Métricas</button>
         </div>
 
@@ -23,6 +24,25 @@
             <div id="dashboard">
                 <!-- Los datos se cargarán aquí dinámicamente -->
                 <div class="day-card"><p style='text-align:center;'>Cargando actividades...</p></div>
+            </div>
+        </div>
+
+        <!-- Contenido de Resumen Semanal -->
+        <div id="tab-weekly" class="tab-content">
+            <div class="weekly-nav">
+                <button onclick="changeWeek(-1)" class="filter-btn">Semana Anterior</button>
+                <span id="weekly-range-label" class="weekly-range-text">Semana del ...</span>
+                <button onclick="changeWeek(1)" class="filter-btn">Semana Siguiente</button>
+            </div>
+            
+            <div class="weekly-stats-banner">
+                <h3>Total Horas Jugadas en la Semana</h3>
+                <div id="stat-weekly-total-hours" class="weekly-hours-value">-</div>
+                <a id="gemini-analysis-link" class="gemini-link" target="_blank">🚨 ¿Qué tan grave es esto? (Análisis IA)</a>
+            </div>
+
+            <div id="weekly-grid" class="weekly-grid">
+                <!-- 7 cards Mon-Sun will be rendered here -->
             </div>
         </div>
 
@@ -49,10 +69,16 @@
                 </div>
             </div>
 
-            <!-- Banner Promedio Semanal -->
+            <!-- Banners Agregados -->
             <div class="weekly-stats-banner">
                 <h3>Horas Jugadas Promedio por Semana</h3>
                 <div id="stat-weekly-hours-avg" class="weekly-hours-value">-</div>
+            </div>
+
+            <div class="weekly-stats-banner">
+                <h3>Total de Horas Jugadas (Periodo Elegido)</h3>
+                <div id="stat-total-hours" class="weekly-hours-value">-</div>
+                <a id="gemini-analysis-link" class="gemini-link" target="_blank">🚨 ¿Qué tan grave es esto? (Análisis IA)</a>
             </div>
 
             <!-- Desglose por Día Lógico -->

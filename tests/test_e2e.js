@@ -102,30 +102,73 @@ async function runTest() {
 
     console.log("Verifying tabs existence and switching behavior...");
     const tabHistory = window.document.getElementById('tab-history');
+    const tabWeekly = window.document.getElementById('tab-weekly');
     const tabStats = window.document.getElementById('tab-stats');
     const tabBtnHistory = window.document.getElementById('tab-btn-history');
+    const tabBtnWeekly = window.document.getElementById('tab-btn-weekly');
     const tabBtnStats = window.document.getElementById('tab-btn-stats');
 
-    if (!tabHistory || !tabStats || !tabBtnHistory || !tabBtnStats) {
-        console.error("FAIL: Tab button or content containers not found in HTML.");
+    if (!tabHistory || !tabWeekly || !tabStats || !tabBtnHistory || !tabBtnWeekly || !tabBtnStats) {
+        console.error("FAIL: Tab button or content containers not found in HTML (missing weekly tab?).");
         allPassed = false;
     } else {
-        // Default state: History tab active, stats tab inactive
-        if (!tabHistory.classList.contains('active') || tabStats.classList.contains('active')) {
+        // Default state: History tab active, others inactive
+        if (!tabHistory.classList.contains('active') || tabStats.classList.contains('active') || tabWeekly.classList.contains('active')) {
             console.error("FAIL: Default active tab state is incorrect.");
             allPassed = false;
         }
 
+        // Simulate tab click to switch to weekly
+        window.switchTab('weekly');
+        if (!tabWeekly.classList.contains('active') || tabHistory.classList.contains('active') || tabStats.classList.contains('active')) {
+            console.error("FAIL: switchTab('weekly') failed.");
+            allPassed = false;
+        }
+        
+        // Verify 7 cards in weekly grid
+        const weeklyCards = window.document.querySelectorAll('.weekly-day-card');
+        if (weeklyCards.length !== 7) {
+            console.error(`FAIL: Expected 7 weekly cards, found ${weeklyCards.length}`);
+            allPassed = false;
+        }
+
+        // Verify weekly total banner
+        const weeklyTotalBanner = window.document.getElementById('stat-weekly-total-hours');
+        if (!weeklyTotalBanner) {
+            console.error("FAIL: Weekly total hours banner not found.");
+            allPassed = false;
+        }
+
+        // Verify Gemini Deeplink in Weekly Tab
+        const weeklyGeminiLink = window.document.querySelector('#tab-weekly #gemini-analysis-link');
+        if (!weeklyGeminiLink) {
+            console.error("FAIL: Gemini analysis link not found in Weekly tab.");
+            allPassed = false;
+        } else if (!weeklyGeminiLink.href.includes('gemini.google.com')) {
+            console.error(`FAIL: Weekly Gemini link href is incorrect: ${weeklyGeminiLink.href}`);
+            allPassed = false;
+        }
+
+        // Verify pagination
+        const initialLabel = window.document.getElementById('weekly-range-label').innerText;
+        window.changeWeek(-1);
+        const prevLabel = window.document.getElementById('weekly-range-label').innerText;
+        if (initialLabel === prevLabel) {
+            console.error("FAIL: Pagination changeWeek(-1) did not update the range label.");
+            allPassed = false;
+        }
+        window.changeWeek(1); // Back to original
+
         // Simulate tab click to switch to stats
         window.switchTab('stats');
-        if (tabHistory.classList.contains('active') || !tabStats.classList.contains('active')) {
-            console.error("FAIL: switchTab('stats') failed to activate stats tab.");
+        if (!tabStats.classList.contains('active') || tabHistory.classList.contains('active') || tabWeekly.classList.contains('active')) {
+            console.error("FAIL: switchTab('stats') failed.");
             allPassed = false;
         }
 
         // Simulate tab click to switch back to history
         window.switchTab('history');
-        if (!tabHistory.classList.contains('active') || tabStats.classList.contains('active')) {
+        if (!tabHistory.classList.contains('active') || tabStats.classList.contains('active') || tabWeekly.classList.contains('active')) {
             console.error("FAIL: switchTab('history') failed to restore history tab.");
             allPassed = false;
         }
@@ -165,10 +208,26 @@ async function runTest() {
         allPassed = false;
     }
 
-    console.log("Verifying weekly stats banner...");
-    const weeklyBanner = window.document.getElementById('stat-weekly-hours-avg');
-    if (!weeklyBanner) {
+    console.log("Verifying aggregate metrics banners...");
+    const avgWeeklyBanner = window.document.getElementById('stat-weekly-hours-avg');
+    const totalHoursBanner = window.document.getElementById('stat-total-hours');
+    const statsGeminiLink = window.document.querySelector('#tab-stats #gemini-analysis-link');
+    
+    if (!avgWeeklyBanner) {
         console.error("FAIL: Weekly average hours banner not found.");
+        allPassed = false;
+    }
+    
+    if (!totalHoursBanner) {
+        console.error("FAIL: Total hours played banner (#stat-total-hours) not found.");
+        allPassed = false;
+    }
+
+    if (!statsGeminiLink) {
+        console.error("FAIL: Gemini analysis link not found in Statistics tab.");
+        allPassed = false;
+    } else if (!statsGeminiLink.href.includes('gemini.google.com')) {
+        console.error(`FAIL: Statistics Gemini link href is incorrect: ${statsGeminiLink.href}`);
         allPassed = false;
     }
 
