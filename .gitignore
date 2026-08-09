@@ -26,3 +26,6 @@ integration_roblox.log
 integration_data.json
 tests/actions.json
 __pycache__/
+
+# Git Worktrees
+.worktrees/
