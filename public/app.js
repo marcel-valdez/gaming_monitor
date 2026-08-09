@@ -54,7 +54,21 @@ function updateGeminiDeeplink(containerId, timeframeLabel, totalSeconds) {
     const container = document.getElementById(containerId);
     if (!container) return;
     const link = container.querySelector('#gemini-analysis-link');
+    
+    // Unique message IDs per tab
+    const noDataId = (containerId === 'tab-weekly') ? 'gemini-no-data-weekly' : 'gemini-no-data-stats';
+    const noDataMsg = document.getElementById(noDataId);
+    
     if (!link) return;
+
+    if (totalSeconds === 0) {
+        link.style.display = 'none';
+        if (noDataMsg) noDataMsg.style.display = 'block';
+        return;
+    }
+
+    link.style.display = 'inline-block';
+    if (noDataMsg) noDataMsg.style.display = 'none';
 
     const totalHours = (totalSeconds / 3600).toFixed(1) + " horas";
     const prompt = `Analiza los hábitos de juego de un adolescente para el periodo ${timeframeLabel}, donde ha jugado un total de ${totalHours}. 
@@ -64,7 +78,8 @@ A partir de estos datos, proporciona un análisis detallado respondiendo:
 - Muestra una comparativa de lo que podría haber alcanzado en este mismo tiempo si lo hubiera dedicado a actividades productivas o aprendizaje de habilidades. Usa ejemplos concretos de figuras históricas o contemporáneas exitosas que dedicaron tiempos similares a sus pasiones (menciona la regla de las 10,000 horas de Gladwell para la maestría).
 Utiliza un tono empático y fácil de entender para alguien sin formación científica, pero incluye citas académicas y referencias a estudios científicos que respalden tus afirmaciones. Responde íntegramente en español.`;
 
-    link.href = `https://gemini.google.com/app?q=${encodeURIComponent(prompt)}`;
+    // Google Search AI Mode (udm=50)
+    link.href = `https://www.google.com/search?udm=50&q=${encodeURIComponent(prompt)}`;
 }
 
 // Start of current week (Monday 00:00:00)
@@ -199,16 +214,23 @@ function updateWeeklySummary() {
         }
     });
 
+    const todayStr = new Date().toISOString().split('T')[0];
+    const now = new Date();
+
     // Render cards
     days.forEach(day => {
         const card = document.createElement('div');
-        card.className = 'weekly-day-card';
+        card.className = 'stats-card weekly-day-card';
+        
+        const isFuture = day.dateStr > todayStr;
         
         const renderShift = (title, data) => {
-            if (data.duration === 0) return `<div class="shift-block"><div class="shift-title">${title}</div><div class="shift-metrics">Sin actividad</div></div>`;
+            if (data.duration === 0) {
+                const statusText = isFuture ? 'Pendiente' : 'Sin actividad';
+                return `<div class="shift-block"><div class="shift-title">${title}</div><div class="shift-metrics">${statusText}</div></div>`;
+            }
             
             const startStr = formatTimeFromSeconds(getSecondsSinceMidnight(new Date(data.start * 1000)));
-            // For end time, if it crosses midnight, it might be > 86400
             const endStr = formatTimeFromSeconds(getSecondsSinceMidnight(new Date(data.end * 1000)));
             
             let deviceIcons = '';

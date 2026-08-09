@@ -144,7 +144,7 @@ async function runTest() {
         if (!weeklyGeminiLink) {
             console.error("FAIL: Gemini analysis link not found in Weekly tab.");
             allPassed = false;
-        } else if (!weeklyGeminiLink.href.includes('gemini.google.com')) {
+        } else if (weeklyGeminiLink.style.display !== 'none' && !weeklyGeminiLink.href.includes('google.com/search?udm=50')) {
             console.error(`FAIL: Weekly Gemini link href is incorrect: ${weeklyGeminiLink.href}`);
             allPassed = false;
         }
@@ -226,7 +226,7 @@ async function runTest() {
     if (!statsGeminiLink) {
         console.error("FAIL: Gemini analysis link not found in Statistics tab.");
         allPassed = false;
-    } else if (!statsGeminiLink.href.includes('gemini.google.com')) {
+    } else if (statsGeminiLink.style.display !== 'none' && !statsGeminiLink.href.includes('google.com/search?udm=50')) {
         console.error(`FAIL: Statistics Gemini link href is incorrect: ${statsGeminiLink.href}`);
         allPassed = false;
     }

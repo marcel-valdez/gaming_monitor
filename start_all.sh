@@ -49,7 +49,7 @@ echo ""
 # We include DATAGEN because it is the bridge between the logs and the UI.
 run_supervised "./monitor_roblox_connections.sh" "MONITOR" &
 run_supervised "./generate_roblox_data.sh" "DATAGEN" &
-run_supervised "./start_server.sh" "WEBSERVER" &
+run_supervised "./start_server.sh $1" "WEBSERVER" &
 
 # Wait for all background processes to keep the master script alive
 wait

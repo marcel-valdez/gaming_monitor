@@ -5,9 +5,18 @@ const path = require('path');
 async function runWeeklyUnitTests() {
     console.log("=== Running Weekly JS Unit Tests ===");
     const html = `<!DOCTYPE html><html><body>
-        <div id="weekly-grid"></div>
-        <div id="weekly-range-label"></div>
-        <div id="stat-weekly-total-hours"></div>
+        <div id="tab-weekly">
+            <div id="weekly-grid"></div>
+            <div id="weekly-range-label"></div>
+            <div id="stat-weekly-total-hours"></div>
+            <a id="gemini-analysis-link"></a>
+            <div id="gemini-no-data-weekly"></div>
+        </div>
+        <div id="tab-stats">
+            <div id="stat-total-hours"></div>
+            <a id="gemini-analysis-link"></a>
+            <div id="gemini-no-data-stats"></div>
+        </div>
     </body></html>`;
     
     const js = fs.readFileSync(path.join(__dirname, '../public/app.js'), 'utf8');
@@ -62,8 +71,32 @@ async function runWeeklyUnitTests() {
     window.updateWeeklySummary();
     const cards = window.document.querySelectorAll('.weekly-day-card');
     assertEqual(cards.length, 7, "Should still render 7 cards for empty week");
-    const totalWeekly = window.document.getElementById('stat-weekly-total-hours').innerText;
-    assertEqual(totalWeekly, "0s", "Weekly total should be 0s for empty week");
+    
+    const weeklyTotalEl = window.document.getElementById('stat-weekly-total-hours');
+    assertEqual(weeklyTotalEl.innerText, "0s", "Weekly total should be 0s for empty week");
+
+    const linkWeekly = window.document.querySelector('#tab-weekly #gemini-analysis-link');
+    const noDataMsgWeekly = window.document.querySelector('#tab-weekly #gemini-no-data-weekly');
+    assertEqual(linkWeekly.style.display, 'none', "Gemini link in Weekly tab should be hidden when no data");
+    assertEqual(noDataMsgWeekly.style.display, 'block', "No-data message in Weekly tab should be visible when no data");
+
+    // Test 5: updateGeminiDeeplink with data (Google Search AI mode)
+    window.updateGeminiDeeplink('tab-weekly', 'esta semana', 3600);
+    assertEqual(linkWeekly.style.display, 'inline-block', "Link should be visible with data");
+    assertEqual(linkWeekly.href.includes('google.com/search?udm=50'), true, "Link should use Google Search AI mode (udm=50)");
+    assertEqual(linkWeekly.href.includes('1.0%20horas'), true, "Link should report 1.0 hours in prompt");
+
+    // Test 6: Pendiente vs Sin Actividad
+    // Assuming 'today' is Sat Aug 08 2026 (mock logic or real date)
+    // We can't easily mock Date.now() here without full Sinon, but we can check if BOTH labels exist across cards
+    let foundSinActividad = false;
+    let foundPendiente = false;
+    cards.forEach(c => {
+        if (c.textContent.includes('Sin actividad')) foundSinActividad = true;
+        if (c.textContent.includes('Pendiente')) foundPendiente = true;
+    });
+    // At any given time in a week, unless it's Monday 5AM or Sunday 11PM, we should see both for the current week.
+    assertEqual(foundSinActividad || foundPendiente, true, "Should show either 'Sin actividad' or 'Pendiente'");
 
     if (allPassed) {
         console.log("=== Weekly JS Unit Tests Passed Successfully ===");

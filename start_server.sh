@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PORT=8080
+PORT=${1:-8080}
 DIRECTORY="public"
 
 echo "Iniciando servidor web en http://localhost:$PORT..."
