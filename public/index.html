@@ -12,9 +12,52 @@
             <h1>Reporte de Actividad de Roblox</h1>
             <p>Un resumen consolidado por dispositivo del tiempo de juego y menús. (Actualización automática)</p>
         </div>
-        <div id="dashboard">
-            <!-- Los datos se cargarán aquí dinámicamente -->
-            <div class="day-card"><p style='text-align:center;'>Cargando actividades...</p></div>
+        <!-- Pestañas (Tabs) Navigation -->
+        <div class="tabs">
+            <button id="tab-btn-history" class="tab-btn active" onclick="switchTab('history')">📅 Historial Diario</button>
+            <button id="tab-btn-stats" class="tab-btn" onclick="switchTab('stats')">📊 Estadísticas y Métricas</button>
+        </div>
+
+        <!-- Contenido de Historial Diario -->
+        <div id="tab-history" class="tab-content active">
+            <div id="dashboard">
+                <!-- Los datos se cargarán aquí dinámicamente -->
+                <div class="day-card"><p style='text-align:center;'>Cargando actividades...</p></div>
+            </div>
+        </div>
+
+        <!-- Contenido de Estadísticas -->
+        <div id="tab-stats" class="tab-content">
+            <div class="stats-grid">
+                <div class="stats-card" style="border-top-color: #2ecc71;">
+                    <h3>Tiempo Total Semanal</h3>
+                    <div id="stat-weekly-total" class="stats-value">-</div>
+                </div>
+                <div class="stats-card" style="border-top-color: #2ecc71;">
+                    <h3>Tiempo Total Mensual</h3>
+                    <div id="stat-monthly-total" class="stats-value">-</div>
+                </div>
+                <div class="stats-card" style="border-top-color: #3498db;">
+                    <h3>Promedio Diario (Lun-Vie)</h3>
+                    <div id="stat-weekday-avg" class="stats-value">-</div>
+                </div>
+                <div class="stats-card" style="border-top-color: #3498db;">
+                    <h3>Promedio Diario (Fin de Sem.)</h3>
+                    <div id="stat-weekend-avg" class="stats-value">-</div>
+                </div>
+                <div class="stats-card" style="border-top-color: #e67e22;">
+                    <h3>Hora Inicio Promedio (Lun-Vie)</h3>
+                    <div id="stat-weekday-start-avg" class="stats-value">-</div>
+                </div>
+                <div class="stats-card" style="border-top-color: #e67e22;">
+                    <h3>Hora Inicio Promedio (Fin de Sem.)</h3>
+                    <div id="stat-weekend-start-avg" class="stats-value">-</div>
+                </div>
+                <div class="stats-card" style="border-top-color: #9b59b6;">
+                    <h3>Hora Fin Promedio (Lun-Vie)</h3>
+                    <div id="stat-weekday-end-avg" class="stats-value">-</div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="app.js"></script>

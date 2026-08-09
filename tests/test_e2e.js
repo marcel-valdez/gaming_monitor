@@ -98,6 +98,72 @@ async function runTest() {
         }
     });
 
+    console.log("Verifying tabs existence and switching behavior...");
+    const tabHistory = window.document.getElementById('tab-history');
+    const tabStats = window.document.getElementById('tab-stats');
+    const tabBtnHistory = window.document.getElementById('tab-btn-history');
+    const tabBtnStats = window.document.getElementById('tab-btn-stats');
+
+    if (!tabHistory || !tabStats || !tabBtnHistory || !tabBtnStats) {
+        console.error("FAIL: Tab button or content containers not found in HTML.");
+        allPassed = false;
+    } else {
+        // Default state: History tab active, stats tab inactive
+        if (!tabHistory.classList.contains('active') || tabStats.classList.contains('active')) {
+            console.error("FAIL: Default active tab state is incorrect.");
+            allPassed = false;
+        }
+
+        // Simulate tab click to switch to stats
+        window.switchTab('stats');
+        if (tabHistory.classList.contains('active') || !tabStats.classList.contains('active')) {
+            console.error("FAIL: switchTab('stats') failed to activate stats tab.");
+            allPassed = false;
+        }
+
+        // Simulate tab click to switch back to history
+        window.switchTab('history');
+        if (!tabHistory.classList.contains('active') || tabStats.classList.contains('active')) {
+            console.error("FAIL: switchTab('history') failed to restore history tab.");
+            allPassed = false;
+        }
+    }
+
+    console.log("Verifying day header total play time display...");
+    const dayTotalElement = window.document.querySelector('.day-total');
+    if (!dayTotalElement) {
+        console.error("FAIL: Daily total played badge (.day-total) not found in day headers.");
+        allPassed = false;
+    } else {
+        const text = dayTotalElement.textContent;
+        console.log(`Found day total text: "${text}"`);
+        if (!text.includes('Total Jugado')) {
+            console.error(`FAIL: Daily total played text format is incorrect. Found: ${text}`);
+            allPassed = false;
+        }
+    }
+
+    console.log("Verifying calculated statistics elements on Stats tab...");
+    const statsValueIds = [
+        'stat-weekly-total',
+        'stat-monthly-total',
+        'stat-weekday-avg',
+        'stat-weekend-avg',
+        'stat-weekday-start-avg',
+        'stat-weekend-start-avg',
+        'stat-weekday-end-avg'
+    ];
+
+    statsValueIds.forEach(id => {
+        const el = window.document.getElementById(id);
+        if (!el) {
+            console.error(`FAIL: Statistic container with ID #${id} not found.`);
+            allPassed = false;
+        } else {
+            console.log(`✅ PASS: Found stat ID #${id} with value "${el.innerText}"`);
+        }
+    });
+
     if (allPassed) {
         console.log("=== E2E Rendering Test Successful ===");
         process.exit(0);

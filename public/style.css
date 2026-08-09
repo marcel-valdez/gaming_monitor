@@ -88,3 +88,89 @@ tr:hover {
     font-size: 0.9em;
     margin-top: 40px;
 }
+
+/* Pestañas (Tabs) Navigation Bar */
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+.tab-btn {
+    background-color: #eaeded;
+    color: #7f8c8d;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.05em;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.tab-btn:hover {
+    background-color: #d5dbdb;
+    color: #34495e;
+}
+.tab-btn.active {
+    background-color: #2980b9;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(41, 128, 185, 0.2);
+}
+
+/* Tab Content Visibility */
+.tab-content {
+    display: none;
+}
+.tab-content.active {
+    display: block;
+}
+
+/* Stats Card Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+.stats-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    text-align: center;
+    border-top: 4px solid #3498db;
+    transition: transform 0.2s ease;
+}
+.stats-card:hover {
+    transform: translateY(-3px);
+}
+.stats-card h3 {
+    margin: 0 0 10px 0;
+    color: #7f8c8d;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.stats-value {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #2c3e50;
+    margin: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Day Title Total Played Badge */
+.day-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.day-total {
+    font-size: 0.65em;
+    color: #27ae60;
+    background: #e8f8f5;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-weight: 600;
+}
