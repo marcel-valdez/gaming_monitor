@@ -131,7 +131,13 @@ function render(data) {
         // Title with dedicated daily total gameplay span
         const title = document.createElement('h2');
         title.className = 'day-title';
-        title.innerHTML = `${day} <span class="day-total" data-day="${day}">(Total Jugado: -)</span>`;
+        title.innerHTML = `
+            ${day} 
+            <div class="day-totals-container">
+                <span class="day-total active-play" data-day="${day}" data-type="active">🎮 En Juego Activo: -</span>
+                <span class="day-total aggregate-play" data-day="${day}" data-type="aggregate">👨‍💻 Total En Juego: -</span>
+            </div>
+        `;
         card.appendChild(title);
 
         const table = document.createElement('table');
@@ -154,8 +160,8 @@ function render(data) {
             else deviceHtml = `<span class="device">❓ ${session.device}</span>`;
 
             let typeHtml = '';
-            if (session.proto === 'UDP') typeHtml = '<span class="type-gameplay">🎮 Jugando (Activo)</span>';
-            else typeHtml = '<span class="type-menu">👨‍💻 Menús / Chat</span>';
+            if (session.proto === 'UDP') typeHtml = '<span class="type-gameplay">🎮 En Juego Activo</span>';
+            else typeHtml = '<span class="type-menu">👨‍💻 Total En Juego</span>';
 
             const isActive = session.end === '🟢 Activa';
             const durationHtml = isActive 
@@ -200,18 +206,31 @@ function updateActiveTimes() {
 }
 
 function updateDayTotals() {
-    const dayTotals = {};
+    const activeTotals = {};
+    const aggregateTotals = {};
+    
     lastFetchedData.forEach(session => {
-        if (session.proto !== 'UDP') return;
         const day = session.date;
-        if (!dayTotals[day]) dayTotals[day] = 0;
-        dayTotals[day] += getSessionLiveDuration(session);
+        if (!activeTotals[day]) activeTotals[day] = 0;
+        if (!aggregateTotals[day]) aggregateTotals[day] = 0;
+        
+        const duration = getSessionLiveDuration(session);
+        aggregateTotals[day] += duration;
+        if (session.proto === 'UDP') {
+            activeTotals[day] += duration;
+        }
     });
 
     document.querySelectorAll('.day-total').forEach(span => {
         const day = span.getAttribute('data-day');
-        const totalSec = dayTotals[day] || 0;
-        span.innerText = `Total Jugado: ${formatDuration(totalSec)}`;
+        const type = span.getAttribute('data-type');
+        if (type === 'active') {
+            const sec = activeTotals[day] || 0;
+            span.innerText = `🎮 En Juego Activo: ${formatDuration(sec)}`;
+        } else {
+            const sec = aggregateTotals[day] || 0;
+            span.innerText = `👨‍💻 Total En Juego: ${formatDuration(sec)}`;
+        }
     });
 }
 

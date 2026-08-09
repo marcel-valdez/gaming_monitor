@@ -87,8 +87,8 @@ async function runTest() {
     const checks = [
         { name: "Phone Device", pattern: /📱 Celular/ },
         { name: "PC Device", pattern: /💻 PC/ },
-        { name: "Gameplay Status", pattern: /🎮 Jugando \(Activo\)/ },
-        { name: "Menu Status", pattern: /👨‍💻 Menús \/ Chat/ }
+        { name: "Gameplay Status", pattern: /🎮 En Juego Activo/ },
+        { name: "Menu Status", pattern: /👨‍💻 Total En Juego/ }
     ];
 
     checks.forEach(check => {
@@ -132,17 +132,29 @@ async function runTest() {
     }
 
     console.log("Verifying day header total play time display...");
-    const dayTotalElement = window.document.querySelector('.day-total');
-    if (!dayTotalElement) {
-        console.error("FAIL: Daily total played badge (.day-total) not found in day headers.");
+    const dayTotals = window.document.querySelectorAll('.day-total');
+    let foundActiveTotal = false;
+    let foundAggregateTotal = false;
+
+    dayTotals.forEach(span => {
+        const text = span.textContent;
+        console.log(`Found day total text: "${text}"`);
+        if (text.includes('En Juego Activo')) foundActiveTotal = true;
+        if (text.includes('Total En Juego')) foundAggregateTotal = true;
+    });
+
+    if (!foundActiveTotal) {
+        console.error("❌ FAIL: Could not find 'En Juego Activo' total in day header");
         allPassed = false;
     } else {
-        const text = dayTotalElement.textContent;
-        console.log(`Found day total text: "${text}"`);
-        if (!text.includes('Total Jugado')) {
-            console.error(`FAIL: Daily total played text format is incorrect. Found: ${text}`);
-            allPassed = false;
-        }
+        console.log("✅ PASS: Found 'En Juego Activo' total in day header");
+    }
+
+    if (!foundAggregateTotal) {
+        console.error("❌ FAIL: Could not find 'Total En Juego' total in day header");
+        allPassed = false;
+    } else {
+        console.log("✅ PASS: Found 'Total En Juego' total in day header");
     }
 
     console.log("Verifying tab filters presence in HTML...");
