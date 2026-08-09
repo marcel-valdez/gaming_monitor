@@ -143,21 +143,6 @@ tr:hover {
 .stats-card:hover {
     transform: translateY(-3px);
 }
-.stats-card h3 {
-    margin: 0 0 10px 0;
-    color: #7f8c8d;
-    font-size: 0.85em;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-.stats-value {
-    font-size: 1.8em;
-    font-weight: bold;
-    color: #2c3e50;
-    margin: 0;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-}
-
 /* Day Title Total Played Badge */
 .day-title {
     display: flex;
@@ -173,4 +158,104 @@ tr:hover {
     padding: 4px 10px;
     border-radius: 15px;
     font-weight: 600;
+}
+
+/* Filter Section Layout */
+.filter-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+    justify-content: space-between;
+}
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.filter-label {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #7f8c8d;
+}
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+}
+.filter-btn {
+    background-color: #eaeded;
+    color: #7f8c8d;
+    border: none;
+    padding: 8px 16px;
+    font-size: 0.9em;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.filter-btn:hover {
+    background-color: #d5dbdb;
+    color: #34495e;
+}
+.filter-btn.active {
+    background-color: #3498db;
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(52, 152, 219, 0.2);
+}
+
+/* Weekly Stats Banner */
+.weekly-stats-banner {
+    background: linear-gradient(135deg, #3498db, #2c3e50);
+    color: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.weekly-stats-banner h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+.weekly-hours-value {
+    font-size: 2.8em;
+    font-weight: bold;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Stats Card Inner Metrics */
+.stats-card h2 {
+    margin: 0 0 15px 0;
+    font-size: 1.3em;
+    color: #2c3e50;
+    border-bottom: 2px solid #f1f2f6;
+    padding-bottom: 8px;
+}
+.stats-metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed #f1f2f6;
+}
+.stats-metric:last-child {
+    border-bottom: none;
+}
+.metric-label {
+    font-size: 0.95em;
+    color: #7f8c8d;
+    font-weight: 500;
+}
+.metric-value {
+    font-size: 1.15em;
+    font-weight: bold;
+    color: #2c3e50;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }

@@ -1,4 +1,6 @@
-let lastFetchedData = [];
+var lastFetchedData = [];
+var statsTimeWindow = 'all'; // default 'all' (All time history)
+var statsActivityType = 'all'; // default 'all' (UDP + TCP sessions)
 
 async function fetchData() {
     try {
@@ -6,7 +8,7 @@ async function fetchData() {
         const data = await response.json();
         lastFetchedData = data;
         render(data);
-        actualizarEstadisticas();
+        updateStatistics();
     } catch (error) {
         console.error('Error al cargar los datos:', error);
     }
@@ -78,6 +80,29 @@ window.switchTab = function(tabId) {
     }
 };
 
+// Filter setters
+window.setStatsTimeWindow = function(days) {
+    statsTimeWindow = days;
+    document.querySelectorAll('#time-filters .filter-btn').forEach(btn => btn.classList.remove('active'));
+    
+    if (days === 30) document.getElementById('time-btn-30').classList.add('active');
+    else if (days === 90) document.getElementById('time-btn-90').classList.add('active');
+    else if (days === 365) document.getElementById('time-btn-365').classList.add('active');
+    else if (days === 'all') document.getElementById('time-btn-all').classList.add('active');
+    
+    updateStatistics();
+};
+
+window.setStatsActivityType = function(type) {
+    statsActivityType = type;
+    document.querySelectorAll('#type-filters .filter-btn').forEach(btn => btn.classList.remove('active'));
+    
+    if (type === 'all') document.getElementById('type-btn-all').classList.add('active');
+    else if (type === 'game') document.getElementById('type-btn-game').classList.add('active');
+    
+    updateStatistics();
+};
+
 function render(data) {
     const dashboard = document.getElementById('dashboard');
     dashboard.innerHTML = '';
@@ -130,7 +155,7 @@ function render(data) {
 
             let typeHtml = '';
             if (session.proto === 'UDP') typeHtml = '<span class="type-gameplay">🎮 Jugando (Activo)</span>';
-            else typeHtml = '<span class="type-menu">⚙️ Menús / Chat</span>';
+            else typeHtml = '<span class="type-menu">👨‍💻 Menús / Chat</span>';
 
             const isActive = session.end === '🟢 Activa';
             const durationHtml = isActive 
@@ -151,30 +176,30 @@ function render(data) {
         dashboard.appendChild(card);
     });
 
-    actualizarTiemposActivos();
+    updateActiveTimes();
 }
 
-function actualizarTiemposActivos() {
-    const celdasActivas = document.querySelectorAll('.active-duration');
-    const ahora = Math.floor(Date.now() / 1000);
+function updateActiveTimes() {
+    const activeCells = document.querySelectorAll('.active-duration');
+    const now = Math.floor(Date.now() / 1000);
     
-    celdasActivas.forEach(celda => {
-        const inicioStr = celda.getAttribute('data-start');
-        if (!inicioStr) return;
+    activeCells.forEach(cell => {
+        const startStr = cell.getAttribute('data-start');
+        if (!startStr) return;
         
-        const inicioEpoch = parseInt(inicioStr, 10);
-        let duracion = ahora - inicioEpoch;
-        if (duracion < 0) duracion = 0;
+        const startEpoch = parseInt(startStr, 10);
+        let duration = now - startEpoch;
+        if (duration < 0) duration = 0;
         
-        celda.innerText = formatDuration(duracion);
+        cell.innerText = formatDuration(duration);
     });
 
     // Automatically recalculate day totals and statistics on every second to allow live-ticking active sessions
-    actualizarDayTotals();
-    actualizarEstadisticas();
+    updateDayTotals();
+    updateStatistics();
 }
 
-function actualizarDayTotals() {
+function updateDayTotals() {
     const dayTotals = {};
     lastFetchedData.forEach(session => {
         if (session.proto !== 'UDP') return;
@@ -190,115 +215,151 @@ function actualizarDayTotals() {
     });
 }
 
-function actualizarEstadisticas() {
+function updateStatistics() {
     if (!lastFetchedData || lastFetchedData.length === 0) {
-        document.getElementById('stat-weekly-total').innerText = '0s';
-        document.getElementById('stat-monthly-total').innerText = '0s';
-        document.getElementById('stat-weekday-avg').innerText = '0s';
-        document.getElementById('stat-weekend-avg').innerText = '0s';
-        document.getElementById('stat-weekday-start-avg').innerText = 'Sin registros';
-        document.getElementById('stat-weekend-start-avg').innerText = 'Sin registros';
-        document.getElementById('stat-weekday-end-avg').innerText = 'Sin registros';
+        resetStatsDisplay();
         return;
     }
 
-    const startOfWeek = getStartOfCurrentWeek();
-    const startOfMonth = getStartOfCurrentMonth();
+    // 1. Get filtered list of sessions
+    const now = new Date();
+    let cutoffTime = 0;
+    if (statsTimeWindow !== 'all') {
+        const cutoffDate = new Date();
+        cutoffDate.setDate(now.getDate() - statsTimeWindow);
+        cutoffDate.setHours(0, 0, 0, 0);
+        cutoffTime = cutoffDate.getTime();
+    }
 
-    let weeklyTotalSec = 0;
-    let monthlyTotalSec = 0;
-
-    const weekdayTotalsByDay = {};
-    const weekendTotalsByDay = {};
-
-    let weekdayStartTimesSum = 0;
-    let weekdayStartTimesCount = 0;
-
-    let weekendStartTimesSum = 0;
-    let weekendStartTimesCount = 0;
-
-    let weekdayEndTimesSum = 0;
-    let weekdayEndTimesCount = 0;
-
-    lastFetchedData.forEach(session => {
-        if (session.proto !== 'UDP') return;
-
-        const sessionDate = new Date(session.start_epoch * 1000);
-        const dayOfWeek = sessionDate.getDay();
-        const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
-        const dayKey = session.date;
-
-        const liveDuration = getSessionLiveDuration(session);
-
-        // Weekly total
-        if (sessionDate >= startOfWeek) {
-            weeklyTotalSec += liveDuration;
+    const filtered = lastFetchedData.filter(session => {
+        if (statsTimeWindow !== 'all' && (session.start_epoch * 1000 < cutoffTime)) {
+            return false;
         }
-
-        // Monthly total
-        if (sessionDate >= startOfMonth) {
-            monthlyTotalSec += liveDuration;
+        if (statsActivityType === 'game' && session.proto !== 'UDP') {
+            return false;
         }
-
-        // Group daily totals for average calculation
-        if (isWeekend) {
-            if (!weekendTotalsByDay[dayKey]) weekendTotalsByDay[dayKey] = 0;
-            weekendTotalsByDay[dayKey] += liveDuration;
-        } else {
-            if (!weekdayTotalsByDay[dayKey]) weekdayTotalsByDay[dayKey] = 0;
-            weekdayTotalsByDay[dayKey] += liveDuration;
-        }
-
-        // Session start times
-        const startSec = getSecondsSinceMidnight(sessionDate);
-        if (isWeekend) {
-            weekendStartTimesSum += startSec;
-            weekendStartTimesCount++;
-        } else {
-            weekdayStartTimesSum += startSec;
-            weekdayStartTimesCount++;
-
-            // Session end times (only for completed sessions)
-            if (session.end !== '🟢 Activa') {
-                const endDate = new Date((session.start_epoch + session.duration_sec) * 1000);
-                const endSec = getSecondsSinceMidnight(endDate);
-                weekdayEndTimesSum += endSec;
-                weekdayEndTimesCount++;
-            }
-        }
+        return true;
     });
 
-    // Compute averages
-    const weekdayDays = Object.keys(weekdayTotalsByDay);
-    const weekdayAverageSec = weekdayDays.length > 0
-        ? weekdayDays.reduce((sum, day) => sum + weekdayTotalsByDay[day], 0) / weekdayDays.length
-        : 0;
+    if (filtered.length === 0) {
+        resetStatsDisplay();
+        return;
+    }
 
-    const weekendDays = Object.keys(weekendTotalsByDay);
-    const weekendAverageSec = weekendDays.length > 0
-        ? weekendDays.reduce((sum, day) => sum + weekendTotalsByDay[day], 0) / weekendDays.length
-        : 0;
+    // 2. Calculate Average Weekly hours
+    let weeksCount = 1;
+    if (statsTimeWindow !== 'all') {
+        weeksCount = statsTimeWindow / 7;
+    } else {
+        const earliestEpoch = Math.min(...filtered.map(s => s.start_epoch));
+        const spanMs = Date.now() - (earliestEpoch * 1000);
+        const spanDays = spanMs / (1000 * 3600 * 24);
+        weeksCount = Math.max(1, spanDays / 7);
+    }
 
-    const avgWeekdayStartStr = weekdayStartTimesCount > 0
-        ? formatTimeFromSeconds(weekdayStartTimesSum / weekdayStartTimesCount)
-        : "Sin registros";
+    const totalSecondsFiltered = filtered.reduce((sum, s) => sum + getSessionLiveDuration(s), 0);
+    const avgHoursPerWeek = (totalSecondsFiltered / 3600) / weeksCount;
+    document.getElementById('stat-weekly-hours-avg').innerText = avgHoursPerWeek.toFixed(1) + " horas / semana";
 
-    const avgWeekendStartStr = weekendStartTimesCount > 0
-        ? formatTimeFromSeconds(weekendStartTimesSum / weekendStartTimesCount)
-        : "Sin registros";
+    // 3. Daily Breakdown Logical Math with 5 AM and Midnight Rollover Rules
+    const groups = {
+        'mon-thu': { startSum: 0, startCount: 0, endSum: 0, endCount: 0, playByDay: {} },
+        'fri': { startSum: 0, startCount: 0, endSum: 0, endCount: 0, playByDay: {} },
+        'sat': { startSum: 0, startCount: 0, endSum: 0, endCount: 0, playByDay: {} },
+        'sun': { startSum: 0, startCount: 0, endSum: 0, endCount: 0, playByDay: {} }
+    };
 
-    const avgWeekdayEndStr = weekdayEndTimesCount > 0
-        ? formatTimeFromSeconds(weekdayEndTimesSum / weekdayEndTimesCount)
-        : "Sin registros";
+    filtered.forEach(session => {
+        const liveDuration = getSessionLiveDuration(session);
+        const startCalDate = new Date(session.start_epoch * 1000);
+        const startHour = startCalDate.getHours();
 
-    // Update DOM elements
-    document.getElementById('stat-weekly-total').innerText = formatDuration(weeklyTotalSec);
-    document.getElementById('stat-monthly-total').innerText = formatDuration(monthlyTotalSec);
-    document.getElementById('stat-weekday-avg').innerText = formatDuration(Math.round(weekdayAverageSec));
-    document.getElementById('stat-weekend-avg').innerText = formatDuration(Math.round(weekendAverageSec));
-    document.getElementById('stat-weekday-start-avg').innerText = avgWeekdayStartStr;
-    document.getElementById('stat-weekend-start-avg').innerText = avgWeekendStartStr;
-    document.getElementById('stat-weekday-end-avg').innerText = avgWeekdayEndStr;
+        // Rollover: If starts before 5 AM, logical day is previous day
+        const logicalMidnight = new Date(startCalDate);
+        if (startHour < 5) {
+            logicalMidnight.setDate(logicalMidnight.getDate() - 1);
+        }
+        logicalMidnight.setHours(0, 0, 0, 0);
+
+        const logicalDayOfWeek = logicalMidnight.getDay(); // 0 = Sun, 1 = Mon, etc.
+        const logicalDateKey = logicalMidnight.toDateString();
+
+        // Determine group
+        let groupKey = '';
+        if (logicalDayOfWeek >= 1 && logicalDayOfWeek <= 4) groupKey = 'mon-thu';
+        else if (logicalDayOfWeek === 5) groupKey = 'fri';
+        else if (logicalDayOfWeek === 6) groupKey = 'sat';
+        else if (logicalDayOfWeek === 0) groupKey = 'sun';
+
+        const g = groups[groupKey];
+
+        // Start seconds offset from logical midnight
+        const startOffsetSec = session.start_epoch - Math.floor(logicalMidnight.getTime() / 1000);
+        g.startSum += startOffsetSec;
+        g.startCount++;
+
+        // End seconds offset from logical midnight (only for completed sessions)
+        if (session.end !== '🟢 Activa') {
+            const endOffsetSec = startOffsetSec + liveDuration;
+            g.endSum += endOffsetSec;
+            g.endCount++;
+        }
+
+        // Playtime by logical day
+        if (!g.playByDay[logicalDateKey]) g.playByDay[logicalDateKey] = 0;
+        g.playByDay[logicalDateKey] += liveDuration;
+    });
+
+    // Update Daily Cards DOM
+    updateGroupDOM('mon-thu', groups['mon-thu']);
+    updateGroupDOM('fri', groups['fri']);
+    updateGroupDOM('sat', groups['sat']);
+    updateGroupDOM('sun', groups['sun']);
+}
+
+function updateGroupDOM(idPrefix, group) {
+    const startAvgEl = document.getElementById(`stat-${idPrefix}-start`);
+    const endAvgEl = document.getElementById(`stat-${idPrefix}-end`);
+    const durAvgEl = document.getElementById(`stat-${idPrefix}-duration`);
+
+    if (group.startCount === 0) {
+        startAvgEl.innerText = "Sin registros";
+        endAvgEl.innerText = "Sin registros";
+        durAvgEl.innerText = "0s";
+        return;
+    }
+
+    // Start Average format
+    const avgStartSec = group.startSum / group.startCount;
+    startAvgEl.innerText = formatTimeFromSeconds(avgStartSec);
+
+    // End Average format
+    if (group.endCount > 0) {
+        const avgEndSec = group.endSum / group.endCount;
+        endAvgEl.innerText = formatTimeFromSeconds(avgEndSec);
+    } else {
+        endAvgEl.innerText = "Sin registros";
+    }
+
+    // Playtime Average format
+    const uniqueDays = Object.keys(group.playByDay);
+    if (uniqueDays.length > 0) {
+        const totalSec = uniqueDays.reduce((sum, k) => sum + group.playByDay[k], 0);
+        const avgSec = totalSec / uniqueDays.length;
+        durAvgEl.innerText = formatDuration(Math.round(avgSec));
+    } else {
+        durAvgEl.innerText = "0s";
+    }
+}
+
+function resetStatsDisplay() {
+    document.getElementById('stat-weekly-hours-avg').innerText = "0 horas / semana";
+    const prefixes = ['mon-thu', 'fri', 'sat', 'sun'];
+    prefixes.forEach(prefix => {
+        document.getElementById(`stat-${prefix}-start`).innerText = "Sin registros";
+        document.getElementById(`stat-${prefix}-end`).innerText = "Sin registros";
+        document.getElementById(`stat-${prefix}-duration`).innerText = "0s";
+    });
 }
 
 // Initial Data Fetch
@@ -306,4 +367,4 @@ fetchData();
 setInterval(fetchData, 5000);
 
 // Live clock ticker
-setInterval(actualizarTiemposActivos, 1000);
+setInterval(updateActiveTimes, 1000);

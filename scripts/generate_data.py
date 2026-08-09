@@ -6,7 +6,7 @@ from datetime import datetime
 
 class DataGenerator:
     # Spanish month mapping
-    MESES = {
+    SPANISH_MONTHS = {
         1: "enero", 2: "febrero", 3: "marzo", 4: "abril",
         5: "mayo", 6: "junio", 7: "julio", 8: "agosto",
         9: "septiembre", 10: "octubre", 11: "noviembre", 12: "diciembre"
@@ -20,7 +20,7 @@ class DataGenerator:
         return int(time.time())
 
     def format_spanish_date(self, dt):
-        return f"{dt.day:02d} de {self.MESES[dt.month]} de {dt.year}"
+        return f"{dt.day:02d} de {self.SPANISH_MONTHS[dt.month]} de {dt.year}"
 
     def format_duration(self, seconds):
         hrs = seconds // 3600
@@ -94,4 +94,4 @@ class DataGenerator:
 if __name__ == "__main__":
     generator = DataGenerator()
     generator.generate()
-    print(f"[{datetime.now().strftime('%H:%M:%S')}] Datos JSON actualizados -> {generator.data_file}")
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] JSON data updated -> {generator.data_file}")

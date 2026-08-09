@@ -28,34 +28,101 @@
 
         <!-- Contenido de Estadísticas -->
         <div id="tab-stats" class="tab-content">
+            <!-- Botones de Filtro de Rango de Tiempo y Actividad -->
+            <div class="filter-section">
+                <div class="filter-group">
+                    <span class="filter-label">📅 Rango de Tiempo:</span>
+                    <div class="filter-buttons" id="time-filters">
+                        <button id="time-btn-30" class="filter-btn" onclick="setStatsTimeWindow(30)">Últimos 30 Días</button>
+                        <button id="time-btn-90" class="filter-btn" onclick="setStatsTimeWindow(90)">Últimos 90 Días</button>
+                        <button id="time-btn-365" class="filter-btn" onclick="setStatsTimeWindow(365)">Último Año</button>
+                        <button id="time-btn-all" class="filter-btn active" onclick="setStatsTimeWindow('all')">Todo el Historial</button>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <span class="filter-label">🎮 Tipo de Actividad:</span>
+                    <div class="filter-buttons" id="type-filters">
+                        <button id="type-btn-all" class="filter-btn active" onclick="setStatsActivityType('all')">Todo (Juego + Menús)</button>
+                        <button id="type-btn-game" class="filter-btn" onclick="setStatsActivityType('game')">Solo Juego Activo</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Banner Promedio Semanal -->
+            <div class="weekly-stats-banner">
+                <h3>Horas Jugadas Promedio por Semana</h3>
+                <div id="stat-weekly-hours-avg" class="weekly-hours-value">-</div>
+            </div>
+
+            <!-- Desglose por Día Lógico -->
             <div class="stats-grid">
-                <div class="stats-card" style="border-top-color: #2ecc71;">
-                    <h3>Tiempo Total Semanal</h3>
-                    <div id="stat-weekly-total" class="stats-value">-</div>
-                </div>
-                <div class="stats-card" style="border-top-color: #2ecc71;">
-                    <h3>Tiempo Total Mensual</h3>
-                    <div id="stat-monthly-total" class="stats-value">-</div>
-                </div>
+                <!-- Lunes a Jueves -->
                 <div class="stats-card" style="border-top-color: #3498db;">
-                    <h3>Promedio Diario (Lun-Vie)</h3>
-                    <div id="stat-weekday-avg" class="stats-value">-</div>
+                    <h2>Lunes a Jueves</h2>
+                    <div class="stats-metric">
+                        <span class="metric-label">⏱️ Hora de Inicio Promedio:</span>
+                        <span id="stat-mon-thu-start" class="metric-value">-</span>
+                    </div>
+                    <div class="stats-metric">
+                        <span class="metric-label">🛑 Hora de Fin Promedio:</span>
+                        <span id="stat-mon-thu-end" class="metric-value">-</span>
+                    </div>
+                    <div class="stats-metric">
+                        <span class="metric-label">🎮 Promedio Tiempo Jugado:</span>
+                        <span id="stat-mon-thu-duration" class="metric-value">-</span>
+                    </div>
                 </div>
-                <div class="stats-card" style="border-top-color: #3498db;">
-                    <h3>Promedio Diario (Fin de Sem.)</h3>
-                    <div id="stat-weekend-avg" class="stats-value">-</div>
+
+                <!-- Viernes -->
+                <div class="stats-card" style="border-top-color: #2ecc71;">
+                    <h2>Viernes</h2>
+                    <div class="stats-metric">
+                        <span class="metric-label">⏱️ Hora de Inicio Promedio:</span>
+                        <span id="stat-fri-start" class="metric-value">-</span>
+                    </div>
+                    <div class="stats-metric">
+                        <span class="metric-label">🛑 Hora de Fin Promedio:</span>
+                        <span id="stat-fri-end" class="metric-value">-</span>
+                    </div>
+                    <div class="stats-metric">
+                        <span class="metric-label">🎮 Promedio Tiempo Jugado:</span>
+                        <span id="stat-fri-duration" class="metric-value">-</span>
+                    </div>
                 </div>
-                <div class="stats-card" style="border-top-color: #e67e22;">
-                    <h3>Hora Inicio Promedio (Lun-Vie)</h3>
-                    <div id="stat-weekday-start-avg" class="stats-value">-</div>
+
+                <!-- Sábado -->
+                <div class="stats-card" style="border-top-color: #f1c40f;">
+                    <h2>Sábado</h2>
+                    <div class="stats-metric">
+                        <span class="metric-label">⏱️ Hora de Inicio Promedio:</span>
+                        <span id="stat-sat-start" class="metric-value">-</span>
+                    </div>
+                    <div class="stats-metric">
+                        <span class="metric-label">🛑 Hora de Fin Promedio:</span>
+                        <span id="stat-sat-end" class="metric-value">-</span>
+                    </div>
+                    <div class="stats-metric">
+                        <span class="metric-label">🎮 Promedio Tiempo Jugado:</span>
+                        <span id="stat-sat-duration" class="metric-value">-</span>
+                    </div>
                 </div>
-                <div class="stats-card" style="border-top-color: #e67e22;">
-                    <h3>Hora Inicio Promedio (Fin de Sem.)</h3>
-                    <div id="stat-weekend-start-avg" class="stats-value">-</div>
-                </div>
-                <div class="stats-card" style="border-top-color: #9b59b6;">
-                    <h3>Hora Fin Promedio (Lun-Vie)</h3>
-                    <div id="stat-weekday-end-avg" class="stats-value">-</div>
+
+                <!-- Domingo -->
+                <div class="stats-card" style="border-top-color: #e74c3c;">
+                    <h2>Domingo</h2>
+                    <div class="stats-metric">
+                        <span class="metric-label">⏱️ Hora de Inicio Promedio:</span>
+                        <span id="stat-sun-start" class="metric-value">-</span>
+                    </div>
+                    <div class="stats-metric">
+                        <span class="metric-label">🛑 Hora de Fin Promedio:</span>
+                        <span id="stat-sun-end" class="metric-value">-</span>
+                    </div>
+                    <div class="stats-metric">
+                        <span class="metric-label">🎮 Promedio Tiempo Jugado:</span>
+                        <span id="stat-sun-duration" class="metric-value">-</span>
+                    </div>
                 </div>
             </div>
         </div>

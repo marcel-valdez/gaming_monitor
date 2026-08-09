@@ -64,7 +64,10 @@ fi
 echo "Step 4: Updating dashboard data.json..."
 python3 scripts/generate_data.py
 
-# 5. Run JS/HTML Rendering Test
+# 5. Run JS Unit Tests
+node tests/test_app_units.js
+
+# 6. Run JS/HTML Rendering Test
 echo "Step 5: Verifying UI rendering with JSDOM..."
 node tests/test_e2e.js
 

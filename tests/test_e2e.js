@@ -11,7 +11,7 @@ async function runTest() {
     const dom = new JSDOM(html, {
         runScripts: "dangerously",
         resources: "usable",
-        url: "http://localhost:8080/"
+        url: "http://test-local/"
     });
 
     const { window } = dom;
@@ -19,11 +19,13 @@ async function runTest() {
     global.document = window.document;
     global.navigator = window.navigator;
 
+    let currentFetchData = dataJson;
+
     // Mock fetch
     window.fetch = async (url) => {
         if (url.startsWith('data.json')) {
             return {
-                json: async () => JSON.parse(dataJson)
+                json: async () => JSON.parse(currentFetchData)
             };
         }
         throw new Error(`Unhandled fetch to ${url}`);
@@ -86,7 +88,7 @@ async function runTest() {
         { name: "Phone Device", pattern: /📱 Celular/ },
         { name: "PC Device", pattern: /💻 PC/ },
         { name: "Gameplay Status", pattern: /🎮 Jugando \(Activo\)/ },
-        { name: "Menu Status", pattern: /⚙️ Menús \/ Chat/ }
+        { name: "Menu Status", pattern: /👨‍💻 Menús \/ Chat/ }
     ];
 
     checks.forEach(check => {
@@ -143,26 +145,125 @@ async function runTest() {
         }
     }
 
-    console.log("Verifying calculated statistics elements on Stats tab...");
-    const statsValueIds = [
-        'stat-weekly-total',
-        'stat-monthly-total',
-        'stat-weekday-avg',
-        'stat-weekend-avg',
-        'stat-weekday-start-avg',
-        'stat-weekend-start-avg',
-        'stat-weekday-end-avg'
+    console.log("Verifying tab filters presence in HTML...");
+    const timeFilters = window.document.getElementById('time-filters');
+    const typeFilters = window.document.getElementById('type-filters');
+    if (!timeFilters || !typeFilters) {
+        console.error("FAIL: Time or Type filter containers not found in HTML.");
+        allPassed = false;
+    }
+
+    console.log("Verifying weekly stats banner...");
+    const weeklyBanner = window.document.getElementById('stat-weekly-hours-avg');
+    if (!weeklyBanner) {
+        console.error("FAIL: Weekly average hours banner not found.");
+        allPassed = false;
+    }
+
+    console.log("Verifying updated daily logical day stats elements...");
+    const dailyStatsValueIds = [
+        'stat-mon-thu-start', 'stat-mon-thu-end', 'stat-mon-thu-duration',
+        'stat-fri-start', 'stat-fri-end', 'stat-fri-duration',
+        'stat-sat-start', 'stat-sat-end', 'stat-sat-duration',
+        'stat-sun-start', 'stat-sun-end', 'stat-sun-duration'
     ];
 
-    statsValueIds.forEach(id => {
+    dailyStatsValueIds.forEach(id => {
         const el = window.document.getElementById(id);
         if (!el) {
-            console.error(`FAIL: Statistic container with ID #${id} not found.`);
+            console.error(`FAIL: Advanced daily statistic container #${id} not found.`);
             allPassed = false;
         } else {
-            console.log(`✅ PASS: Found stat ID #${id} with value "${el.innerText}"`);
+            console.log(`✅ PASS: Found advanced daily stat ID #${id} with value "${el.innerText}"`);
         }
     });
+
+    console.log("Testing filter interaction functions...");
+    if (typeof window.setStatsTimeWindow === 'function' && typeof window.setStatsActivityType === 'function') {
+        window.setStatsTimeWindow(90);
+        window.setStatsActivityType('game');
+        console.log("✅ PASS: Filter interaction handlers are defined and executed without error.");
+    } else {
+        console.error("FAIL: setStatsTimeWindow or setStatsActivityType is not defined globally.");
+        allPassed = false;
+    }
+
+    console.log("Verifying rollover and timezone logic with custom mock data...");
+    
+    // Compute dynamic relative epochs forced to Saturday reference
+    const nowRef = new Date();
+    const dayDiff = nowRef.getDay() - 6; // difference since Saturday (6)
+    nowRef.setDate(nowRef.getDate() - dayDiff);
+
+    const thuRef = new Date(nowRef);
+    thuRef.setDate(nowRef.getDate() - 2);
+    thuRef.setHours(23, 0, 0, 0);
+    const thuEpoch = Math.floor(thuRef.getTime() / 1000);
+
+    const friRef = new Date(nowRef);
+    friRef.setDate(nowRef.getDate() - 1);
+    friRef.setHours(2, 0, 0, 0);
+    const friEpoch = Math.floor(friRef.getTime() / 1000);
+
+    const testData = [
+        {
+            "date": "07 de agosto de 2026",
+            "start_time_fmt": "2:00 AM",
+            "start_epoch": friEpoch, 
+            "proto": "UDP",
+            "device": "Phone",
+            "end": "03:30:00",
+            "end_time_fmt": "3:30 AM",
+            "duration_sec": 5400, // 1.5 hours
+            "duration_str": "1h 30m 0s"
+        },
+        {
+            "date": "06 de agosto de 2026",
+            "start_time_fmt": "11:00 PM",
+            "start_epoch": thuEpoch,
+            "proto": "UDP",
+            "device": "PC",
+            "end": "01:30:00",
+            "end_time_fmt": "1:30 AM",
+            "duration_sec": 9000, // 2.5 hours
+            "duration_str": "2h 30m 0s"
+        }
+    ];
+
+    // Render this custom dataset
+    currentFetchData = JSON.stringify(testData);
+    await window.fetchData();
+
+    // Verify Mon-Thu group values
+    // Average start time: (23:00 + 26:00) / 2 = 24.5 hours = 12:30 AM next day
+    // Average end time: (25.5 + 27.5) / 2 = 26.5 hours = 2:30 AM next day
+    // Average playtime per unique logical day (Thursday had both, total playtime = 1.5 + 2.5 = 4.0 hours)
+    const monThuStart = window.document.getElementById('stat-mon-thu-start').innerText;
+    const monThuEnd = window.document.getElementById('stat-mon-thu-end').innerText;
+    const monThuDuration = window.document.getElementById('stat-mon-thu-duration').innerText;
+
+    console.log(`Logical Rollover - Mon-Thu Start: ${monThuStart}, End: ${monThuEnd}, Duration: ${monThuDuration}`);
+
+    if (monThuStart !== "12:30 AM") {
+        console.error(`FAIL: Expected Mon-Thu Average Start Time to be 12:30 AM, found ${monThuStart}`);
+        allPassed = false;
+    } else {
+        console.log("✅ PASS: Mon-Thu Average Start Time is correct (12:30 AM)");
+    }
+
+    if (monThuEnd !== "2:30 AM") {
+        console.error(`FAIL: Expected Mon-Thu Average End Time to be 2:30 AM, found ${monThuEnd}`);
+        allPassed = false;
+    } else {
+        console.log("✅ PASS: Mon-Thu Average End Time is correct (2:30 AM)");
+    }
+
+    if (monThuDuration !== "4h 0m 0s") {
+        console.error(`FAIL: Expected Mon-Thu Average Duration to be 4h 0m 0s, found ${monThuDuration}`);
+        allPassed = false;
+    } else {
+        console.log("✅ PASS: Mon-Thu Average Duration is correct (4h 0m 0s)");
+    }
 
     if (allPassed) {
         console.log("=== E2E Rendering Test Successful ===");

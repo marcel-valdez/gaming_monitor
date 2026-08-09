@@ -69,7 +69,7 @@ The system is decoupled into three main components:
 - **Non-Invasive Tracking:** No software or agent needs to be installed on the PC or Phone being monitored.
 - **Smart Protocol Mapping:** 
   - **UDP Connections** $\rightarrow$ mapped to **🎮 Gameplay (Active)**.
-  - **TCP Connections** $\rightarrow$ mapped to **⚙️ Menus, Lobby, or Chat**.
+  - **TCP Connections** $\rightarrow$ mapped to **👨‍💻 Menus, Lobby, or Chat**.
 - **Real-Time AJAX Updates:** The dashboard fetches `data.json` every 5 seconds without reloading the page.
 - **Live JavaScript Timers:** Active sessions show a ticking clock incremented second-by-second in the browser.
 - **Desktop Notifications:** Integrated alerts for session starts and significant resumptions.
