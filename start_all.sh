@@ -6,6 +6,10 @@
 # Ensure we kill all background processes when the master script exits
 trap "kill 0" EXIT
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+
+cd "${SCRIPT_DIR}"
+
 run_supervised() {
     local cmd="$1"
     local label="$2"
@@ -47,9 +51,9 @@ echo ""
 
 # Start all three core components in the background
 # We include DATAGEN because it is the bridge between the logs and the UI.
-run_supervised "./monitor_roblox_connections.sh" "MONITOR" &
-run_supervised "./generate_roblox_data.sh" "DATAGEN" &
-run_supervised "./start_server.sh $1" "WEBSERVER" &
+run_supervised "${SCRIPT_DIR}/monitor_roblox_connections.sh" "MONITOR" &
+run_supervised "${SCRIPT_DIR}/generate_roblox_data.sh" "DATAGEN" &
+run_supervised "${SCRIPT_DIR}/start_server.sh $1" "WEBSERVER" &
 
 # Wait for all background processes to keep the master script alive
 wait
