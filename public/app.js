@@ -154,13 +154,21 @@ window.changeWeek = function(offset) {
     updateWeeklySummary();
 };
 
+function formatLocalDate(date) {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+}
+window.formatLocalDate = formatLocalDate;
+
 window.getLogicalDayString = function(epoch) {
     const dt = new Date(epoch * 1000);
-    // 5 AM rollover
+    // 5 AM rollover: sessions before 5 AM logically belong to the previous calendar day
     if (dt.getHours() < 5) {
         dt.setDate(dt.getDate() - 1);
     }
-    return dt.toISOString().split('T')[0];
+    return formatLocalDate(dt);
 };
 
 window.getShift = function(epoch) {
@@ -201,68 +209,98 @@ function updateWeeklySummary() {
         label.innerText = `Semana del ${range.start.toLocaleDateString('es-ES', options)} al ${new Date(range.end.getTime() - 1000).toLocaleDateString('es-ES', options)}`;
     }
 
-    // Filter sessions in range
-    const weeklySessions = lastFetchedData.filter(s => s.start_epoch >= startEpoch && s.start_epoch < endEpoch);
-
-    // Group by logical day
+    // Build the 7 logical days of the selected week
     const days = [];
     for (let i = 0; i < 7; i++) {
-        const d = new Date(range.start);
-        d.setDate(d.getDate() + i);
-        const dateStr = d.toISOString().split('T')[0];
+        const dStart = new Date(range.start);
+        dStart.setDate(dStart.getDate() + i);
+
+        const dSplit = new Date(dStart);
+        dSplit.setHours(14, 0, 0, 0); // 2:00 PM shift cut
+
+        const dEnd = new Date(dStart);
+        dEnd.setDate(dEnd.getDate() + 1);
+        dEnd.setHours(5, 0, 0, 0); // 5:00 AM next day (end of logical day)
+
         days.push({
-            dateStr: dateStr,
-            display: d.toLocaleDateString('es-ES', { weekday: 'long' }).toUpperCase(),
-            dateFmt: d.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }),
-            morning: { start: null, end: null, duration: 0, devices: new Set() },
-            afternoon: { start: null, end: null, duration: 0, devices: new Set() },
+            dateStr: formatLocalDate(dStart),
+            display: dStart.toLocaleDateString('es-ES', { weekday: 'long' }).toUpperCase(),
+            dateFmt: dStart.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }),
+            startEpoch: dStart.getTime() / 1000,
+            splitEpoch: dSplit.getTime() / 1000,
+            endEpoch: dEnd.getTime() / 1000,
+            morning: { start: null, end: null, duration: 0, activeDuration: 0, devices: new Set() },
+            afternoon: { start: null, end: null, duration: 0, activeDuration: 0, devices: new Set() },
             total: 0
         });
     }
 
     let weeklyTotalSecs = 0;
 
-    weeklySessions.forEach(session => {
-        const logicalDay = window.getLogicalDayString(session.start_epoch);
-        const shift = window.getShift(session.start_epoch);
-        const duration = getSessionLiveDuration(session);
-        
-        const dayData = days.find(d => d.dateStr === logicalDay);
-        if (dayData) {
-            const sData = dayData[shift];
-            if (sData.start === null || session.start_epoch < sData.start) sData.start = session.start_epoch;
-            
-            // End time
-            let endEpoch = session.start_epoch + session.duration_sec;
-            if (session.end === '🟢 Activa') endEpoch = Math.floor(Date.now() / 1000);
-            if (sData.end === null || endEpoch > sData.end) sData.end = endEpoch;
-            
-            sData.duration += duration;
-            dayData.total += duration;
-            weeklyTotalSecs += duration;
-            sData.devices.add(session.device);
-        }
-    });
+    // Process sessions and partition accurately into morning and afternoon windows
+    if (lastFetchedData && lastFetchedData.length > 0) {
+        lastFetchedData.forEach(session => {
+            const sStart = session.start_epoch;
+            let sEnd = session.end_epoch;
+            if (!sEnd) {
+                if (session.end === '🟢 Activa') {
+                    sEnd = Math.floor(Date.now() / 1000);
+                } else {
+                    sEnd = sStart + (session.duration_sec || 0);
+                }
+            }
+            const isUDP = session.proto === 'UDP';
 
-    const todayStr = new Date().toISOString().split('T')[0];
-    const now = new Date();
+            days.forEach(day => {
+                // 1. Morning shift: [day.startEpoch, day.splitEpoch] (5:00 AM to 2:00 PM)
+                const mStart = Math.max(sStart, day.startEpoch);
+                const mEnd = Math.min(sEnd, day.splitEpoch);
+                if (mEnd > mStart) {
+                    const dur = mEnd - mStart;
+                    day.morning.duration += dur;
+                    if (isUDP) day.morning.activeDuration += dur;
+                    if (day.morning.start === null || mStart < day.morning.start) day.morning.start = mStart;
+                    if (day.morning.end === null || mEnd > day.morning.end) day.morning.end = mEnd;
+                    day.morning.devices.add(session.device);
+                    day.total += dur;
+                    weeklyTotalSecs += dur;
+                }
+
+                // 2. Afternoon shift: [day.splitEpoch, day.endEpoch] (2:00 PM to 5:00 AM next day)
+                const aStart = Math.max(sStart, day.splitEpoch);
+                const aEnd = Math.min(sEnd, day.endEpoch);
+                if (aEnd > aStart) {
+                    const dur = aEnd - aStart;
+                    day.afternoon.duration += dur;
+                    if (isUDP) day.afternoon.activeDuration += dur;
+                    if (day.afternoon.start === null || aStart < day.afternoon.start) day.afternoon.start = aStart;
+                    if (day.afternoon.end === null || aEnd > day.afternoon.end) day.afternoon.end = aEnd;
+                    day.afternoon.devices.add(session.device);
+                    day.total += dur;
+                    weeklyTotalSecs += dur;
+                }
+            });
+        });
+    }
+
+    const todayStr = formatLocalDate(new Date());
 
     // Render cards
     days.forEach(day => {
         const card = document.createElement('div');
         card.className = 'stats-card weekly-day-card';
-        
+
         const isFuture = day.dateStr > todayStr;
-        
+
         const renderShift = (title, data) => {
             if (data.duration === 0) {
                 const statusText = isFuture ? 'Pendiente' : 'Sin actividad';
                 return `<div class="shift-block"><div class="shift-title">${title}</div><div class="shift-metrics">${statusText}</div></div>`;
             }
-            
+
             const startStr = formatTimeFromSeconds(getSecondsSinceMidnight(new Date(data.start * 1000)));
             const endStr = formatTimeFromSeconds(getSecondsSinceMidnight(new Date(data.end * 1000)));
-            
+
             let deviceIcons = '';
             if (data.devices.has('PC')) deviceIcons += '<span title="Jugado en PC">💻</span>';
             if (data.devices.has('Phone')) deviceIcons += '<span title="Jugado en Celular">📱</span>';
@@ -301,6 +339,7 @@ function updateWeeklySummary() {
     const rangeLabel = document.getElementById('weekly-range-label') ? document.getElementById('weekly-range-label').innerText : "esta semana";
     updateGeminiDeeplink('tab-weekly', rangeLabel, weeklyTotalSecs);
 }
+
 
 // Filter setters
 window.setStatsTimeWindow = function(days) {

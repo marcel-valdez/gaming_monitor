@@ -37,7 +37,7 @@ async function runWeeklyUnitTests() {
         }
     };
 
-    // Test 1: getLogicalDay (5 AM rollover)
+    // Test 1: getLogicalDay (5 AM rollover and timezone robustness)
     // 2026-08-08 04:59:59 -> 2026-08-07
     const t1 = new Date('2026-08-08T04:59:59').getTime() / 1000;
     assertEqual(window.getLogicalDayString(t1), "2026-08-07", "04:59:59 should be previous day");
@@ -45,6 +45,15 @@ async function runWeeklyUnitTests() {
     // 2026-08-08 05:00:00 -> 2026-08-08
     const t2 = new Date('2026-08-08T05:00:00').getTime() / 1000;
     assertEqual(window.getLogicalDayString(t2), "2026-08-08", "05:00:00 should be current day");
+
+    // Evening local times (must not roll over to next day due to UTC conversions)
+    const tEvening1 = new Date('2026-08-08T20:00:00').getTime() / 1000;
+    assertEqual(window.getLogicalDayString(tEvening1), "2026-08-08", "20:00:00 local should stay on 2026-08-08");
+    const tEvening2 = new Date('2026-08-08T23:59:59').getTime() / 1000;
+    assertEqual(window.getLogicalDayString(tEvening2), "2026-08-08", "23:59:59 local should stay on 2026-08-08");
+
+    // Test formatLocalDate
+    assertEqual(window.formatLocalDate(new Date('2026-08-31T20:00:00')), "2026-08-31", "formatLocalDate formats in local time");
 
     // Test 2: getShift (5 AM - 2 PM vs 2 PM - 5 AM)
     // 05:00:00 -> morning
@@ -97,6 +106,44 @@ async function runWeeklyUnitTests() {
     });
     // At any given time in a week, unless it's Monday 5AM or Sunday 11PM, we should see both for the current week.
     assertEqual(foundSinActividad || foundPendiente, true, "Should show either 'Sin actividad' or 'Pendiente'");
+
+    // Test 7: Shift Partitioning across 2:00 PM boundary
+    // Session on Monday of current week spanning 12:00 PM to 4:00 PM (4 hours = 14400s)
+    const mon12PM = Math.floor(range.start.getTime() / 1000) + 7 * 3600;
+    const mon4PM = Math.floor(range.start.getTime() / 1000) + 11 * 3600;
+    window.lastFetchedData = [{
+        start_epoch: mon12PM,
+        end_epoch: mon4PM,
+        duration_sec: 14400,
+        device: 'PC',
+        proto: 'UDP',
+        end: '2026-08-31 16:00:00'
+    }];
+    window.updateWeeklySummary();
+    const updatedCards = window.document.querySelectorAll('.weekly-day-card');
+    const mondayCard = updatedCards[0];
+    const shiftBlocks = mondayCard.querySelectorAll('.shift-block');
+    const morningBlock = shiftBlocks[0];
+    const afternoonBlock = shiftBlocks[1];
+    const dayTotalText = mondayCard.querySelector('.day-total-footer').textContent;
+
+    assertEqual(morningBlock.textContent.includes('2h'), true, "Morning shift receives 2h slice (12:00 to 14:00)");
+    assertEqual(afternoonBlock.textContent.includes('2h'), true, "Afternoon shift receives 2h slice (14:00 to 16:00)");
+    assertEqual(dayTotalText.includes('4h'), true, "Total for day is correctly sum of both slices (4h)");
+
+    // Test 8: Monday August 31 data from dataset
+    const dataJsonPath = path.join(__dirname, '../public/data.json');
+    if (fs.existsSync(dataJsonPath)) {
+        const realData = JSON.parse(fs.readFileSync(dataJsonPath, 'utf8'));
+        window.lastFetchedData = realData;
+        window.updateWeeklySummary();
+        const cardsWithData = window.document.querySelectorAll('.weekly-day-card');
+        const realMonCard = cardsWithData[0];
+        const shiftBlocksReal = realMonCard.querySelectorAll('.shift-block');
+        const realMonAfternoon = shiftBlocksReal[1];
+        assertEqual(!realMonAfternoon.textContent.includes('Sin actividad'), true, "Monday Aug 31 has active sessions in afternoon shift");
+        assertEqual(realMonAfternoon.textContent.includes('5:12 PM'), true, "Monday Aug 31 starts at 5:12 PM");
+    }
 
     if (allPassed) {
         console.log("=== Weekly JS Unit Tests Passed Successfully ===");
