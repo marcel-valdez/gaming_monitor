@@ -34,7 +34,7 @@ class DataGenerator:
          or reliable sequenced RPCs (RemoteEvent / RemoteFunction), both are
          multiplexed over the same underlying UDP socket managed by NetworkClient.
 
-    Why Session Stitching (DEFAULT_GAP_THRESHOLD = 300s) Is Necessary:
+    Why Session Stitching & Thresholds Are Necessary:
     - Multi-place experiences & teleports: Players frequently transition between
       lobbies, matchmaking queues, and mini-games (e.g., Blox Fruits, BedWars).
       Each teleport tears down the old NetworkClient UDP connection and negotiates
@@ -42,13 +42,16 @@ class DataGenerator:
     - Asset loading & intermission: While new place assets load over HTTPS/TCP,
       gameplay UDP traffic temporarily drops.
     - Router Conntrack Jitter: The router's NAT table counts down inactivity.
-      When idle time crosses the monitor's 300s threshold during a 2-4 minute
-      teleport or intermission, the monitor logs an IDLE event. When the next place
-      loads, UDP packets resume, logging ACTIVE. Without stitching, one continuous
-      2-hour gaming session fragments into dozens of ~68-second micro-sessions.
-    - An empirical gap threshold of 300 seconds (5 minutes) bridges these server-hop
-      and loading intervals into coherent logical sessions while preserving genuine
-      breaks and catching brief standalone 'panic quits' (<120s).
+      When idle time crosses the monitor's threshold during a teleport or intermission,
+      the monitor logs an IDLE event. Without stitching, one continuous gaming session
+      fragments into dozens of short micro-sessions.
+    - Dual Dynamic Thresholds:
+      1. En Juego Activo (UDP): Uses DEFAULT_TCP_AWARE_GAP_THRESHOLD (1320s / 22 min)
+         if TCP is active on the device (player remains in client/lobby), or
+         DEFAULT_GAP_THRESHOLD (300s / 5 min) if client is closed.
+      2. Total En Juego (TCP): Uses DEFAULT_TOTAL_GAP_THRESHOLD (4200s / 70 min, P99)
+         between game sessions while client is running, consolidating intra-day gaming
+         while eliminating overnight idle sockets.
     ==============================================================================
     """
 
