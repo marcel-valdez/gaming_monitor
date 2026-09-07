@@ -191,11 +191,16 @@ class ConnectionProcessor:
 
 if __name__ == "__main__":
     # Orchestrator usage:
-    # cat router_output.txt | python3 process_connections.py [initial_run_flag]
-    processor = ConnectionProcessor()
+    # cat router_output.txt | python3 process_connections.py [--initial] [--state-file PATH]
+    import argparse
+    parser = argparse.ArgumentParser(description="Process Roblox router connections")
+    parser.add_argument("--initial", action="store_true", help="Initial run flag to suppress startup alerts")
+    parser.add_argument("--state-file", default=os.getenv("STATE_FILE", "state.json"), help="Path to state JSON file")
+    args, _ = parser.parse_known_args()
+
+    processor = ConnectionProcessor(state_file=args.state_file)
     raw_output = sys.stdin.read()
-    initial_run = len(sys.argv) > 1 and sys.argv[1] == '--initial'
     
     conns = processor.extract_connections(raw_output)
-    actions = processor.process(conns, initial_run=initial_run)
+    actions = processor.process(conns, initial_run=args.initial)
     print(json.dumps(actions))

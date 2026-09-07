@@ -3,6 +3,7 @@ import os
 import sys
 import json
 import time
+import tempfile
 from datetime import datetime
 
 # Add scripts to path
@@ -13,21 +14,15 @@ from generate_data import DataGenerator
 
 class TestDataPipelineIntegration(unittest.TestCase):
     def setUp(self):
-        self.state_file = 'integration_state.json'
-        self.log_file = 'integration_roblox.log'
-        self.data_file = 'integration_data.json'
-        
-        for f in [self.state_file, self.log_file, self.data_file]:
-            if os.path.exists(f):
-                os.remove(f)
-                
+        self.test_dir = tempfile.TemporaryDirectory()
+        self.state_file = os.path.join(self.test_dir.name, 'integration_state.json')
+        self.log_file = os.path.join(self.test_dir.name, 'integration_roblox.log')
+        self.data_file = os.path.join(self.test_dir.name, 'integration_data.json')
         self.processor = ConnectionProcessor(state_file=self.state_file)
         self.generator = DataGenerator(log_file=self.log_file, data_file=self.data_file)
 
     def tearDown(self):
-        for f in [self.state_file, self.log_file, self.data_file]:
-            if os.path.exists(f):
-                os.remove(f)
+        self.test_dir.cleanup()
 
     def log_action(self, action):
         """Simulate the Bash orchestrator's logging role."""

@@ -2,6 +2,7 @@ import unittest
 import os
 import sys
 import json
+import tempfile
 
 # Add scripts to path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../scripts')))
@@ -11,15 +12,13 @@ from process_connections import ConnectionProcessor
 
 class TestConnectionProcessor(unittest.TestCase):
     def setUp(self):
-        self.state_file = 'test_state.json'
-        if os.path.exists(self.state_file):
-            os.remove(self.state_file)
+        self.test_dir = tempfile.TemporaryDirectory()
+        self.state_file = os.path.join(self.test_dir.name, 'state.json')
         # Use a fixed reference time for deterministic tests (if needed)
         self.processor = ConnectionProcessor(state_file=self.state_file)
 
     def tearDown(self):
-        if os.path.exists(self.state_file):
-            os.remove(self.state_file)
+        self.test_dir.cleanup()
 
     def test_parse_expiry(self):
         # Example: 4 days, 07:21:02

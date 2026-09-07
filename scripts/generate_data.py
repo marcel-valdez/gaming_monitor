@@ -92,6 +92,12 @@ class DataGenerator:
             json.dump(completed_sessions, f, indent=2)
 
 if __name__ == "__main__":
-    generator = DataGenerator()
+    import argparse
+    parser = argparse.ArgumentParser(description="Generate dashboard data from connection log")
+    parser.add_argument("--log-file", default=os.getenv("LOG_FILE", "roblox_connections.log"), help="Path to input log file")
+    parser.add_argument("--data-file", default=os.getenv("DATA_FILE", "public/data.json"), help="Path to output data.json file")
+    args, _ = parser.parse_known_args()
+
+    generator = DataGenerator(log_file=args.log_file, data_file=args.data_file)
     generator.generate()
     print(f"[{datetime.now().strftime('%H:%M:%S')}] JSON data updated -> {generator.data_file}")

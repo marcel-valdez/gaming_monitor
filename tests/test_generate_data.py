@@ -2,6 +2,7 @@ import unittest
 import os
 import sys
 import json
+import tempfile
 from datetime import datetime
 
 # Add scripts to path
@@ -11,19 +12,13 @@ from generate_data import DataGenerator
 
 class TestDataGenerator(unittest.TestCase):
     def setUp(self):
-        self.log_file = 'test_roblox_connections.log'
-        self.data_file = 'test_data.json'
-        if os.path.exists(self.log_file):
-            os.remove(self.log_file)
-        if os.path.exists(self.data_file):
-            os.remove(self.data_file)
+        self.test_dir = tempfile.TemporaryDirectory()
+        self.log_file = os.path.join(self.test_dir.name, 'roblox_connections.log')
+        self.data_file = os.path.join(self.test_dir.name, 'data.json')
         self.generator = DataGenerator(log_file=self.log_file, data_file=self.data_file)
 
     def tearDown(self):
-        if os.path.exists(self.log_file):
-            os.remove(self.log_file)
-        if os.path.exists(self.data_file):
-            os.remove(self.data_file)
+        self.test_dir.cleanup()
 
     def test_parse_log_and_generate_json(self):
         # Sample log content based on existing format

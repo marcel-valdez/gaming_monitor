@@ -6,7 +6,8 @@ async function runTest() {
     const html = fs.readFileSync(path.join(__dirname, '../public/index.html'), 'utf8');
     const css = fs.readFileSync(path.join(__dirname, '../public/style.css'), 'utf8');
     const js = fs.readFileSync(path.join(__dirname, '../public/app.js'), 'utf8');
-    const dataJson = fs.readFileSync(path.join(__dirname, '../public/data.json'), 'utf8');
+    const dataFilePath = process.env.DATA_FILE || process.argv[2] || path.join(__dirname, '../public/data.json');
+    const dataJson = fs.readFileSync(dataFilePath, 'utf8');
 
     const dom = new JSDOM(html, {
         runScripts: "dangerously",
