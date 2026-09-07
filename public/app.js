@@ -50,6 +50,15 @@ function formatTimeFromSeconds(seconds) {
     return `${hrs12}:${mins.toString().padStart(2, '0')} ${ampm}`;
 }
 
+function sortDaysByEpoch(sessionsByDay) {
+    return Object.keys(sessionsByDay).sort((a, b) => {
+        const epochA = sessionsByDay[a][0]?.start_epoch || 0;
+        const epochB = sessionsByDay[b][0]?.start_epoch || 0;
+        return epochB - epochA;
+    });
+}
+window.sortDaysByEpoch = sortDaysByEpoch;
+
 function updateGeminiDeeplink(containerId, timeframeLabel, totalSeconds) {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -313,10 +322,13 @@ function render(data) {
         sessionsByDay[session.date].push(session);
     });
 
-    // Sort days descending
-    const sortedDays = Object.keys(sessionsByDay).sort((a, b) => b.localeCompare(a));
+    // Sort days descending (reverse chronological: newest date first)
+    const sortedDays = sortDaysByEpoch(sessionsByDay);
 
     sortedDays.forEach(day => {
+        // Defensively sort sessions chronologically within each day
+        sessionsByDay[day].sort((a, b) => (a.start_epoch || 0) - (b.start_epoch || 0));
+
         const card = document.createElement('div');
         card.className = 'day-card';
 

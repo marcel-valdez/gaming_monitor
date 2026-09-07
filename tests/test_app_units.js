@@ -69,6 +69,30 @@ async function runUnitTests() {
     d1.setHours(10, 15, 30);
     assertEqual(window.getSecondsSinceMidnight(d1), 10 * 3600 + 15 * 60 + 30, "getSecondsSinceMidnight(10:15:30)");
 
+    // Test 4: sortDaysByEpoch - Reverse Chronological Day Sorting (Newest First)
+    const mockSessionsByDay = {
+        '09 de agosto de 2026': [{ start_epoch: 1786332186 }],
+        '31 de agosto de 2026': [{ start_epoch: 1788220800 }],
+        '06 de septiembre de 2026': [{ start_epoch: 1788756745 }],
+        '01 de septiembre de 2026': [{ start_epoch: 1788321600 }]
+    };
+    const sortedDays = window.sortDaysByEpoch(mockSessionsByDay);
+    assertEqual(sortedDays[0], '06 de septiembre de 2026', "Top day should be September 6th");
+    assertEqual(sortedDays[1], '01 de septiembre de 2026', "Second day should be September 1st");
+    assertEqual(sortedDays[2], '31 de agosto de 2026', "Third day should be August 31st");
+    assertEqual(sortedDays[3], '09 de agosto de 2026', "Last day should be August 9th");
+
+    // Test 5: Intra-day sorting (Defensive ascending sort by start_epoch)
+    const mockDaySessions = [
+        { start_epoch: 1788760000, start_time_fmt: "9:20 AM" },
+        { start_epoch: 1788750000, start_time_fmt: "6:30 AM" },
+        { start_epoch: 1788770000, start_time_fmt: "12:10 PM" }
+    ];
+    mockDaySessions.sort((a, b) => (a.start_epoch || 0) - (b.start_epoch || 0));
+    assertEqual(mockDaySessions[0].start_time_fmt, "6:30 AM", "First intra-day session should be earliest");
+    assertEqual(mockDaySessions[1].start_time_fmt, "9:20 AM", "Second intra-day session should be intermediate");
+    assertEqual(mockDaySessions[2].start_time_fmt, "12:10 PM", "Third intra-day session should be latest");
+
     if (allPassed) {
         console.log("=== All JS Unit Tests Passed Successfully ===");
         process.exit(0);
