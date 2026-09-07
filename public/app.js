@@ -162,6 +162,30 @@ function formatLocalDate(date) {
 }
 window.formatLocalDate = formatLocalDate;
 
+function mergeIntervals(intervals) {
+    if (!intervals || intervals.length === 0) return [];
+    const valid = intervals.filter(([s, e]) => e > s);
+    if (valid.length === 0) return [];
+    valid.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+    const merged = [[valid[0][0], valid[0][1]]];
+    for (let i = 1; i < valid.length; i++) {
+        const prev = merged[merged.length - 1];
+        const curr = valid[i];
+        if (curr[0] <= prev[1]) {
+            prev[1] = Math.max(prev[1], curr[1]);
+        } else {
+            merged.push([curr[0], curr[1]]);
+        }
+    }
+    return merged;
+}
+window.mergeIntervals = mergeIntervals;
+
+function computeMergedDuration(intervals) {
+    return mergeIntervals(intervals).reduce((acc, [s, e]) => acc + (e - s), 0);
+}
+window.computeMergedDuration = computeMergedDuration;
+
 window.getLogicalDayString = function(epoch) {
     const dt = new Date(epoch * 1000);
     // 5 AM rollover: sessions before 5 AM logically belong to the previous calendar day
@@ -229,9 +253,10 @@ function updateWeeklySummary() {
             startEpoch: dStart.getTime() / 1000,
             splitEpoch: dSplit.getTime() / 1000,
             endEpoch: dEnd.getTime() / 1000,
-            morning: { start: null, end: null, duration: 0, activeDuration: 0, devices: new Set() },
-            afternoon: { start: null, end: null, duration: 0, activeDuration: 0, devices: new Set() },
-            total: 0
+            morning: { start: null, end: null, duration: 0, activeDuration: 0, devices: new Set(), intervals: [], udpIntervals: [] },
+            afternoon: { start: null, end: null, duration: 0, activeDuration: 0, devices: new Set(), intervals: [], udpIntervals: [] },
+            total: 0,
+            activeTotal: 0
         });
     }
 
@@ -256,30 +281,35 @@ function updateWeeklySummary() {
                 const mStart = Math.max(sStart, day.startEpoch);
                 const mEnd = Math.min(sEnd, day.splitEpoch);
                 if (mEnd > mStart) {
-                    const dur = mEnd - mStart;
-                    day.morning.duration += dur;
-                    if (isUDP) day.morning.activeDuration += dur;
+                    day.morning.intervals.push([mStart, mEnd]);
+                    if (isUDP) day.morning.udpIntervals.push([mStart, mEnd]);
                     if (day.morning.start === null || mStart < day.morning.start) day.morning.start = mStart;
                     if (day.morning.end === null || mEnd > day.morning.end) day.morning.end = mEnd;
                     day.morning.devices.add(session.device);
-                    day.total += dur;
-                    weeklyTotalSecs += dur;
                 }
 
                 // 2. Afternoon shift: [day.splitEpoch, day.endEpoch] (2:00 PM to 5:00 AM next day)
                 const aStart = Math.max(sStart, day.splitEpoch);
                 const aEnd = Math.min(sEnd, day.endEpoch);
                 if (aEnd > aStart) {
-                    const dur = aEnd - aStart;
-                    day.afternoon.duration += dur;
-                    if (isUDP) day.afternoon.activeDuration += dur;
+                    day.afternoon.intervals.push([aStart, aEnd]);
+                    if (isUDP) day.afternoon.udpIntervals.push([aStart, aEnd]);
                     if (day.afternoon.start === null || aStart < day.afternoon.start) day.afternoon.start = aStart;
                     if (day.afternoon.end === null || aEnd > day.afternoon.end) day.afternoon.end = aEnd;
                     day.afternoon.devices.add(session.device);
-                    day.total += dur;
-                    weeklyTotalSecs += dur;
                 }
             });
+        });
+
+        // Compute merged durations (union of time intervals) to prevent overlapping sessions from inflating elapsed time
+        days.forEach(day => {
+            day.morning.duration = computeMergedDuration(day.morning.intervals);
+            day.morning.activeDuration = computeMergedDuration(day.morning.udpIntervals);
+            day.afternoon.duration = computeMergedDuration(day.afternoon.intervals);
+            day.afternoon.activeDuration = computeMergedDuration(day.afternoon.udpIntervals);
+            day.total = day.morning.duration + day.afternoon.duration;
+            day.activeTotal = day.morning.activeDuration + day.afternoon.activeDuration;
+            weeklyTotalSecs += day.total;
         });
     }
 
@@ -305,12 +335,16 @@ function updateWeeklySummary() {
             if (data.devices.has('PC')) deviceIcons += '<span title="Jugado en PC">💻</span>';
             if (data.devices.has('Phone')) deviceIcons += '<span title="Jugado en Celular">📱</span>';
 
+            const activeTooltip = (data.activeDuration > 0 && data.activeDuration !== data.duration)
+                ? ` title="Total pantalla: ${formatDuration(data.duration)} (En juego activo: ${formatDuration(data.activeDuration)})"`
+                : '';
+
             return `
                 <div class="shift-block">
                     <div class="shift-title">${title}</div>
                     <div class="shift-metrics">
                         <span>🕒 ${startStr} - ${endStr}</span>
-                        <span>⏳ ${formatDuration(data.duration)}</span>
+                        <span${activeTooltip}>⏳ ${formatDuration(data.duration)}</span>
                         <div class="shift-devices">${deviceIcons}</div>
                     </div>
                 </div>
@@ -324,7 +358,7 @@ function updateWeeklySummary() {
             </div>
             ${renderShift('🌅 MAÑANA', day.morning)}
             ${renderShift('🌇 TARDE / NOCHE', day.afternoon)}
-            <div class="day-total-footer">
+            <div class="day-total-footer"${day.activeTotal > 0 && day.activeTotal !== day.total ? ` title="Total pantalla: ${formatDuration(day.total)} (En juego activo: ${formatDuration(day.activeTotal)})"` : ''}>
                 Total: ${formatDuration(day.total)}
             </div>
         `;
@@ -473,29 +507,41 @@ function updateActiveTimes() {
 }
 
 function updateDayTotals() {
-    const activeTotals = {};
-    const aggregateTotals = {};
+    const activeIntervalsByDay = {};
+    const aggregateIntervalsByDay = {};
     
-    lastFetchedData.forEach(session => {
-        const day = session.date;
-        if (!activeTotals[day]) activeTotals[day] = 0;
-        if (!aggregateTotals[day]) aggregateTotals[day] = 0;
-        
-        const duration = getSessionLiveDuration(session);
-        aggregateTotals[day] += duration;
-        if (session.proto === 'UDP') {
-            activeTotals[day] += duration;
-        }
-    });
+    if (lastFetchedData && lastFetchedData.length > 0) {
+        lastFetchedData.forEach(session => {
+            const day = session.date;
+            if (!activeIntervalsByDay[day]) activeIntervalsByDay[day] = [];
+            if (!aggregateIntervalsByDay[day]) aggregateIntervalsByDay[day] = [];
+            
+            const sStart = session.start_epoch;
+            let sEnd = session.end_epoch;
+            if (!sEnd) {
+                if (session.end === '🟢 Activa') {
+                    sEnd = Math.floor(Date.now() / 1000);
+                } else {
+                    sEnd = sStart + (session.duration_sec || 0);
+                }
+            }
+            if (sEnd > sStart) {
+                aggregateIntervalsByDay[day].push([sStart, sEnd]);
+                if (session.proto === 'UDP') {
+                    activeIntervalsByDay[day].push([sStart, sEnd]);
+                }
+            }
+        });
+    }
 
     document.querySelectorAll('.day-total').forEach(span => {
         const day = span.getAttribute('data-day');
         const type = span.getAttribute('data-type');
         if (type === 'active') {
-            const sec = activeTotals[day] || 0;
+            const sec = computeMergedDuration(activeIntervalsByDay[day] || []);
             span.innerText = `🎮 En Juego Activo: ${formatDuration(sec)}`;
         } else {
-            const sec = aggregateTotals[day] || 0;
+            const sec = computeMergedDuration(aggregateIntervalsByDay[day] || []);
             span.innerText = `👨‍💻 Total En Juego: ${formatDuration(sec)}`;
         }
     });

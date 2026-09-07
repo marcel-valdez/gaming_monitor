@@ -143,7 +143,59 @@ async function runWeeklyUnitTests() {
         const realMonAfternoon = shiftBlocksReal[1];
         assertEqual(!realMonAfternoon.textContent.includes('Sin actividad'), true, "Monday Aug 31 has active sessions in afternoon shift");
         assertEqual(realMonAfternoon.textContent.includes('5:12 PM'), true, "Monday Aug 31 starts at 5:12 PM");
+
+        // Test 11: Sunday Sep 6 real data duration should never exceed physical span (~13h 22m, not 23h 37m)
+        const realSunCard = cardsWithData[6];
+        const sunShiftBlocks = realSunCard.querySelectorAll('.shift-block');
+        const sunMorning = sunShiftBlocks[0];
+        const sunAfternoon = sunShiftBlocks[1];
+        const sunTotal = realSunCard.querySelector('.day-total-footer').textContent;
+
+        assertEqual(sunMorning.textContent.includes('4h'), true, "Sunday morning should be ~4h 40m, not 8h 58m");
+        assertEqual(!sunMorning.textContent.includes('8h'), true, "Sunday morning must not double count to 8h");
+        assertEqual(sunAfternoon.textContent.includes('8h'), true, "Sunday afternoon should be ~8h 40m, not 14h 39m");
+        assertEqual(!sunAfternoon.textContent.includes('14h'), true, "Sunday afternoon must not double count to 14h");
+        assertEqual(sunTotal.includes('13h'), true, "Sunday total should be ~13h, not 23h");
+        assertEqual(!sunTotal.includes('23h'), true, "Sunday total must not be inflated to 23h");
     }
+
+    // Test 9: mergeIntervals and computeMergedDuration utility functions
+    const testIntervals1 = [[100, 300], [200, 400]]; // overlaps
+    assertEqual(window.computeMergedDuration(testIntervals1), 300, "Overlapping intervals [100,300] and [200,400] merge to 300s");
+    const testIntervals2 = [[100, 500], [200, 300], [250, 400]]; // subsumed
+    assertEqual(window.computeMergedDuration(testIntervals2), 400, "Subsumed intervals merge to [100, 500] (400s)");
+    const testIntervals3 = [[300, 400], [100, 200]]; // disjoint unsorted
+    assertEqual(window.computeMergedDuration(testIntervals3), 200, "Disjoint unsorted intervals merge to 200s");
+
+    // Test 10: Overlapping concurrent sessions in a shift (e.g. 9:00 AM-12:00 PM and 10:00 AM-1:00 PM)
+    const mon9AM = Math.floor(range.start.getTime() / 1000) + 4 * 3600; // 9:00 AM
+    const mon12PM_test = Math.floor(range.start.getTime() / 1000) + 7 * 3600; // 12:00 PM
+    const mon10AM = Math.floor(range.start.getTime() / 1000) + 5 * 3600; // 10:00 AM
+    const mon1PM = Math.floor(range.start.getTime() / 1000) + 8 * 3600; // 1:00 PM
+    window.lastFetchedData = [
+        {
+            start_epoch: mon9AM,
+            end_epoch: mon12PM_test,
+            duration_sec: 10800, // 3 hours
+            device: 'PC',
+            proto: 'TCP',
+            end: '2026-08-31 12:00:00'
+        },
+        {
+            start_epoch: mon10AM,
+            end_epoch: mon1PM,
+            duration_sec: 10800, // 3 hours
+            device: 'Phone',
+            proto: 'UDP',
+            end: '2026-08-31 13:00:00'
+        }
+    ];
+    window.updateWeeklySummary();
+    const overlapCards = window.document.querySelectorAll('.weekly-day-card');
+    const overlapMonCard = overlapCards[0];
+    const overlapMorning = overlapMonCard.querySelectorAll('.shift-block')[0];
+    assertEqual(overlapMorning.textContent.includes('4h'), true, "Overlapping 3h sessions from 9-12 and 10-1 merge to 4h total (not 6h)");
+    assertEqual(!overlapMorning.textContent.includes('6h'), true, "Must not sum to 6h");
 
     if (allPassed) {
         console.log("=== Weekly JS Unit Tests Passed Successfully ===");
