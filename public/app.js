@@ -52,8 +52,8 @@ function formatTimeFromSeconds(seconds) {
 
 function sortDaysByEpoch(sessionsByDay) {
     return Object.keys(sessionsByDay).sort((a, b) => {
-        const epochA = sessionsByDay[a][0]?.start_epoch || 0;
-        const epochB = sessionsByDay[b][0]?.start_epoch || 0;
+        const epochA = Math.max(...(sessionsByDay[a]?.map(s => s.start_epoch || 0) || [0]));
+        const epochB = Math.max(...(sessionsByDay[b]?.map(s => s.start_epoch || 0) || [0]));
         return epochB - epochA;
     });
 }
@@ -326,8 +326,8 @@ function render(data) {
     const sortedDays = sortDaysByEpoch(sessionsByDay);
 
     sortedDays.forEach(day => {
-        // Defensively sort sessions chronologically within each day
-        sessionsByDay[day].sort((a, b) => (a.start_epoch || 0) - (b.start_epoch || 0));
+        // Sort sessions in reverse chronological order within each day (latest session first)
+        sessionsByDay[day].sort((a, b) => (b.start_epoch || 0) - (a.start_epoch || 0));
 
         const card = document.createElement('div');
         card.className = 'day-card';
