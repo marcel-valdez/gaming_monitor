@@ -1,7 +1,7 @@
 var lastFetchedData = [];
 var statsTimeWindow = 'all'; // default 'all' (All time history)
 var statsActivityType = 'all'; // default 'all' (UDP + TCP sessions)
-var weeklyActivityType = 'game'; // default 'game' (En Juego Activo)
+var weeklyActivityType = 'all'; // default 'all' (Total En Juego)
 if (typeof window !== 'undefined') {
     window.weeklyActivityType = weeklyActivityType;
 }

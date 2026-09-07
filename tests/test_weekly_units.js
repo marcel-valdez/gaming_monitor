@@ -7,12 +7,12 @@ async function runWeeklyUnitTests() {
     const html = `<!DOCTYPE html><html><body>
         <div id="tab-weekly">
             <div class="filter-buttons" id="weekly-type-filters">
-                <button id="weekly-type-btn-game" class="filter-btn active" onclick="setWeeklyActivityType('game')">🎮 En Juego Activo</button>
-                <button id="weekly-type-btn-all" class="filter-btn" onclick="setWeeklyActivityType('all')">👨‍💻 Total En Juego</button>
+                <button id="weekly-type-btn-game" class="filter-btn" onclick="setWeeklyActivityType('game')">🎮 En Juego Activo</button>
+                <button id="weekly-type-btn-all" class="filter-btn active" onclick="setWeeklyActivityType('all')">👨‍💻 Total En Juego</button>
             </div>
             <div id="weekly-grid"></div>
             <div id="weekly-range-label"></div>
-            <h3 id="stat-weekly-title">Total Horas Jugadas en la Semana (En Juego Activo)</h3>
+            <h3 id="stat-weekly-title">Total Horas Jugadas en la Semana (Total En Juego)</h3>
             <div id="stat-weekly-total-hours"></div>
             <a id="gemini-analysis-link"></a>
             <div id="gemini-no-data-weekly"></div>
@@ -43,7 +43,7 @@ async function runWeeklyUnitTests() {
     };
 
     // Test 0: Verify default state
-    assertEqual(window.weeklyActivityType, "game", "Default weekly activity type should be 'game'");
+    assertEqual(window.weeklyActivityType, "all", "Default weekly activity type should be 'all'");
 
     // Test 1: getLogicalDay (5 AM rollover and timezone robustness)
     // 2026-08-08 04:59:59 -> 2026-08-07
@@ -150,10 +150,10 @@ async function runWeeklyUnitTests() {
         const shiftBlocksReal = realMonCard.querySelectorAll('.shift-block');
         const realMonAfternoon = shiftBlocksReal[1];
         assertEqual(!realMonAfternoon.textContent.includes('Sin actividad'), true, "Monday Aug 31 has active sessions in afternoon shift");
-        assertEqual(realMonAfternoon.textContent.includes('6:13 PM'), true, "Monday Aug 31 active gameplay starts at 6:13 PM in 'game' mode");
+        assertEqual(realMonAfternoon.textContent.includes('6:13 PM'), true, "Monday Aug 31 Total En Juego starts at 6:13 PM in default 'all' mode");
 
-        // Test 11: Sunday Sep 6 real data in default ('game') mode:
-        // Active gameplay is 10h 9m 16s (Morning: 4h 38m 40s, Afternoon: 5h 30m 36s)
+        // Test 11: Sunday Sep 6 real data in default ('all') mode:
+        // Total En Juego is 10h 9m 16s (Morning: 4h 38m 40s, Afternoon: 5h 30m 36s) due to P99
         const realSunCard = cardsWithData[6];
         const sunShiftBlocks = realSunCard.querySelectorAll('.shift-block');
         const sunMorning = sunShiftBlocks[0];
@@ -161,26 +161,26 @@ async function runWeeklyUnitTests() {
         const sunTotal = realSunCard.querySelector('.day-total-footer').textContent;
         const weeklyTitle = window.document.getElementById('stat-weekly-title').textContent;
 
-        assertEqual(weeklyTitle.includes('(En Juego Activo)'), true, "Banner title indicates En Juego Activo by default");
-        assertEqual(sunMorning.textContent.includes('4h'), true, "Sunday morning active gameplay should be ~4h 38m");
-        assertEqual(sunAfternoon.textContent.includes('5h'), true, "Sunday afternoon active gameplay should be ~5h 30m");
-        assertEqual(sunTotal.includes('10h'), true, "Sunday total active gameplay should be 10h 9m 16s");
+        assertEqual(weeklyTitle.includes('(Total En Juego)'), true, "Banner title indicates Total En Juego by default");
+        assertEqual(sunMorning.textContent.includes('4h'), true, "Sunday morning play time should be ~4h 38m");
+        assertEqual(sunAfternoon.textContent.includes('5h'), true, "Sunday afternoon play time should be ~5h 30m");
+        assertEqual(sunTotal.includes('10h'), true, "Sunday total in 'all' mode should be 10h 9m 16s (clean P99, no idle socket)");
+        assertEqual(!sunTotal.includes('23h'), true, "Sunday total must not be inflated to 23h");
 
-        // Now toggle to 'all' mode:
-        window.setWeeklyActivityType('all');
-        const cardsAll = window.document.querySelectorAll('.weekly-day-card');
-        const sunTotalAll = cardsAll[6].querySelector('.day-total-footer').textContent;
-        const weeklyTitleAll = window.document.getElementById('stat-weekly-title').textContent;
-        assertEqual(weeklyTitleAll.includes('(Total En Juego)'), true, "Banner title indicates Total En Juego after switch");
-        assertEqual(sunTotalAll.includes('10h'), true, "Sunday total in 'all' mode should be 10h 9m 16s (clean P99, no idle socket)");
-        assertEqual(!sunTotalAll.includes('23h'), true, "Sunday total must not be inflated to 23h");
-
-        // Verify Monday Aug 31 in 'all' mode starts at 6:13 PM (clean P99)
-        const realMonAfternoonAll = cardsAll[0].querySelectorAll('.shift-block')[1];
-        assertEqual(realMonAfternoonAll.textContent.includes('6:13 PM'), true, "Monday Aug 31 Total En Juego starts at 6:13 PM in 'all' mode");
-
-        // Switch back to 'game' mode for remaining tests
+        // Now toggle to 'game' mode:
         window.setWeeklyActivityType('game');
+        const cardsGame = window.document.querySelectorAll('.weekly-day-card');
+        const sunTotalGame = cardsGame[6].querySelector('.day-total-footer').textContent;
+        const weeklyTitleGame = window.document.getElementById('stat-weekly-title').textContent;
+        assertEqual(weeklyTitleGame.includes('(En Juego Activo)'), true, "Banner title indicates En Juego Activo after switch");
+        assertEqual(sunTotalGame.includes('10h'), true, "Sunday total active gameplay should be 10h 9m 16s");
+
+        // Verify Monday Aug 31 in 'game' mode starts at 6:13 PM
+        const realMonAfternoonGame = cardsGame[0].querySelectorAll('.shift-block')[1];
+        assertEqual(realMonAfternoonGame.textContent.includes('6:13 PM'), true, "Monday Aug 31 active gameplay starts at 6:13 PM in 'game' mode");
+
+        // Switch back to 'all' mode
+        window.setWeeklyActivityType('all');
     }
 
     // Test 9: mergeIntervals and computeMergedDuration utility functions
