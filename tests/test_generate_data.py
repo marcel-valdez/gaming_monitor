@@ -256,8 +256,63 @@ class TestDataGenerator(unittest.TestCase):
             data = json.load(f)
 
         udp_sessions = [s for s in data if s['proto'] == 'UDP']
-        # Gap is 25 minutes (1500s > 1320s threshold) -> remains 2 sessions
+        # Gap is 25 minutes (1500s > 1320s threshold) -> remains 2 UDP sessions
         self.assertEqual(len(udp_sessions), 2)
+
+        tcp_sessions = [s for s in data if s['proto'] == 'TCP']
+        # Gap is 25 minutes (<= 70m P99 threshold) -> merges into 1 Total En Juego session
+        self.assertEqual(len(tcp_sessions), 1)
+        self.assertEqual(tcp_sessions[0]['duration_sec'], 5400) # 10:00 to 11:30
+
+    def test_total_en_juego_p99_threshold_merges(self):
+        """Verify that a 45m gap under TCP splits UDP (22m) but merges Total En Juego (70m)."""
+        log_content = """[2026-09-06 10:00:00] | PC - Roblox | TCP | ACTIVE | Session started.
+[2026-09-06 10:00:00] | PC - Roblox | UDP | ACTIVE | Session started.
+[2026-09-06 10:30:00] | PC - Roblox | UDP | IDLE   | Session ended. Total Duration: 1800s.
+[2026-09-06 11:15:00] | PC - Roblox | UDP | ACTIVE | Session started.
+[2026-09-06 12:00:00] | PC - Roblox | UDP | IDLE   | Session ended. Total Duration: 2700s.
+[2026-09-06 12:15:00] | PC - Roblox | TCP | IDLE   | Session ended. Total Duration: 8100s.
+"""
+        with open(self.log_file, 'w') as f:
+            f.write(log_content)
+
+        self.generator.generate()
+
+        with open(self.data_file, 'r') as f:
+            data = json.load(f)
+
+        udp_sessions = [s for s in data if s['proto'] == 'UDP']
+        self.assertEqual(len(udp_sessions), 2)
+
+        tcp_sessions = [s for s in data if s['proto'] == 'TCP']
+        self.assertEqual(len(tcp_sessions), 1)
+        self.assertEqual(tcp_sessions[0]['start_time_fmt'], '10:00 AM')
+        self.assertEqual(tcp_sessions[0]['end_time_fmt'], '12:00 PM')
+        self.assertEqual(tcp_sessions[0]['duration_sec'], 7200)
+
+    def test_total_en_juego_p99_exceeds_threshold_splits(self):
+        """Verify that an 80m gap under TCP (>70m P99) splits both UDP and Total En Juego."""
+        log_content = """[2026-09-06 10:00:00] | PC - Roblox | TCP | ACTIVE | Session started.
+[2026-09-06 10:00:00] | PC - Roblox | UDP | ACTIVE | Session started.
+[2026-09-06 10:30:00] | PC - Roblox | UDP | IDLE   | Session ended. Total Duration: 1800s.
+[2026-09-06 11:50:00] | PC - Roblox | UDP | ACTIVE | Session started.
+[2026-09-06 12:30:00] | PC - Roblox | UDP | IDLE   | Session ended. Total Duration: 2400s.
+[2026-09-06 13:00:00] | PC - Roblox | TCP | IDLE   | Session ended. Total Duration: 10800s.
+"""
+        with open(self.log_file, 'w') as f:
+            f.write(log_content)
+
+        self.generator.generate()
+
+        with open(self.data_file, 'r') as f:
+            data = json.load(f)
+
+        udp_sessions = [s for s in data if s['proto'] == 'UDP']
+        self.assertEqual(len(udp_sessions), 2)
+
+        tcp_sessions = [s for s in data if s['proto'] == 'TCP']
+        # 80m > 70m threshold -> splits into 2 Total En Juego sessions
+        self.assertEqual(len(tcp_sessions), 2)
 
 if __name__ == '__main__':
     unittest.main()

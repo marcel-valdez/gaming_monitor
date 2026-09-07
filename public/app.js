@@ -1,6 +1,10 @@
 var lastFetchedData = [];
 var statsTimeWindow = 'all'; // default 'all' (All time history)
 var statsActivityType = 'all'; // default 'all' (UDP + TCP sessions)
+var weeklyActivityType = 'game'; // default 'game' (En Juego Activo)
+if (typeof window !== 'undefined') {
+    window.weeklyActivityType = weeklyActivityType;
+}
 
 async function fetchData() {
     try {
@@ -253,8 +257,14 @@ function updateWeeklySummary() {
             startEpoch: dStart.getTime() / 1000,
             splitEpoch: dSplit.getTime() / 1000,
             endEpoch: dEnd.getTime() / 1000,
-            morning: { start: null, end: null, duration: 0, activeDuration: 0, devices: new Set(), intervals: [], udpIntervals: [] },
-            afternoon: { start: null, end: null, duration: 0, activeDuration: 0, devices: new Set(), intervals: [], udpIntervals: [] },
+            morning: {
+                start: null, end: null, duration: 0, activeDuration: 0, devices: new Set(), intervals: [],
+                udpStart: null, udpEnd: null, udpDevices: new Set(), udpIntervals: []
+            },
+            afternoon: {
+                start: null, end: null, duration: 0, activeDuration: 0, devices: new Set(), intervals: [],
+                udpStart: null, udpEnd: null, udpDevices: new Set(), udpIntervals: []
+            },
             total: 0,
             activeTotal: 0
         });
@@ -282,10 +292,16 @@ function updateWeeklySummary() {
                 const mEnd = Math.min(sEnd, day.splitEpoch);
                 if (mEnd > mStart) {
                     day.morning.intervals.push([mStart, mEnd]);
-                    if (isUDP) day.morning.udpIntervals.push([mStart, mEnd]);
                     if (day.morning.start === null || mStart < day.morning.start) day.morning.start = mStart;
                     if (day.morning.end === null || mEnd > day.morning.end) day.morning.end = mEnd;
                     day.morning.devices.add(session.device);
+
+                    if (isUDP) {
+                        day.morning.udpIntervals.push([mStart, mEnd]);
+                        if (day.morning.udpStart === null || mStart < day.morning.udpStart) day.morning.udpStart = mStart;
+                        if (day.morning.udpEnd === null || mEnd > day.morning.udpEnd) day.morning.udpEnd = mEnd;
+                        day.morning.udpDevices.add(session.device);
+                    }
                 }
 
                 // 2. Afternoon shift: [day.splitEpoch, day.endEpoch] (2:00 PM to 5:00 AM next day)
@@ -293,15 +309,22 @@ function updateWeeklySummary() {
                 const aEnd = Math.min(sEnd, day.endEpoch);
                 if (aEnd > aStart) {
                     day.afternoon.intervals.push([aStart, aEnd]);
-                    if (isUDP) day.afternoon.udpIntervals.push([aStart, aEnd]);
                     if (day.afternoon.start === null || aStart < day.afternoon.start) day.afternoon.start = aStart;
                     if (day.afternoon.end === null || aEnd > day.afternoon.end) day.afternoon.end = aEnd;
                     day.afternoon.devices.add(session.device);
+
+                    if (isUDP) {
+                        day.afternoon.udpIntervals.push([aStart, aEnd]);
+                        if (day.afternoon.udpStart === null || aStart < day.afternoon.udpStart) day.afternoon.udpStart = aStart;
+                        if (day.afternoon.udpEnd === null || aEnd > day.afternoon.udpEnd) day.afternoon.udpEnd = aEnd;
+                        day.afternoon.udpDevices.add(session.device);
+                    }
                 }
             });
         });
 
         // Compute merged durations (union of time intervals) to prevent overlapping sessions from inflating elapsed time
+        const isGameMode = weeklyActivityType === 'game';
         days.forEach(day => {
             day.morning.duration = computeMergedDuration(day.morning.intervals);
             day.morning.activeDuration = computeMergedDuration(day.morning.udpIntervals);
@@ -309,11 +332,12 @@ function updateWeeklySummary() {
             day.afternoon.activeDuration = computeMergedDuration(day.afternoon.udpIntervals);
             day.total = day.morning.duration + day.afternoon.duration;
             day.activeTotal = day.morning.activeDuration + day.afternoon.activeDuration;
-            weeklyTotalSecs += day.total;
+            weeklyTotalSecs += (isGameMode ? day.activeTotal : day.total);
         });
     }
 
     const todayStr = formatLocalDate(new Date());
+    const isGameMode = weeklyActivityType === 'game';
 
     // Render cards
     days.forEach(day => {
@@ -323,33 +347,52 @@ function updateWeeklySummary() {
         const isFuture = day.dateStr > todayStr;
 
         const renderShift = (title, data) => {
-            if (data.duration === 0) {
+            const shiftDur = isGameMode ? data.activeDuration : data.duration;
+            if (shiftDur === 0) {
                 const statusText = isFuture ? 'Pendiente' : 'Sin actividad';
                 return `<div class="shift-block"><div class="shift-title">${title}</div><div class="shift-metrics">${statusText}</div></div>`;
             }
 
-            const startStr = formatTimeFromSeconds(getSecondsSinceMidnight(new Date(data.start * 1000)));
-            const endStr = formatTimeFromSeconds(getSecondsSinceMidnight(new Date(data.end * 1000)));
+            const shiftStart = isGameMode ? data.udpStart : data.start;
+            const shiftEnd = isGameMode ? data.udpEnd : data.end;
+            const startStr = formatTimeFromSeconds(getSecondsSinceMidnight(new Date(shiftStart * 1000)));
+            const endStr = formatTimeFromSeconds(getSecondsSinceMidnight(new Date(shiftEnd * 1000)));
 
+            const devSet = isGameMode ? data.udpDevices : data.devices;
             let deviceIcons = '';
-            if (data.devices.has('PC')) deviceIcons += '<span title="Jugado en PC">💻</span>';
-            if (data.devices.has('Phone')) deviceIcons += '<span title="Jugado en Celular">📱</span>';
+            if (devSet.has('PC')) deviceIcons += '<span title="Jugado en PC">💻</span>';
+            if (devSet.has('Phone')) deviceIcons += '<span title="Jugado en Celular">📱</span>';
 
-            const activeTooltip = (data.activeDuration > 0 && data.activeDuration !== data.duration)
-                ? ` title="Total pantalla: ${formatDuration(data.duration)} (En juego activo: ${formatDuration(data.activeDuration)})"`
-                : '';
+            let activeTooltip = '';
+            if (data.duration > data.activeDuration) {
+                if (isGameMode) {
+                    activeTooltip = ` title="En juego activo: ${formatDuration(data.activeDuration)} (Total pantalla: ${formatDuration(data.duration)})"`;
+                } else {
+                    activeTooltip = ` title="Total pantalla: ${formatDuration(data.duration)} (En juego activo: ${formatDuration(data.activeDuration)})"`;
+                }
+            }
 
             return `
                 <div class="shift-block">
                     <div class="shift-title">${title}</div>
                     <div class="shift-metrics">
                         <span>🕒 ${startStr} - ${endStr}</span>
-                        <span${activeTooltip}>⏳ ${formatDuration(data.duration)}</span>
+                        <span${activeTooltip}>⏳ ${formatDuration(shiftDur)}</span>
                         <div class="shift-devices">${deviceIcons}</div>
                     </div>
                 </div>
             `;
         };
+
+        const dayTotal = isGameMode ? day.activeTotal : day.total;
+        let dayFooterTooltip = '';
+        if (day.total > day.activeTotal) {
+            if (isGameMode) {
+                dayFooterTooltip = ` title="En juego activo: ${formatDuration(day.activeTotal)} (Total pantalla: ${formatDuration(day.total)})"`;
+            } else {
+                dayFooterTooltip = ` title="Total pantalla: ${formatDuration(day.total)} (En juego activo: ${formatDuration(day.activeTotal)})"`;
+            }
+        }
 
         card.innerHTML = `
             <div class="weekly-day-header">
@@ -358,16 +401,27 @@ function updateWeeklySummary() {
             </div>
             ${renderShift('🌅 MAÑANA', day.morning)}
             ${renderShift('🌇 TARDE / NOCHE', day.afternoon)}
-            <div class="day-total-footer"${day.activeTotal > 0 && day.activeTotal !== day.total ? ` title="Total pantalla: ${formatDuration(day.total)} (En juego activo: ${formatDuration(day.activeTotal)})"` : ''}>
-                Total: ${formatDuration(day.total)}
+            <div class="day-total-footer"${dayFooterTooltip}>
+                Total: ${formatDuration(dayTotal)}
             </div>
         `;
         grid.appendChild(card);
     });
 
+    const weeklyTitleEl = document.getElementById('stat-weekly-title');
+    if (weeklyTitleEl) {
+        const titleStr = isGameMode 
+            ? 'Total Horas Jugadas en la Semana (En Juego Activo)'
+            : 'Total Horas Jugadas en la Semana (Total En Juego)';
+        weeklyTitleEl.textContent = titleStr;
+        weeklyTitleEl.innerText = titleStr;
+    }
+
     const weeklyTotalEl = document.getElementById('stat-weekly-total-hours');
     if (weeklyTotalEl) {
-        weeklyTotalEl.innerText = formatDuration(weeklyTotalSecs);
+        const durStr = formatDuration(weeklyTotalSecs);
+        weeklyTotalEl.textContent = durStr;
+        weeklyTotalEl.innerText = durStr;
     }
 
     const rangeLabel = document.getElementById('weekly-range-label') ? document.getElementById('weekly-range-label').innerText : "esta semana";
@@ -376,6 +430,24 @@ function updateWeeklySummary() {
 
 
 // Filter setters
+window.setWeeklyActivityType = function(type) {
+    weeklyActivityType = type;
+    if (typeof window !== 'undefined') {
+        window.weeklyActivityType = type;
+    }
+    document.querySelectorAll('#weekly-type-filters .filter-btn').forEach(btn => btn.classList.remove('active'));
+    
+    if (type === 'game') {
+        const btn = document.getElementById('weekly-type-btn-game');
+        if (btn) btn.classList.add('active');
+    } else if (type === 'all') {
+        const btn = document.getElementById('weekly-type-btn-all');
+        if (btn) btn.classList.add('active');
+    }
+    
+    updateWeeklySummary();
+};
+
 window.setStatsTimeWindow = function(days) {
     statsTimeWindow = days;
     document.querySelectorAll('#time-filters .filter-btn').forEach(btn => btn.classList.remove('active'));

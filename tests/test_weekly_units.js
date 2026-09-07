@@ -6,8 +6,13 @@ async function runWeeklyUnitTests() {
     console.log("=== Running Weekly JS Unit Tests ===");
     const html = `<!DOCTYPE html><html><body>
         <div id="tab-weekly">
+            <div class="filter-buttons" id="weekly-type-filters">
+                <button id="weekly-type-btn-game" class="filter-btn active" onclick="setWeeklyActivityType('game')">🎮 En Juego Activo</button>
+                <button id="weekly-type-btn-all" class="filter-btn" onclick="setWeeklyActivityType('all')">👨‍💻 Total En Juego</button>
+            </div>
             <div id="weekly-grid"></div>
             <div id="weekly-range-label"></div>
+            <h3 id="stat-weekly-title">Total Horas Jugadas en la Semana (En Juego Activo)</h3>
             <div id="stat-weekly-total-hours"></div>
             <a id="gemini-analysis-link"></a>
             <div id="gemini-no-data-weekly"></div>
@@ -36,6 +41,9 @@ async function runWeeklyUnitTests() {
             console.log(`✅ PASS: ${message}`);
         }
     };
+
+    // Test 0: Verify default state
+    assertEqual(window.weeklyActivityType, "game", "Default weekly activity type should be 'game'");
 
     // Test 1: getLogicalDay (5 AM rollover and timezone robustness)
     // 2026-08-08 04:59:59 -> 2026-08-07
@@ -82,7 +90,7 @@ async function runWeeklyUnitTests() {
     assertEqual(cards.length, 7, "Should still render 7 cards for empty week");
     
     const weeklyTotalEl = window.document.getElementById('stat-weekly-total-hours');
-    assertEqual(weeklyTotalEl.innerText, "0s", "Weekly total should be 0s for empty week");
+    assertEqual(weeklyTotalEl.textContent || weeklyTotalEl.innerText, "0s", "Weekly total should be 0s for empty week");
 
     const linkWeekly = window.document.querySelector('#tab-weekly #gemini-analysis-link');
     const noDataMsgWeekly = window.document.querySelector('#tab-weekly #gemini-no-data-weekly');
@@ -142,21 +150,37 @@ async function runWeeklyUnitTests() {
         const shiftBlocksReal = realMonCard.querySelectorAll('.shift-block');
         const realMonAfternoon = shiftBlocksReal[1];
         assertEqual(!realMonAfternoon.textContent.includes('Sin actividad'), true, "Monday Aug 31 has active sessions in afternoon shift");
-        assertEqual(realMonAfternoon.textContent.includes('5:12 PM'), true, "Monday Aug 31 starts at 5:12 PM");
+        assertEqual(realMonAfternoon.textContent.includes('6:13 PM'), true, "Monday Aug 31 active gameplay starts at 6:13 PM in 'game' mode");
 
-        // Test 11: Sunday Sep 6 real data duration should never exceed physical span (~13h 22m, not 23h 37m)
+        // Test 11: Sunday Sep 6 real data in default ('game') mode:
+        // Active gameplay is 10h 9m 16s (Morning: 4h 38m 40s, Afternoon: 5h 30m 36s)
         const realSunCard = cardsWithData[6];
         const sunShiftBlocks = realSunCard.querySelectorAll('.shift-block');
         const sunMorning = sunShiftBlocks[0];
         const sunAfternoon = sunShiftBlocks[1];
         const sunTotal = realSunCard.querySelector('.day-total-footer').textContent;
+        const weeklyTitle = window.document.getElementById('stat-weekly-title').textContent;
 
-        assertEqual(sunMorning.textContent.includes('4h'), true, "Sunday morning should be ~4h 40m, not 8h 58m");
-        assertEqual(!sunMorning.textContent.includes('8h'), true, "Sunday morning must not double count to 8h");
-        assertEqual(sunAfternoon.textContent.includes('8h'), true, "Sunday afternoon should be ~8h 40m, not 14h 39m");
-        assertEqual(!sunAfternoon.textContent.includes('14h'), true, "Sunday afternoon must not double count to 14h");
-        assertEqual(sunTotal.includes('13h'), true, "Sunday total should be ~13h, not 23h");
-        assertEqual(!sunTotal.includes('23h'), true, "Sunday total must not be inflated to 23h");
+        assertEqual(weeklyTitle.includes('(En Juego Activo)'), true, "Banner title indicates En Juego Activo by default");
+        assertEqual(sunMorning.textContent.includes('4h'), true, "Sunday morning active gameplay should be ~4h 38m");
+        assertEqual(sunAfternoon.textContent.includes('5h'), true, "Sunday afternoon active gameplay should be ~5h 30m");
+        assertEqual(sunTotal.includes('10h'), true, "Sunday total active gameplay should be 10h 9m 16s");
+
+        // Now toggle to 'all' mode:
+        window.setWeeklyActivityType('all');
+        const cardsAll = window.document.querySelectorAll('.weekly-day-card');
+        const sunTotalAll = cardsAll[6].querySelector('.day-total-footer').textContent;
+        const weeklyTitleAll = window.document.getElementById('stat-weekly-title').textContent;
+        assertEqual(weeklyTitleAll.includes('(Total En Juego)'), true, "Banner title indicates Total En Juego after switch");
+        assertEqual(sunTotalAll.includes('10h'), true, "Sunday total in 'all' mode should be 10h 9m 16s (clean P99, no idle socket)");
+        assertEqual(!sunTotalAll.includes('23h'), true, "Sunday total must not be inflated to 23h");
+
+        // Verify Monday Aug 31 in 'all' mode starts at 6:13 PM (clean P99)
+        const realMonAfternoonAll = cardsAll[0].querySelectorAll('.shift-block')[1];
+        assertEqual(realMonAfternoonAll.textContent.includes('6:13 PM'), true, "Monday Aug 31 Total En Juego starts at 6:13 PM in 'all' mode");
+
+        // Switch back to 'game' mode for remaining tests
+        window.setWeeklyActivityType('game');
     }
 
     // Test 9: mergeIntervals and computeMergedDuration utility functions
@@ -167,7 +191,7 @@ async function runWeeklyUnitTests() {
     const testIntervals3 = [[300, 400], [100, 200]]; // disjoint unsorted
     assertEqual(window.computeMergedDuration(testIntervals3), 200, "Disjoint unsorted intervals merge to 200s");
 
-    // Test 10: Overlapping concurrent sessions in a shift (e.g. 9:00 AM-12:00 PM and 10:00 AM-1:00 PM)
+    // Test 10: Overlapping concurrent sessions in a shift (e.g. 9:00 AM-12:00 PM TCP and 10:00 AM-1:00 PM UDP)
     const mon9AM = Math.floor(range.start.getTime() / 1000) + 4 * 3600; // 9:00 AM
     const mon12PM_test = Math.floor(range.start.getTime() / 1000) + 7 * 3600; // 12:00 PM
     const mon10AM = Math.floor(range.start.getTime() / 1000) + 5 * 3600; // 10:00 AM
@@ -190,12 +214,42 @@ async function runWeeklyUnitTests() {
             end: '2026-08-31 13:00:00'
         }
     ];
+    // In 'game' mode (default): Only UDP is counted (10:00 AM - 1:00 PM = 3h, Phone only)
+    window.setWeeklyActivityType('game');
     window.updateWeeklySummary();
     const overlapCards = window.document.querySelectorAll('.weekly-day-card');
     const overlapMonCard = overlapCards[0];
-    const overlapMorning = overlapMonCard.querySelectorAll('.shift-block')[0];
-    assertEqual(overlapMorning.textContent.includes('4h'), true, "Overlapping 3h sessions from 9-12 and 10-1 merge to 4h total (not 6h)");
-    assertEqual(!overlapMorning.textContent.includes('6h'), true, "Must not sum to 6h");
+    const overlapMorningGame = overlapMonCard.querySelectorAll('.shift-block')[0];
+    assertEqual(overlapMorningGame.textContent.includes('3h'), true, "In 'game' mode, only UDP session (3h) is shown");
+    assertEqual(overlapMorningGame.textContent.includes('📱'), true, "In 'game' mode, phone device icon is present");
+    assertEqual(!overlapMorningGame.textContent.includes('💻'), true, "In 'game' mode, PC (TCP only) device icon is absent");
+
+    // In 'all' mode: Both TCP (9-12) and UDP (10-1) are merged to 4h (9-1) with both devices
+    window.setWeeklyActivityType('all');
+    const overlapCardsAll = window.document.querySelectorAll('.weekly-day-card');
+    const overlapMorningAll = overlapCardsAll[0].querySelectorAll('.shift-block')[0];
+    assertEqual(overlapMorningAll.textContent.includes('4h'), true, "In 'all' mode, overlapping 3h TCP & UDP merge to 4h total");
+    assertEqual(overlapMorningAll.textContent.includes('📱') && overlapMorningAll.textContent.includes('💻'), true, "In 'all' mode, both device icons are shown");
+
+    // Test 12: Shift with ONLY TCP traffic shows 'Sin actividad' in 'game' mode and duration in 'all' mode
+    window.setWeeklyActivityType('game');
+    window.lastFetchedData = [{
+        start_epoch: mon9AM,
+        end_epoch: mon12PM_test,
+        duration_sec: 10800,
+        device: 'PC',
+        proto: 'TCP',
+        end: '2026-08-31 12:00:00'
+    }];
+    window.updateWeeklySummary();
+    const tcpOnlyCards = window.document.querySelectorAll('.weekly-day-card');
+    const tcpMonMorning = tcpOnlyCards[0].querySelectorAll('.shift-block')[0];
+    assertEqual(tcpMonMorning.textContent.includes('Sin actividad') || tcpMonMorning.textContent.includes('Pendiente'), true, "TCP-only traffic shows 'Sin actividad' in 'game' mode");
+    
+    window.setWeeklyActivityType('all');
+    const tcpOnlyCardsAll = window.document.querySelectorAll('.weekly-day-card');
+    const tcpMonMorningAll = tcpOnlyCardsAll[0].querySelectorAll('.shift-block')[0];
+    assertEqual(tcpMonMorningAll.textContent.includes('3h'), true, "TCP-only traffic shows 3h in 'all' mode");
 
     if (allPassed) {
         console.log("=== Weekly JS Unit Tests Passed Successfully ===");
