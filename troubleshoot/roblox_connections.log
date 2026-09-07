@@ -1,0 +1,1437 @@
+[2026-08-09 20:23:06] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-09 20:23:06] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-09 20:27:23] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 257s.
+[2026-08-09 20:37:02] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-09 20:42:25] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 323s.
+[2026-08-09 20:47:46] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-09 20:52:03] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 257s.
+[2026-08-09 20:56:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-09 21:01:40] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 320s.
+[2026-08-09 21:02:44] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 2378s.
+[2026-08-09 21:36:40] | Phone - Roblox  | TCP | ACTIVE   | Session started.
+[2026-08-09 21:45:12] | Phone - Roblox  | UDP | ACTIVE   | Session started.
+[2026-08-09 21:54:47] | Phone - Roblox  | UDP | IDLE     | Session ended. Total Duration: 575s.
+[2026-08-09 22:05:24] | Phone - Roblox  | UDP | ACTIVE   | Session started.
+[2026-08-09 22:05:24] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-09 22:09:38] | Phone - Roblox  | UDP | IDLE     | Session ended. Total Duration: 254s.
+[2026-08-09 22:09:39] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 254s.
+[2026-08-09 22:19:18] | Phone - Roblox  | UDP | ACTIVE   | Session started.
+[2026-08-09 22:19:19] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-09 22:21:32] | Phone - Roblox  | TCP | IDLE     | Session ended. Total Duration: 2691s.
+[2026-08-09 22:21:32] | Phone - Roblox  | UDP | IDLE     | Session ended. Total Duration: 133s.
+[2026-08-09 22:21:32] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-09 22:21:32] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 133s.
+[2026-08-09 22:22:37] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 66s.
+[2026-08-10 06:03:21] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-10 06:39:31] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 2170s.
+[2026-08-10 13:08:28] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-10 15:01:28] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 6781s.
+[2026-08-10 17:09:43] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-10 17:25:46] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-10 17:32:14] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 388s.
+[2026-08-10 17:33:18] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-10 17:38:39] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 321s.
+[2026-08-10 17:41:53] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-10 17:46:12] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 258s.
+[2026-08-10 17:55:56] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-10 18:08:57] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 781s.
+[2026-08-10 18:10:03] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-10 18:16:33] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 391s.
+[2026-08-10 18:19:46] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-10 18:27:19] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 453s.
+[2026-08-10 18:44:29] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-10 19:16:47] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1938s.
+[2026-08-10 19:20:00] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-10 19:24:18] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 258s.
+[2026-08-10 19:29:40] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-10 19:35:02] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 322s.
+[2026-08-10 19:40:25] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-10 19:45:47] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 322s.
+[2026-08-10 20:08:19] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-10 20:13:42] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 323s.
+[2026-08-10 20:24:27] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-10 20:37:22] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 775s.
+[2026-08-10 20:41:40] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-10 21:06:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1504s.
+[2026-08-10 22:02:54] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-10 22:07:13] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 259s.
+[2026-08-10 22:11:33] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-10 22:12:39] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 18176s.
+[2026-08-10 22:13:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 131s.
+[2026-08-11 06:24:18] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-11 06:41:38] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 1039s.
+[2026-08-11 13:37:51] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-11 14:30:03] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-11 14:34:24] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 261s.
+[2026-08-11 14:36:37] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-11 14:40:59] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 262s.
+[2026-08-11 14:43:11] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-11 14:48:39] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-08-11 14:50:50] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-11 14:55:14] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 264s.
+[2026-08-11 17:05:43] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-11 18:08:31] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 3768s.
+[2026-08-11 21:09:23] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 27092s.
+[2026-08-11 21:28:57] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-11 21:34:27] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-11 21:38:52] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 265s.
+[2026-08-11 21:39:58] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-11 21:47:41] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 462s.
+[2026-08-11 21:47:41] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 1123s.
+[2026-08-11 21:54:16] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-11 21:55:24] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-11 22:00:57] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 333s.
+[2026-08-11 22:02:04] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-11 22:06:27] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 264s.
+[2026-08-11 22:08:39] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-11 22:32:50] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 2314s.
+[2026-08-11 22:35:01] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1582s.
+[2026-08-12 14:22:09] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-12 14:35:28] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-12 14:37:41] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 133s.
+[2026-08-12 16:08:42] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 6393s.
+[2026-08-12 16:14:07] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-12 17:08:53] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-12 17:16:27] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 454s.
+[2026-08-12 17:22:49] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-12 17:27:04] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 255s.
+[2026-08-12 17:32:28] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-12 17:37:49] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 321s.
+[2026-08-12 18:08:34] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-12 18:23:25] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 891s.
+[2026-08-12 18:25:33] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-12 18:43:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1091s.
+[2026-08-12 19:39:46] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-12 19:56:43] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1017s.
+[2026-08-12 20:01:59] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-12 20:06:14] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 255s.
+[2026-08-12 20:15:44] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-12 20:21:02] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 318s.
+[2026-08-12 20:54:52] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-12 21:01:12] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 380s.
+[2026-08-12 21:14:53] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-12 21:20:08] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 316s.
+[2026-08-12 21:28:36] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-12 21:33:56] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 320s.
+[2026-08-12 21:36:03] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-12 21:41:21] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 319s.
+[2026-08-12 21:47:41] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-12 21:49:49] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 128s.
+[2026-08-12 22:48:05] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 23637s.
+[2026-08-13 18:25:37] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-13 19:59:40] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-13 20:06:16] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 396s.
+[2026-08-13 20:14:00] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-13 20:15:06] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 65s.
+[2026-08-13 20:31:13] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 7537s.
+[2026-08-13 22:13:55] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-13 22:15:01] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-13 22:32:21] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1040s.
+[2026-08-13 22:40:01] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 1566s.
+[2026-08-14 16:17:30] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-14 16:57:34] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 17:10:16] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 761s.
+[2026-08-14 17:15:34] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 17:20:52] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 318s.
+[2026-08-14 17:27:12] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 17:32:28] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 316s.
+[2026-08-14 17:41:59] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 17:47:19] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 320s.
+[2026-08-14 17:48:23] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 17:53:41] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 317s.
+[2026-08-14 18:11:42] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 18:17:00] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 317s.
+[2026-08-14 18:18:03] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 18:24:28] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 385s.
+[2026-08-14 18:40:23] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 18:45:38] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 315s.
+[2026-08-14 18:54:03] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 19:03:33] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 570s.
+[2026-08-14 19:04:36] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 19:10:56] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 380s.
+[2026-08-14 19:19:27] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 19:25:46] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 379s.
+[2026-08-14 19:32:04] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 19:37:19] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 315s.
+[2026-08-14 19:38:23] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 19:46:48] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 505s.
+[2026-08-14 19:58:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 20:03:35] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 315s.
+[2026-08-14 20:11:00] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 20:17:22] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 382s.
+[2026-08-14 20:25:49] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 20:31:06] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 317s.
+[2026-08-14 20:38:28] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 20:43:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 316s.
+[2026-08-14 20:51:07] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 20:56:33] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 326s.
+[2026-08-14 21:11:02] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 21:24:17] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 795s.
+[2026-08-14 21:29:59] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 21:34:28] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 269s.
+[2026-08-14 21:35:33] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 21:45:53] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 620s.
+[2026-08-14 21:53:52] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 22:12:58] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1146s.
+[2026-08-14 22:25:54] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 22:30:20] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 266s.
+[2026-08-14 23:38:39] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 23:44:02] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 323s.
+[2026-08-14 23:51:45] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-14 23:57:22] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 337s.
+[2026-08-15 00:06:11] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 00:11:46] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 334s.
+[2026-08-15 00:12:58] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 00:20:35] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 457s.
+[2026-08-15 00:33:50] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 00:39:27] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 338s.
+[2026-08-15 00:40:33] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 30183s.
+[2026-08-15 00:41:38] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-15 00:41:38] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 00:48:45] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 426s.
+[2026-08-15 00:51:03] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 00:56:35] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 333s.
+[2026-08-15 00:57:40] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 961s.
+[2026-08-15 09:27:46] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-15 11:13:55] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 11:24:39] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 644s.
+[2026-08-15 11:32:13] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 11:41:57] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 584s.
+[2026-08-15 11:46:13] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 12:01:12] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 899s.
+[2026-08-15 12:03:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 12:07:36] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 256s.
+[2026-08-15 12:22:31] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 12:26:50] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 259s.
+[2026-08-15 12:38:33] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 12:43:53] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 320s.
+[2026-08-15 13:01:58] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 13:07:17] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 319s.
+[2026-08-15 13:08:21] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 13:13:41] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 320s.
+[2026-08-15 13:49:57] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 13:54:12] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 255s.
+[2026-08-15 14:21:55] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 14:29:22] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 447s.
+[2026-08-15 14:36:49] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 14:41:05] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 256s.
+[2026-08-15 14:46:23] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 14:57:02] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 638s.
+[2026-08-15 15:21:27] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 15:26:46] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 319s.
+[2026-08-15 15:29:58] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 15:35:18] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 319s.
+[2026-08-15 15:41:39] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 15:47:00] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 320s.
+[2026-08-15 15:58:42] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 16:04:03] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 320s.
+[2026-08-15 16:10:27] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 16:15:47] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 320s.
+[2026-08-15 16:16:52] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 16:30:55] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 843s.
+[2026-08-15 16:53:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 16:58:40] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 321s.
+[2026-08-15 17:17:53] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 17:23:14] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 321s.
+[2026-08-15 17:25:22] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 17:29:39] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 257s.
+[2026-08-15 17:31:48] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 17:37:08] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 321s.
+[2026-08-15 17:52:06] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 18:02:48] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 642s.
+[2026-08-15 18:08:10] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 18:13:30] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 320s.
+[2026-08-15 18:32:44] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 18:38:05] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 321s.
+[2026-08-15 18:39:10] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 18:44:31] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 321s.
+[2026-08-15 18:50:55] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 18:55:12] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 257s.
+[2026-08-15 19:00:32] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 19:05:53] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 321s.
+[2026-08-15 19:11:13] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 19:16:34] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 320s.
+[2026-08-15 19:37:54] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 19:42:10] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 256s.
+[2026-08-15 20:24:50] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 20:31:15] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 385s.
+[2026-08-15 20:39:47] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 40321s.
+[2026-08-15 21:56:22] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-15 21:59:45] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 22:05:08] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 324s.
+[2026-08-15 22:12:38] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 22:23:19] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 641s.
+[2026-08-15 22:34:00] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 22:39:22] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 321s.
+[2026-08-15 22:42:35] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 22:55:27] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 772s.
+[2026-08-15 23:00:48] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 23:06:09] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 321s.
+[2026-08-15 23:24:25] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-15 23:27:39] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 193s.
+[2026-08-15 23:41:34] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 6312s.
+[2026-08-16 10:11:56] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-16 10:28:35] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 10:33:05] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 270s.
+[2026-08-16 10:43:53] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 10:49:17] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 324s.
+[2026-08-16 11:14:09] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 11:19:33] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 324s.
+[2026-08-16 11:50:48] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 11:55:08] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 260s.
+[2026-08-16 11:56:13] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 12:01:37] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 324s.
+[2026-08-16 12:09:11] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 12:13:38] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 267s.
+[2026-08-16 12:17:59] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 12:23:23] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 324s.
+[2026-08-16 12:25:33] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 12:29:52] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 259s.
+[2026-08-16 12:34:11] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 13:23:56] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 2985s.
+[2026-08-16 13:25:02] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 13:48:01] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1379s.
+[2026-08-16 13:53:28] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 13:58:56] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-08-16 14:08:41] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 14:14:23] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 342s.
+[2026-08-16 14:17:44] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 14:22:18] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 273s.
+[2026-08-16 14:27:42] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 14:33:08] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 326s.
+[2026-08-16 14:38:31] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 14:43:57] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 326s.
+[2026-08-16 14:46:11] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 14:51:35] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 324s.
+[2026-08-16 15:23:07] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 15:28:35] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-08-16 15:30:45] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 15:36:10] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 324s.
+[2026-08-16 15:56:41] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 16:02:05] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 324s.
+[2026-08-16 16:07:29] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 16:11:48] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 260s.
+[2026-08-16 16:19:21] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 16:24:45] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 325s.
+[2026-08-16 16:55:56] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 17:03:29] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 454s.
+[2026-08-16 17:08:55] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 17:13:15] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 260s.
+[2026-08-16 17:14:21] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 17:25:09] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 648s.
+[2026-08-16 17:40:13] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 17:45:38] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 325s.
+[2026-08-16 17:47:47] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 17:53:11] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 324s.
+[2026-08-16 18:05:02] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 18:10:26] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 324s.
+[2026-08-16 18:13:42] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 18:19:06] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 325s.
+[2026-08-16 18:35:22] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 18:40:47] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 325s.
+[2026-08-16 18:46:10] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 18:51:35] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 325s.
+[2026-08-16 19:04:36] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 19:10:04] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-08-16 19:37:00] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 19:42:23] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 324s.
+[2026-08-16 19:43:28] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 19:51:01] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 453s.
+[2026-08-16 20:09:25] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 20:14:49] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 324s.
+[2026-08-16 20:19:08] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 20:31:01] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 713s.
+[2026-08-16 20:34:15] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 20:44:00] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 585s.
+[2026-08-16 20:45:05] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 20:53:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 518s.
+[2026-08-16 20:55:54] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 21:02:23] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 389s.
+[2026-08-16 21:13:11] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-16 21:17:31] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 260s.
+[2026-08-16 22:36:07] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 44651s.
+[2026-08-16 22:46:54] | Phone - Roblox  | TCP | ACTIVE   | Session started.
+[2026-08-16 22:48:01] | Phone - Roblox  | TCP | IDLE     | Session ended (connection lost). Total Duration: 67s.
+[2026-08-17 18:45:16] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-17 19:26:24] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-17 19:28:35] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 131s.
+[2026-08-17 19:57:44] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-17 20:01:00] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 196s.
+[2026-08-17 20:03:10] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-17 20:08:36] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 326s.
+[2026-08-17 20:09:36] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 5060s.
+[2026-08-17 20:14:50] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-17 20:14:50] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-17 20:22:24] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 455s.
+[2026-08-17 20:23:29] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-17 20:31:06] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 456s.
+[2026-08-17 20:32:11] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-17 21:02:33] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1822s.
+[2026-08-17 21:11:13] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-17 21:16:43] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 331s.
+[2026-08-17 21:27:43] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-17 21:33:08] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 325s.
+[2026-08-17 21:38:32] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-17 21:43:56] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 324s.
+[2026-08-17 22:01:14] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-17 22:06:40] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 325s.
+[2026-08-17 22:13:09] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-17 22:18:34] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 325s.
+[2026-08-17 22:28:20] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 8010s.
+[2026-08-18 13:25:57] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-18 14:46:53] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-18 14:52:22] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-08-18 14:54:33] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-18 15:00:00] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-08-18 15:09:49] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-18 15:15:17] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-08-18 15:20:49] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-18 15:31:49] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 660s.
+[2026-08-18 15:56:54] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-18 16:04:33] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 459s.
+[2026-08-18 16:07:49] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-18 16:17:39] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 590s.
+[2026-08-18 22:32:35] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 32798s.
+[2026-08-20 13:15:18] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-20 13:37:11] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-20 13:51:24] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 853s.
+[2026-08-20 14:00:07] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-20 14:07:45] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 458s.
+[2026-08-20 14:14:18] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-20 14:19:46] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-20 14:21:57] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-20 14:27:24] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-20 14:58:58] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-20 15:06:36] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 458s.
+[2026-08-20 15:21:53] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-20 15:26:15] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 262s.
+[2026-08-20 15:50:19] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-20 15:56:00] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 341s.
+[2026-08-20 16:05:51] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-20 16:16:47] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 656s.
+[2026-08-20 16:39:40] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-20 16:45:08] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-08-20 16:50:34] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-20 16:54:57] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 262s.
+[2026-08-20 17:03:39] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-20 17:12:25] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 525s.
+[2026-08-20 17:28:47] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-20 17:34:17] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 330s.
+[2026-08-20 17:36:29] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-20 17:41:56] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-20 18:09:06] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 17628s.
+[2026-08-20 21:00:01] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-20 22:31:33] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 5492s.
+[2026-08-21 14:14:46] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-21 14:20:15] | Phone - Roblox  | TCP | ACTIVE   | Session started.
+[2026-08-21 14:20:15] | Phone - Roblox  | UDP | ACTIVE   | Session started.
+[2026-08-21 14:20:16] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 14:21:23] | Phone - Roblox  | TCP | IDLE     | Session ended. Total Duration: 68s.
+[2026-08-21 14:25:46] | Phone - Roblox  | UDP | IDLE     | Session ended. Total Duration: 331s.
+[2026-08-21 14:25:46] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 331s.
+[2026-08-21 14:31:16] | Phone - Roblox  | UDP | ACTIVE   | Session started.
+[2026-08-21 14:31:16] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 14:33:28] | Phone - Roblox  | UDP | IDLE     | Session ended. Total Duration: 132s.
+[2026-08-21 14:37:50] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 394s.
+[2026-08-21 14:42:10] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 14:49:48] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 458s.
+[2026-08-21 15:10:27] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 15:15:53] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 326s.
+[2026-08-21 15:24:34] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 15:35:25] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 651s.
+[2026-08-21 16:11:15] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 16:15:36] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 262s.
+[2026-08-21 16:31:57] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 16:37:24] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-21 16:43:56] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 16:49:23] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-21 16:55:54] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 17:01:21] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-21 17:20:56] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 17:25:17] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 261s.
+[2026-08-21 17:42:41] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 17:48:08] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-21 17:53:35] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 17:57:56] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 262s.
+[2026-08-21 18:03:22] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 18:13:10] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 588s.
+[2026-08-21 18:18:38] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 18:27:21] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 522s.
+[2026-08-21 18:32:47] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 18:38:13] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-21 18:39:19] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 18:50:12] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 654s.
+[2026-08-21 18:51:18] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 19:01:05] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 587s.
+[2026-08-21 19:30:48] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 19:47:09] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 981s.
+[2026-08-21 19:54:47] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 20:00:14] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-21 20:35:22] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 20:40:52] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 331s.
+[2026-08-21 20:41:57] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 20:52:51] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 654s.
+[2026-08-21 20:56:08] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 21:01:40] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 332s.
+[2026-08-21 21:03:51] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 21:14:51] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 660s.
+[2026-08-21 21:19:16] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 21:24:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 329s.
+[2026-08-21 21:32:21] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 21:36:43] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 262s.
+[2026-08-21 21:41:05] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 21:46:36] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 332s.
+[2026-08-21 21:49:57] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 21:54:22] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 265s.
+[2026-08-21 21:57:39] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 22:03:07] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-08-21 22:37:05] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 22:41:29] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 265s.
+[2026-08-21 22:43:41] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 22:49:09] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-08-21 23:23:05] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 23:40:36] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1051s.
+[2026-08-21 23:44:58] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-21 23:50:25] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-22 00:00:12] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 00:05:39] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-22 00:14:22] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 35976s.
+[2026-08-22 00:15:29] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-22 00:18:47] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 00:26:27] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 459s.
+[2026-08-22 00:27:33] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 00:36:15] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 522s.
+[2026-08-22 00:40:37] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 00:46:07] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 330s.
+[2026-08-22 00:50:30] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 00:54:53] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 263s.
+[2026-08-22 00:55:59] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 01:09:04] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 785s.
+[2026-08-22 01:15:35] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 01:26:31] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 656s.
+[2026-08-22 01:28:43] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 01:48:24] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1181s.
+[2026-08-22 01:56:01] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 6033s.
+[2026-08-22 10:43:58] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-22 10:43:58] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 10:49:27] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 330s.
+[2026-08-22 10:52:43] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 10:58:10] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-22 11:06:52] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 11:12:19] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-08-22 11:15:36] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 11:21:02] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-22 11:49:17] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 11:54:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-22 11:55:50] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 12:00:11] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 261s.
+[2026-08-22 12:08:53] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 12:13:14] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 261s.
+[2026-08-22 12:14:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 12:19:47] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-22 12:36:06] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 12:41:33] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-22 12:47:01] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 13:03:24] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 983s.
+[2026-08-22 13:14:17] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 13:32:52] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1115s.
+[2026-08-22 13:33:58] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 14:17:47] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 2629s.
+[2026-08-22 14:18:53] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 14:53:51] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 2097s.
+[2026-08-22 14:56:02] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 15:44:10] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 2887s.
+[2026-08-22 15:46:24] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 15:51:52] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-08-22 16:16:57] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 16:25:41] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 524s.
+[2026-08-22 17:06:02] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 17:11:32] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 330s.
+[2026-08-22 17:25:47] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 17:34:31] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 524s.
+[2026-08-22 17:52:01] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 17:56:24] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 263s.
+[2026-08-22 18:04:04] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 18:09:34] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 329s.
+[2026-08-22 18:19:30] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 18:23:56] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 266s.
+[2026-08-22 19:26:33] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 31355s.
+[2026-08-22 20:29:53] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-22 20:42:01] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 20:47:31] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 330s.
+[2026-08-22 20:51:53] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 20:56:21] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 268s.
+[2026-08-22 21:17:19] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 21:28:16] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 657s.
+[2026-08-22 21:40:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 21:45:48] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-08-22 21:55:39] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 22:04:23] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 524s.
+[2026-08-22 22:24:08] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 22:38:24] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 856s.
+[2026-08-22 22:49:21] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 22:54:51] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 330s.
+[2026-08-22 22:55:57] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 23:03:42] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 465s.
+[2026-08-22 23:09:12] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-22 23:47:46] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 2314s.
+[2026-08-22 23:51:07] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 00:01:00] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 593s.
+[2026-08-23 00:17:18] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 13646s.
+[2026-08-23 08:34:35] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-23 08:34:36] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 08:40:05] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 330s.
+[2026-08-23 08:43:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 08:53:07] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 587s.
+[2026-08-23 08:59:37] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 09:05:04] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-23 09:09:29] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 09:15:59] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 391s.
+[2026-08-23 09:27:55] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 09:37:41] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 587s.
+[2026-08-23 09:48:33] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 09:53:59] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 326s.
+[2026-08-23 09:59:25] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 10:04:51] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 326s.
+[2026-08-23 10:16:48] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 10:28:51] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 722s.
+[2026-08-23 10:31:02] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 10:36:28] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 326s.
+[2026-08-23 10:37:34] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 10:55:01] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1047s.
+[2026-08-23 11:03:42] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 11:09:08] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-23 11:15:38] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 11:20:01] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 263s.
+[2026-08-23 11:38:29] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 11:43:55] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 326s.
+[2026-08-23 11:46:31] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 11:51:57] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 325s.
+[2026-08-23 12:16:57] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 12:21:24] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 267s.
+[2026-08-23 12:32:31] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 12:37:58] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-23 12:56:28] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 13:00:49] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 262s.
+[2026-08-23 13:04:05] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 13:09:31] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 326s.
+[2026-08-23 13:12:47] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 13:21:29] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 522s.
+[2026-08-23 13:23:40] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 13:29:09] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 329s.
+[2026-08-23 13:31:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 13:41:09] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 588s.
+[2026-08-23 13:44:24] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 13:48:46] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 262s.
+[2026-08-23 13:55:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 13:59:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 265s.
+[2026-08-23 14:01:56] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 14:06:18] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 263s.
+[2026-08-23 14:09:37] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 14:15:04] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-08-23 14:17:16] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 14:22:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-08-23 14:31:27] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 14:44:31] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 785s.
+[2026-08-23 15:11:41] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 15:17:09] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-08-23 15:40:12] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 15:45:40] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-08-23 16:22:39] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 16:27:00] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 262s.
+[2026-08-23 16:28:06] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 16:33:32] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-23 16:41:08] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 16:47:41] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 392s.
+[2026-08-23 16:54:11] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 16:58:33] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 262s.
+[2026-08-23 17:04:00] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 17:14:56] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 656s.
+[2026-08-23 17:34:30] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 17:38:52] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 262s.
+[2026-08-23 17:39:58] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 17:42:10] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 132s.
+[2026-08-23 17:53:03] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 18:00:42] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 459s.
+[2026-08-23 18:30:02] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 18:46:28] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 986s.
+[2026-08-23 18:49:44] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 18:55:10] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 326s.
+[2026-08-23 18:57:21] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 19:02:48] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-23 19:24:10] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 38975s.
+[2026-08-23 19:25:16] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-23 19:25:16] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 19:29:41] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 265s.
+[2026-08-23 19:37:22] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 19:41:45] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 263s.
+[2026-08-23 19:55:54] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 20:02:27] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 393s.
+[2026-08-23 20:06:48] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 20:13:20] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 392s.
+[2026-08-23 20:22:03] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 20:26:27] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 264s.
+[2026-08-23 20:35:14] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 20:39:37] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 263s.
+[2026-08-23 20:51:36] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 20:56:02] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 266s.
+[2026-08-23 20:57:09] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 21:08:03] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 654s.
+[2026-08-23 21:21:04] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 21:30:50] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 586s.
+[2026-08-23 21:38:30] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 21:42:52] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 263s.
+[2026-08-23 21:49:23] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-23 21:54:50] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-23 22:11:16] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 9960s.
+[2026-08-24 17:46:05] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-24 22:06:42] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 15637s.
+[2026-08-24 22:16:26] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-24 22:33:47] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 1041s.
+[2026-08-25 13:19:25] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-25 14:01:48] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-25 14:09:27] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 459s.
+[2026-08-25 14:10:32] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-25 14:19:15] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 523s.
+[2026-08-25 14:21:25] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-25 14:25:47] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 261s.
+[2026-08-25 14:29:03] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-25 14:37:49] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 526s.
+[2026-08-25 14:46:30] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-25 15:02:49] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 978s.
+[2026-08-25 15:08:14] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-25 15:13:41] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 326s.
+[2026-08-25 15:21:18] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-25 15:33:15] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 717s.
+[2026-08-25 15:52:46] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-25 16:00:24] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 457s.
+[2026-08-25 17:18:26] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 14341s.
+[2026-08-25 19:14:18] | Phone - Roblox  | TCP | ACTIVE   | Session started.
+[2026-08-25 19:58:01] | Phone - Roblox  | TCP | IDLE     | Session ended. Total Duration: 2623s.
+[2026-08-25 20:16:25] | Phone - Roblox  | TCP | ACTIVE   | Session started.
+[2026-08-25 20:19:43] | Phone - Roblox  | TCP | IDLE     | Session ended (connection lost). Total Duration: 198s.
+[2026-08-25 20:24:04] | Phone - Roblox  | TCP | ACTIVE   | Session started.
+[2026-08-25 20:31:44] | Phone - Roblox  | TCP | IDLE     | Session ended (connection lost). Total Duration: 460s.
+[2026-08-25 20:33:56] | Phone - Roblox  | TCP | ACTIVE   | Session started.
+[2026-08-25 20:35:02] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-25 20:39:27] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-25 20:39:28] | Phone - Roblox  | TCP | IDLE     | Session ended (connection lost). Total Duration: 331s.
+[2026-08-25 20:42:45] | Phone - Roblox  | TCP | ACTIVE   | Session started.
+[2026-08-25 20:44:57] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 330s.
+[2026-08-25 20:44:57] | Phone - Roblox  | TCP | IDLE     | Session ended (connection lost). Total Duration: 132s.
+[2026-08-25 20:48:14] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-25 20:52:38] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 264s.
+[2026-08-25 21:01:21] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-25 21:05:43] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 262s.
+[2026-08-25 21:06:49] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-25 21:12:16] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 326s.
+[2026-08-25 21:47:05] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-25 21:50:21] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 196s.
+[2026-08-25 22:29:24] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 6861s.
+[2026-08-26 14:32:00] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-26 15:47:41] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-26 15:54:12] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 391s.
+[2026-08-26 16:07:13] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-26 16:22:22] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 909s.
+[2026-08-26 16:23:27] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-26 16:27:48] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 261s.
+[2026-08-26 16:34:19] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-26 16:39:49] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 330s.
+[2026-08-26 16:44:10] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-26 16:56:12] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 721s.
+[2026-08-26 17:05:58] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-26 17:11:28] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 330s.
+[2026-08-26 17:12:34] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-26 17:16:55] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 260s.
+[2026-08-26 17:19:05] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-26 17:24:30] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 325s.
+[2026-08-26 17:48:17] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-26 17:52:37] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 260s.
+[2026-08-26 22:35:40] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 29020s.
+[2026-08-27 13:20:31] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-27 16:22:04] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-27 16:29:41] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 457s.
+[2026-08-27 17:03:34] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-27 17:09:01] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-27 17:11:11] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-27 17:20:59] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 588s.
+[2026-08-27 17:25:22] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-27 17:30:54] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 331s.
+[2026-08-27 17:33:05] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-27 17:38:31] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 326s.
+[2026-08-27 17:43:58] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-27 17:48:19] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 262s.
+[2026-08-27 17:57:01] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 16590s.
+[2026-08-27 21:55:56] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-27 21:58:13] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 136s.
+[2026-08-28 18:35:25] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-28 19:47:55] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-28 19:56:21] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 506s.
+[2026-08-28 20:02:40] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-28 20:07:55] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 315s.
+[2026-08-28 20:08:59] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-28 20:11:07] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 128s.
+[2026-08-28 21:00:30] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-28 21:17:34] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1025s.
+[2026-08-28 21:30:16] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-28 21:35:35] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 319s.
+[2026-08-28 22:15:30] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-28 22:26:06] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 636s.
+[2026-08-28 22:39:52] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-28 22:52:34] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 761s.
+[2026-08-28 22:54:41] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-28 22:59:57] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 316s.
+[2026-08-28 23:05:14] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-28 23:06:18] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 64s.
+[2026-08-28 23:21:08] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-28 23:29:37] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 509s.
+[2026-08-28 23:41:12] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-28 23:47:32] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 381s.
+[2026-08-28 23:50:41] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-28 23:55:59] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 318s.
+[2026-08-29 00:05:29] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 19804s.
+[2026-08-29 12:31:15] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-29 12:35:36] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 12:40:55] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 319s.
+[2026-08-29 13:23:23] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 13:29:45] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 382s.
+[2026-08-29 13:39:17] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 13:44:36] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 319s.
+[2026-08-29 13:52:00] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 13:57:18] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 318s.
+[2026-08-29 14:00:30] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 14:05:48] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 318s.
+[2026-08-29 14:13:12] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 14:21:41] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 509s.
+[2026-08-29 14:39:40] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 14:46:01] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 382s.
+[2026-08-29 14:52:22] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 15:01:55] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 572s.
+[2026-08-29 15:05:07] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 15:15:45] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 638s.
+[2026-08-29 15:33:47] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 15:39:06] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 319s.
+[2026-08-29 16:22:47] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 16:28:07] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 320s.
+[2026-08-29 16:32:23] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 16:37:48] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 325s.
+[2026-08-29 16:41:01] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 16:46:20] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 319s.
+[2026-08-29 16:53:47] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 16:58:03] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 256s.
+[2026-08-29 16:59:36] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 17:06:08] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 392s.
+[2026-08-29 17:16:46] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 17:22:04] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 319s.
+[2026-08-29 17:27:23] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 17:32:43] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 319s.
+[2026-08-29 17:36:58] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 17:42:19] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 321s.
+[2026-08-29 17:43:23] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 17:48:45] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 322s.
+[2026-08-29 17:52:00] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 17:57:19] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 320s.
+[2026-08-29 17:59:27] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 18:20:55] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1288s.
+[2026-08-29 18:23:03] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 18:27:19] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 256s.
+[2026-08-29 18:28:23] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 18:32:39] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 256s.
+[2026-08-29 18:36:55] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 18:42:14] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 320s.
+[2026-08-29 18:48:38] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 18:58:17] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 579s.
+[2026-08-29 19:05:44] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 19:11:04] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 320s.
+[2026-08-29 19:14:16] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 19:19:35] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 319s.
+[2026-08-29 19:23:50] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 19:29:10] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 321s.
+[2026-08-29 19:36:37] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 19:41:56] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 319s.
+[2026-08-29 19:50:28] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 19:54:43] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 255s.
+[2026-08-29 20:02:10] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 20:07:28] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 319s.
+[2026-08-29 20:12:48] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 20:17:03] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 255s.
+[2026-08-29 20:19:11] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 20:27:43] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 512s.
+[2026-08-29 20:35:09] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 20:39:26] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 257s.
+[2026-08-29 20:51:16] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 20:58:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 448s.
+[2026-08-29 21:05:08] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 21:08:22] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 194s.
+[2026-08-29 21:24:25] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 31991s.
+[2026-08-29 22:40:46] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-29 22:41:51] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 22:54:45] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 773s.
+[2026-08-29 22:57:57] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 23:07:33] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 576s.
+[2026-08-29 23:11:49] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 23:28:53] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1024s.
+[2026-08-29 23:33:09] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-29 23:38:31] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 323s.
+[2026-08-30 00:08:27] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 00:17:00] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 513s.
+[2026-08-30 00:22:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 00:27:40] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 319s.
+[2026-08-30 00:44:43] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 00:50:03] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 320s.
+[2026-08-30 01:07:07] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 01:12:27] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 320s.
+[2026-08-30 01:31:38] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 10251s.
+[2026-08-30 10:59:04] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-30 11:00:28] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 11:05:54] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-30 11:10:12] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 11:24:08] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 836s.
+[2026-08-30 11:35:54] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 11:46:36] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 642s.
+[2026-08-30 11:48:45] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 11:53:02] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 257s.
+[2026-08-30 12:06:57] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 12:12:19] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 322s.
+[2026-08-30 12:18:47] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 12:43:25] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1479s.
+[2026-08-30 12:54:08] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 12:59:32] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 324s.
+[2026-08-30 13:19:53] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 13:25:15] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 322s.
+[2026-08-30 13:26:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 13:31:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 324s.
+[2026-08-30 13:32:49] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 13:38:12] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 323s.
+[2026-08-30 13:41:26] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 13:52:11] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 645s.
+[2026-08-30 13:55:24] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 13:59:55] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 271s.
+[2026-08-30 14:01:01] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 14:06:24] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 324s.
+[2026-08-30 14:15:01] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 11757s.
+[2026-08-30 14:16:06] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-30 14:16:06] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 14:19:20] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 194s.
+[2026-08-30 14:23:37] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 14:28:58] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 321s.
+[2026-08-30 14:30:03] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 14:38:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 521s.
+[2026-08-30 14:48:21] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 14:53:43] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 322s.
+[2026-08-30 14:58:00] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 15:19:29] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1289s.
+[2026-08-30 15:21:38] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 15:26:59] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 322s.
+[2026-08-30 15:58:04] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 16:04:32] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 388s.
+[2026-08-30 16:05:37] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 16:10:58] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 321s.
+[2026-08-30 16:16:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 16:22:47] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 387s.
+[2026-08-30 16:31:27] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 16:41:09] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 583s.
+[2026-08-30 16:43:18] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 16:48:40] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 322s.
+[2026-08-30 16:52:57] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 17:01:32] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 515s.
+[2026-08-30 17:12:17] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 17:16:36] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 259s.
+[2026-08-30 17:18:46] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 17:26:19] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 453s.
+[2026-08-30 17:37:02] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 17:44:34] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 452s.
+[2026-08-30 17:49:55] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 18:01:51] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 716s.
+[2026-08-30 18:07:13] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 18:11:32] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 259s.
+[2026-08-30 18:22:17] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 18:27:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 327s.
+[2026-08-30 18:35:23] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 18:40:51] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-08-30 19:10:13] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 19:16:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 391s.
+[2026-08-30 19:22:09] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-30 19:31:51] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 18945s.
+[2026-08-30 19:32:56] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 648s.
+[2026-08-30 22:47:20] | Phone - Roblox  | UDP | ACTIVE   | Session started.
+[2026-08-30 22:47:20] | Phone - Roblox  | TCP | ACTIVE   | Session started.
+[2026-08-30 22:50:35] | Phone - Roblox  | TCP | IDLE     | Session ended. Total Duration: 195s.
+[2026-08-30 22:51:39] | Phone - Roblox  | UDP | IDLE     | Session ended. Total Duration: 259s.
+[2026-08-31 17:12:54] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-08-31 18:13:29] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-31 18:17:49] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 260s.
+[2026-08-31 18:22:12] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-31 18:28:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 392s.
+[2026-08-31 18:39:34] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-31 18:54:43] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 909s.
+[2026-08-31 18:57:59] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-31 19:08:50] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 650s.
+[2026-08-31 19:16:24] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-31 19:21:49] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 325s.
+[2026-08-31 19:22:54] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-31 19:27:14] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 260s.
+[2026-08-31 19:28:19] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-31 19:34:49] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 390s.
+[2026-08-31 19:39:09] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-31 19:44:33] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 324s.
+[2026-08-31 20:01:51] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-31 20:07:15] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 324s.
+[2026-08-31 20:08:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-31 20:10:30] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 130s.
+[2026-08-31 20:11:35] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-31 20:18:06] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 391s.
+[2026-08-31 20:19:11] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-31 20:24:36] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 325s.
+[2026-08-31 20:31:05] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-08-31 20:35:25] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 260s.
+[2026-08-31 22:31:15] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 19102s.
+[2026-09-01 13:58:48] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-09-01 15:36:15] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-01 15:46:01] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 586s.
+[2026-09-01 15:49:17] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-01 15:53:38] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 260s.
+[2026-09-01 15:57:58] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-01 16:19:40] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1302s.
+[2026-09-01 16:20:45] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-01 16:32:43] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 718s.
+[2026-09-01 16:33:48] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-01 16:41:26] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 458s.
+[2026-09-01 16:43:37] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-01 17:13:01] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1763s.
+[2026-09-01 18:37:39] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-01 18:42:03] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 264s.
+[2026-09-01 18:57:17] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-01 19:14:47] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1049s.
+[2026-09-01 19:19:10] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-01 19:24:39] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 329s.
+[2026-09-01 19:29:02] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-01 19:38:51] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 589s.
+[2026-09-01 19:45:25] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-01 19:49:48] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 263s.
+[2026-09-01 19:50:53] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-01 19:57:26] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 392s.
+[2026-09-01 20:08:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-01 20:13:48] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 328s.
+[2026-09-01 20:15:59] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-01 20:26:52] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 654s.
+[2026-09-01 20:33:25] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-01 20:41:02] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 457s.
+[2026-09-01 21:35:28] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-01 21:40:58] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 330s.
+[2026-09-01 21:46:25] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-01 21:53:00] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 395s.
+[2026-09-01 21:55:11] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-01 22:01:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 393s.
+[2026-09-01 22:06:06] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 29239s.
+[2026-09-02 15:14:52] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-09-02 15:51:11] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-02 15:58:53] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 463s.
+[2026-09-02 15:59:59] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-02 16:21:57] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1319s.
+[2026-09-02 16:24:09] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-02 16:28:32] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 263s.
+[2026-09-02 16:29:39] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-02 16:41:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 725s.
+[2026-09-02 16:46:08] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-02 16:51:42] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 334s.
+[2026-09-02 16:52:51] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-02 16:58:21] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 330s.
+[2026-09-02 17:02:45] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-02 17:13:47] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 662s.
+[2026-09-02 17:14:54] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-02 17:20:25] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 331s.
+[2026-09-02 19:59:02] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 17050s.
+[2026-09-02 20:00:09] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-09-02 22:22:06] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 8517s.
+[2026-09-03 14:39:34] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-09-03 15:09:14] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-03 15:15:53] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 399s.
+[2026-09-03 15:18:06] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-03 15:23:36] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 330s.
+[2026-09-03 15:24:43] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-03 15:25:49] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 67s.
+[2026-09-03 15:29:07] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-03 15:30:13] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 66s.
+[2026-09-03 15:32:26] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-03 15:41:14] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 528s.
+[2026-09-03 15:44:33] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-03 15:45:39] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 66s.
+[2026-09-03 15:46:46] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-03 15:52:17] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 332s.
+[2026-09-03 15:53:23] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-03 15:57:48] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 265s.
+[2026-09-03 16:00:00] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-03 16:05:30] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 330s.
+[2026-09-03 16:08:54] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-03 16:15:34] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 401s.
+[2026-09-03 16:17:47] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-03 16:25:30] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 463s.
+[2026-09-03 16:26:37] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-03 16:40:55] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 858s.
+[2026-09-03 16:42:02] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-03 16:43:08] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 66s.
+[2026-09-03 16:45:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-03 17:02:58] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1058s.
+[2026-09-03 17:04:04] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-03 17:09:34] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 329s.
+[2026-09-03 17:11:46] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-03 17:19:29] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 464s.
+[2026-09-03 17:21:41] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-03 17:31:36] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 594s.
+[2026-09-04 20:49:40] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 108606s.
+[2026-09-04 20:50:48] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-09-04 20:56:23] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-04 21:04:13] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 470s.
+[2026-09-04 21:34:08] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-04 21:38:33] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 266s.
+[2026-09-04 22:18:13] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-04 22:19:19] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 67s.
+[2026-09-04 23:30:55] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-04 23:35:21] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 266s.
+[2026-09-05 00:30:47] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 00:35:12] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 266s.
+[2026-09-05 00:45:09] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 00:54:00] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 531s.
+[2026-09-05 01:06:09] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 01:15:00] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 531s.
+[2026-09-05 01:27:10] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 01:33:49] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 399s.
+[2026-09-05 01:38:13] | PC - Roblox     | TCP | IDLE     | Session ended (connection lost). Total Duration: 17246s.
+[2026-09-05 09:15:06] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-09-05 09:17:24] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 09:21:53] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 269s.
+[2026-09-05 09:25:13] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 09:37:32] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 740s.
+[2026-09-05 09:44:12] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 09:48:41] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 268s.
+[2026-09-05 09:49:48] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 09:50:55] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 67s.
+[2026-09-05 09:53:08] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 10:00:55] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 467s.
+[2026-09-05 10:04:15] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 10:06:29] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 134s.
+[2026-09-05 10:08:43] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 10:17:35] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 532s.
+[2026-09-05 10:19:49] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 10:22:02] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 132s.
+[2026-09-05 10:24:15] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 10:26:28] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 133s.
+[2026-09-05 10:27:35] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 10:36:28] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 532s.
+[2026-09-05 10:37:35] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 10:56:26] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1132s.
+[2026-09-05 10:57:33] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 11:06:25] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 532s.
+[2026-09-05 11:08:42] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 11:15:27] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 405s.
+[2026-09-05 11:19:54] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 11:21:01] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 67s.
+[2026-09-05 11:24:21] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 11:38:58] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 877s.
+[2026-09-05 11:42:19] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 11:44:33] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 134s.
+[2026-09-05 11:47:53] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 11:49:00] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-05 11:52:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 12:19:05] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1605s.
+[2026-09-05 12:22:25] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 12:29:07] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 402s.
+[2026-09-05 12:32:26] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 12:33:33] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 67s.
+[2026-09-05 12:35:47] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 12:39:07] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 201s.
+[2026-09-05 12:54:39] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 13:01:18] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 399s.
+[2026-09-05 13:09:04] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 13:34:42] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1538s.
+[2026-09-05 13:38:04] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 13:40:18] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 134s.
+[2026-09-05 13:42:35] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 13:44:50] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 136s.
+[2026-09-05 13:53:54] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 13:58:28] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 274s.
+[2026-09-05 14:30:56] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 14:37:39] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 403s.
+[2026-09-05 14:39:52] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 14:47:51] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 479s.
+[2026-09-05 14:50:08] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 14:54:41] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 273s.
+[2026-09-05 14:55:50] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 14:56:58] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-05 15:00:19] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 15:01:28] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 69s.
+[2026-09-05 15:02:36] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 15:09:21] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 406s.
+[2026-09-05 15:12:44] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 15:13:52] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 67s.
+[2026-09-05 15:14:59] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 15:19:29] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 270s.
+[2026-09-05 15:22:52] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 15:29:35] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 404s.
+[2026-09-05 15:32:57] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 15:34:05] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-05 15:37:28] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 15:49:49] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 741s.
+[2026-09-05 15:50:57] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 16:03:17] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 740s.
+[2026-09-05 16:06:39] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 16:07:46] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 67s.
+[2026-09-05 16:11:07] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 16:15:40] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 273s.
+[2026-09-05 16:16:48] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 16:17:56] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-05 16:21:18] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 16:42:36] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1278s.
+[2026-09-05 16:45:58] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 16:52:41] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 402s.
+[2026-09-05 16:56:02] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 17:20:41] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1479s.
+[2026-09-05 17:21:49] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 17:22:57] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-05 17:26:19] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 17:37:31] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 672s.
+[2026-09-05 17:40:52] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 17:47:34] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 402s.
+[2026-09-05 17:48:42] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 17:53:10] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 268s.
+[2026-09-05 17:55:25] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 18:02:07] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 403s.
+[2026-09-05 18:17:42] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 32556s.
+[2026-09-05 19:46:28] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-09-05 19:49:54] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 19:54:24] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 270s.
+[2026-09-05 20:18:04] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 20:25:58] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 474s.
+[2026-09-05 20:28:13] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 20:46:16] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1083s.
+[2026-09-05 20:49:40] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 20:56:26] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 406s.
+[2026-09-05 20:59:47] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 21:00:55] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-05 21:02:02] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 21:06:32] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 270s.
+[2026-09-05 21:09:55] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 21:32:23] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1348s.
+[2026-09-05 21:35:45] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 21:36:53] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-05 21:39:08] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 21:44:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 336s.
+[2026-09-05 21:45:51] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 21:46:59] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-05 21:48:06] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 21:52:36] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 270s.
+[2026-09-05 21:55:58] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 22:03:52] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 474s.
+[2026-09-05 22:06:09] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 22:08:24] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 134s.
+[2026-09-05 22:09:32] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 22:27:28] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1077s.
+[2026-09-05 22:28:36] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 22:34:12] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 337s.
+[2026-09-05 22:36:27] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 22:37:35] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-05 22:40:58] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 22:43:14] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 135s.
+[2026-09-05 22:46:36] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 22:47:44] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-05 22:51:06] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 22:52:13] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-05 22:55:36] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 22:57:50] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 135s.
+[2026-09-05 23:01:12] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 23:02:19] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 67s.
+[2026-09-05 23:03:27] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 23:07:57] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 270s.
+[2026-09-05 23:11:18] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 23:12:25] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 67s.
+[2026-09-05 23:13:33] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 23:29:16] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 942s.
+[2026-09-05 23:30:23] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 23:39:41] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 558s.
+[2026-09-05 23:40:50] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-05 23:53:15] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 744s.
+[2026-09-05 23:56:37] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 00:07:53] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 676s.
+[2026-09-06 00:11:15] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 00:12:23] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 00:15:46] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 00:18:01] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 135s.
+[2026-09-06 00:21:23] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 00:22:30] | PC - Roblox     | TCP | IDLE     | Session ended. Total Duration: 16562s.
+[2026-09-06 00:24:46] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 203s.
+[2026-09-06 09:20:10] | PC - Roblox     | TCP | ACTIVE   | Session started.
+[2026-09-06 09:21:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 09:30:24] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 544s.
+[2026-09-06 09:32:40] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 09:47:22] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 883s.
+[2026-09-06 09:48:30] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 09:49:38] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 09:53:01] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 09:55:16] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 135s.
+[2026-09-06 09:58:39] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 09:59:47] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 10:03:10] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 10:05:27] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 137s.
+[2026-09-06 10:07:43] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 10:12:15] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 271s.
+[2026-09-06 10:13:23] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 10:20:09] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 406s.
+[2026-09-06 10:23:32] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 10:24:41] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 10:28:05] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 10:37:06] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 541s.
+[2026-09-06 10:38:14] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 10:40:30] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 136s.
+[2026-09-06 10:43:53] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 10:45:01] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 10:46:09] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 10:59:41] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 812s.
+[2026-09-06 11:03:04] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 11:05:19] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 135s.
+[2026-09-06 11:06:27] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 11:12:05] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 338s.
+[2026-09-06 11:13:13] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 11:19:58] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 405s.
+[2026-09-06 11:23:21] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 11:27:53] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 272s.
+[2026-09-06 11:48:10] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 12:01:47] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 817s.
+[2026-09-06 12:04:03] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 12:05:11] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 12:09:43] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 12:10:50] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 12:14:14] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 12:21:01] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 407s.
+[2026-09-06 12:24:24] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 12:31:12] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 408s.
+[2026-09-06 12:34:36] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 12:35:45] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 12:39:09] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 12:40:17] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 69s.
+[2026-09-06 12:43:40] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 12:45:57] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 136s.
+[2026-09-06 12:49:21] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 12:55:02] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 341s.
+[2026-09-06 12:59:34] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 13:00:42] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 69s.
+[2026-09-06 13:02:58] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 13:10:56] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 478s.
+[2026-09-06 13:14:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 13:21:08] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 408s.
+[2026-09-06 13:22:17] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 13:28:01] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 345s.
+[2026-09-06 13:29:10] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 13:30:19] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 69s.
+[2026-09-06 13:33:43] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 13:36:00] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 137s.
+[2026-09-06 13:37:08] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 13:42:49] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 341s.
+[2026-09-06 13:43:57] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 13:45:05] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 13:49:38] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 13:55:20] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 342s.
+[2026-09-06 13:57:37] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 14:03:25] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 348s.
+[2026-09-06 14:04:34] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 14:05:42] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 14:09:07] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 14:10:15] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 14:13:40] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 14:15:58] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 139s.
+[2026-09-06 14:19:23] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 14:20:32] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 14:23:56] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 14:25:05] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 69s.
+[2026-09-06 14:26:18] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 14:30:56] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 278s.
+[2026-09-06 14:34:28] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 14:35:39] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 71s.
+[2026-09-06 14:39:05] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 14:40:19] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 74s.
+[2026-09-06 14:42:41] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 14:47:17] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 276s.
+[2026-09-06 14:49:35] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 14:50:43] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 14:51:53] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 15:01:04] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 551s.
+[2026-09-06 15:04:29] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 15:05:38] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 69s.
+[2026-09-06 15:09:03] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 15:10:11] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 69s.
+[2026-09-06 15:12:29] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 15:17:02] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 274s.
+[2026-09-06 15:19:17] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 15:20:25] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 15:23:50] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 15:24:59] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 15:29:31] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 15:36:22] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 411s.
+[2026-09-06 15:38:38] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 15:40:55] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 137s.
+[2026-09-06 15:42:03] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 15:46:35] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 272s.
+[2026-09-06 15:48:52] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 16:01:22] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 750s.
+[2026-09-06 16:02:30] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 16:15:02] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 752s.
+[2026-09-06 16:19:36] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 16:31:05] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 690s.
+[2026-09-06 16:34:29] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 16:35:38] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 69s.
+[2026-09-06 16:36:46] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 16:51:32] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 886s.
+[2026-09-06 16:53:49] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 16:56:05] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 135s.
+[2026-09-06 16:59:29] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 17:00:38] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 69s.
+[2026-09-06 17:04:03] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 17:05:11] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 69s.
+[2026-09-06 17:07:29] | Phone - Roblox  | TCP | ACTIVE   | Session started.
+[2026-09-06 17:07:30] | Phone - Roblox  | UDP | ACTIVE   | Session started.
+[2026-09-06 17:08:39] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 17:10:56] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 137s.
+[2026-09-06 17:13:13] | Phone - Roblox  | UDP | IDLE     | Session ended. Total Duration: 344s.
+[2026-09-06 17:14:21] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 17:15:30] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 69s.
+[2026-09-06 17:18:55] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 17:21:13] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 139s.
+[2026-09-06 17:24:39] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 17:25:48] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 17:26:56] | Phone - Roblox  | TCP | IDLE     | Session ended (connection lost). Total Duration: 1167s.
+[2026-09-06 17:29:12] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 17:30:21] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 69s.
+[2026-09-06 17:33:47] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 17:36:03] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 136s.
+[2026-09-06 17:39:28] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 17:45:08] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 340s.
+[2026-09-06 17:46:16] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 18:07:48] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 1292s.
+[2026-09-06 18:08:57] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 18:11:13] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 137s.
+[2026-09-06 18:14:37] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 18:15:45] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 69s.
+[2026-09-06 18:19:10] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 18:20:18] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 18:22:34] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 18:28:14] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 340s.
+[2026-09-06 18:29:22] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 18:35:02] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 339s.
+[2026-09-06 18:39:32] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 18:40:40] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 18:44:03] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 18:45:12] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 69s.
+[2026-09-06 18:49:43] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 18:50:51] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 18:53:08] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 19:01:04] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 476s.
+[2026-09-06 19:03:20] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 19:11:16] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 476s.
+[2026-09-06 19:14:40] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 19:15:48] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 68s.
+[2026-09-06 19:19:14] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 19:20:23] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 69s.
+[2026-09-06 19:23:47] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 19:26:02] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 135s.
+[2026-09-06 19:29:27] | PC - Roblox     | UDP | ACTIVE   | Session started.
+[2026-09-06 19:30:36] | PC - Roblox     | UDP | IDLE     | Session ended. Total Duration: 69s.
