@@ -15,7 +15,10 @@ async function runUnitTests() {
             <button id="type-btn-all" class="filter-btn active"></button>
             <button id="type-btn-game" class="filter-btn"></button>
         </div>
+        <div id="stat-total-hours"></div>
         <div id="stat-weekly-hours-avg"></div>
+        <a id="gemini-analysis-link"></a>
+        <div id="gemini-no-data-stats"></div>
         <div id="stat-mon-thu-start"></div>
         <div id="stat-mon-thu-end"></div>
         <div id="stat-mon-thu-duration"></div>
@@ -114,6 +117,78 @@ async function runUnitTests() {
         end_time_fmt: '1:38 AM'
     });
     assertEqual(fallbackResult, '1:38 AM <span class="badge-next-day" title="Esta sesión terminó 2 días después de su inicio">+2d</span>', "Fallback calculation using epoch timestamps should produce +2d badge");
+
+    // Test 7: Overlapping concurrent sessions in Stats tab (e.g. 9-12 TCP and 10-1 UDP on Monday)
+    // Reference Monday 10 AM (within Monday logical day, starts >= 5 AM)
+    const baseMon = 1788220800; // Mon Aug 31 2026 approx
+    const mon9AM = baseMon + 9 * 3600;
+    const mon12PM = baseMon + 12 * 3600;
+    const mon10AM = baseMon + 10 * 3600;
+    const mon1PM = baseMon + 13 * 3600;
+
+    window.lastFetchedData = [
+        {
+            start_epoch: mon9AM,
+            end_epoch: mon12PM,
+            duration_sec: 10800, // 3h TCP
+            proto: 'TCP',
+            device: 'PC',
+            end: '12:00 PM'
+        },
+        {
+            start_epoch: mon10AM,
+            end_epoch: mon1PM,
+            duration_sec: 10800, // 3h UDP
+            proto: 'UDP',
+            device: 'Phone',
+            end: '1:00 PM'
+        }
+    ];
+
+    // In 'all' mode: 9-12 TCP and 10-1 UDP should merge to 4h (14400s), NOT 6h
+    window.setStatsActivityType('all');
+    window.updateStatistics();
+    const totalAllEl = window.document.getElementById('stat-total-hours');
+    assertEqual(totalAllEl.textContent.includes('4h'), true, "In 'all' mode, overlapping 3h TCP + 3h UDP merge to 4h total (not 6h)");
+    assertEqual(!totalAllEl.textContent.includes('6h'), true, "In 'all' mode, total must not double-count to 6h");
+
+    // In 'game' mode: only UDP session (10-1 = 3h) should be counted
+    window.setStatsActivityType('game');
+    window.updateStatistics();
+    const totalGameEl = window.document.getElementById('stat-total-hours');
+    assertEqual(totalGameEl.textContent.includes('3h'), true, "In 'game' mode, only 3h UDP gameplay session is counted");
+
+    // Test 8: Real dataset verification for Stats tab (clean un-inflated numbers)
+    const dataJsonPath = path.join(__dirname, '../public/data.json');
+    if (fs.existsSync(dataJsonPath)) {
+        const realData = JSON.parse(fs.readFileSync(dataJsonPath, 'utf8'));
+        window.lastFetchedData = realData;
+
+        // Verify 'all' mode (Total En Juego)
+        window.setStatsActivityType('all');
+        window.updateStatistics();
+        const realTotalHoursAll = window.document.getElementById('stat-total-hours').textContent;
+        const realWeeklyAvgAll = window.document.getElementById('stat-weekly-hours-avg').textContent;
+        const realSatDurationAll = window.document.getElementById('stat-sat-duration').textContent;
+
+        assertEqual(realTotalHoursAll.includes('155h') || realTotalHoursAll.includes('156h'), true, "Total hours in 'all' mode should be ~156h (merged intervals, not 284h)");
+        assertEqual(!realTotalHoursAll.includes('284h'), true, "Total hours must not be inflated to 284h");
+        assertEqual(realWeeklyAvgAll.includes('38.') || realWeeklyAvgAll.includes('39.'), true, "Weekly average in 'all' mode should be ~38.8h / semana (not 70.7h)");
+        assertEqual(!realWeeklyAvgAll.includes('70.'), true, "Weekly average must not be inflated to 70.7h");
+        assertEqual(realSatDurationAll.includes('11h'), true, "Saturday average in 'all' mode should be ~11.5h (not 21.3h)");
+        assertEqual(!realSatDurationAll.includes('21h'), true, "Saturday average must not be inflated to 21.3h");
+
+        // Verify 'game' mode (En Juego Activo)
+        window.setStatsActivityType('game');
+        window.updateStatistics();
+        const realTotalHoursGame = window.document.getElementById('stat-total-hours').textContent;
+        const realWeeklyAvgGame = window.document.getElementById('stat-weekly-hours-avg').textContent;
+        const realSatDurationGame = window.document.getElementById('stat-sat-duration').textContent;
+
+        assertEqual(realTotalHoursGame.includes('127h'), true, "Total hours in 'game' mode should be ~127h");
+        assertEqual(realWeeklyAvgGame.includes('31.') || realWeeklyAvgGame.includes('32.'), true, "Weekly average in 'game' mode should be ~31.7h / semana");
+        assertEqual(realSatDurationGame.includes('9h') || realSatDurationGame.includes('10h'), true, "Saturday average in 'game' mode should be ~9.8h");
+    }
 
     if (allPassed) {
         console.log("=== All JS Unit Tests Passed Successfully ===");

@@ -11,6 +11,9 @@ async function fetchData() {
         const response = await fetch('data.json?t=' + Date.now());
         const data = await response.json();
         lastFetchedData = data;
+        if (typeof window !== 'undefined') {
+            window.lastFetchedData = data;
+        }
         render(data);
         updateStatistics();
         updateWeeklySummary();
@@ -450,22 +453,26 @@ window.setWeeklyActivityType = function(type) {
 
 window.setStatsTimeWindow = function(days) {
     statsTimeWindow = days;
+    if (typeof window !== 'undefined') {
+        window.statsTimeWindow = days;
+    }
     document.querySelectorAll('#time-filters .filter-btn').forEach(btn => btn.classList.remove('active'));
     
-    if (days === 30) document.getElementById('time-btn-30').classList.add('active');
-    else if (days === 90) document.getElementById('time-btn-90').classList.add('active');
-    else if (days === 365) document.getElementById('time-btn-365').classList.add('active');
-    else if (days === 'all') document.getElementById('time-btn-all').classList.add('active');
+    const btn = document.getElementById(`time-btn-${days}`);
+    if (btn) btn.classList.add('active');
     
     updateStatistics();
 };
 
 window.setStatsActivityType = function(type) {
     statsActivityType = type;
+    if (typeof window !== 'undefined') {
+        window.statsActivityType = type;
+    }
     document.querySelectorAll('#type-filters .filter-btn').forEach(btn => btn.classList.remove('active'));
     
-    if (type === 'all') document.getElementById('type-btn-all').classList.add('active');
-    else if (type === 'game') document.getElementById('type-btn-game').classList.add('active');
+    const btn = document.getElementById(`type-btn-${type}`);
+    if (btn) btn.classList.add('active');
     
     updateStatistics();
 };
@@ -620,7 +627,11 @@ function updateDayTotals() {
 }
 
 function updateStatistics() {
-    if (!lastFetchedData || lastFetchedData.length === 0) {
+    const dataSrc = (typeof window !== 'undefined' && window.lastFetchedData && window.lastFetchedData.length > 0)
+        ? window.lastFetchedData
+        : lastFetchedData;
+
+    if (!dataSrc || dataSrc.length === 0) {
         resetStatsDisplay();
         return;
     }
@@ -635,36 +646,51 @@ function updateStatistics() {
         cutoffTime = cutoffDate.getTime();
     }
 
-    let totalSecs = 0;
-    const filtered = lastFetchedData.filter(session => {
+    const filtered = dataSrc.filter(session => {
         if (statsTimeWindow !== 'all' && (session.start_epoch * 1000 < cutoffTime)) {
             return false;
         }
         if (statsActivityType === 'game' && session.proto !== 'UDP') {
             return false;
         }
-        totalSecs += getSessionLiveDuration(session);
         return true;
     });
-
-    // Display total hours
-    const totalHoursEl = document.getElementById('stat-total-hours');
-    if (totalHoursEl) {
-        totalHoursEl.innerText = formatDuration(totalSecs);
-    }
-
-    let timeframeLabel = "todo el historial";
-    if (statsTimeWindow !== 'all') {
-        timeframeLabel = `los últimos ${statsTimeWindow} días`;
-    }
-    updateGeminiDeeplink('tab-stats', timeframeLabel, totalSecs);
 
     if (filtered.length === 0) {
         resetStatsDisplay();
         return;
     }
 
-    // 2. Calculate Average Weekly hours
+    // 2. Total Merged Duration across the filtered period
+    const allIntervals = filtered.map(session => {
+        const sStart = session.start_epoch;
+        let sEnd = session.end_epoch;
+        if (!sEnd) {
+            if (session.end === '🟢 Activa') {
+                sEnd = Math.floor(Date.now() / 1000);
+            } else {
+                sEnd = sStart + (session.duration_sec || 0);
+            }
+        }
+        return [sStart, Math.max(sStart, sEnd)];
+    });
+    const totalMergedSecs = computeMergedDuration(allIntervals);
+
+    // Display total hours
+    const totalHoursEl = document.getElementById('stat-total-hours');
+    if (totalHoursEl) {
+        const durStr = formatDuration(totalMergedSecs);
+        totalHoursEl.textContent = durStr;
+        totalHoursEl.innerText = durStr;
+    }
+
+    let timeframeLabel = "todo el historial";
+    if (statsTimeWindow !== 'all') {
+        timeframeLabel = `los últimos ${statsTimeWindow} días`;
+    }
+    updateGeminiDeeplink('tab-stats', timeframeLabel, totalMergedSecs);
+
+    // 3. Calculate Average Weekly hours using merged seconds
     let weeksCount = 1;
     if (statsTimeWindow !== 'all') {
         weeksCount = statsTimeWindow / 7;
@@ -675,21 +701,34 @@ function updateStatistics() {
         weeksCount = Math.max(1, spanDays / 7);
     }
 
-    const totalSecondsFiltered = filtered.reduce((sum, s) => sum + getSessionLiveDuration(s), 0);
-    const avgHoursPerWeek = (totalSecondsFiltered / 3600) / weeksCount;
-    document.getElementById('stat-weekly-hours-avg').innerText = avgHoursPerWeek.toFixed(1) + " horas / semana";
+    const avgHoursPerWeek = (totalMergedSecs / 3600) / weeksCount;
+    const weeklyAvgEl = document.getElementById('stat-weekly-hours-avg');
+    if (weeklyAvgEl) {
+        const avgStr = avgHoursPerWeek.toFixed(1) + " horas / semana";
+        weeklyAvgEl.textContent = avgStr;
+        weeklyAvgEl.innerText = avgStr;
+    }
 
-    // 3. Daily Breakdown Logical Math with 5 AM and Midnight Rollover Rules
+    // 4. Daily Breakdown Logical Math with 5 AM and Midnight Rollover Rules
     const groups = {
-        'mon-thu': { startSum: 0, startCount: 0, endSum: 0, endCount: 0, playByDay: {} },
-        'fri': { startSum: 0, startCount: 0, endSum: 0, endCount: 0, playByDay: {} },
-        'sat': { startSum: 0, startCount: 0, endSum: 0, endCount: 0, playByDay: {} },
-        'sun': { startSum: 0, startCount: 0, endSum: 0, endCount: 0, playByDay: {} }
+        'mon-thu': { startSum: 0, startCount: 0, endSum: 0, endCount: 0, dayIntervals: {} },
+        'fri': { startSum: 0, startCount: 0, endSum: 0, endCount: 0, dayIntervals: {} },
+        'sat': { startSum: 0, startCount: 0, endSum: 0, endCount: 0, dayIntervals: {} },
+        'sun': { startSum: 0, startCount: 0, endSum: 0, endCount: 0, dayIntervals: {} }
     };
 
     filtered.forEach(session => {
-        const liveDuration = getSessionLiveDuration(session);
-        const startCalDate = new Date(session.start_epoch * 1000);
+        const sStart = session.start_epoch;
+        let sEnd = session.end_epoch;
+        if (!sEnd) {
+            if (session.end === '🟢 Activa') {
+                sEnd = Math.floor(Date.now() / 1000);
+            } else {
+                sEnd = sStart + (session.duration_sec || 0);
+            }
+        }
+        const liveDuration = Math.max(0, sEnd - sStart);
+        const startCalDate = new Date(sStart * 1000);
         const startHour = startCalDate.getHours();
 
         // Rollover: If starts before 5 AM, logical day is previous day
@@ -712,7 +751,7 @@ function updateStatistics() {
         const g = groups[groupKey];
 
         // Start seconds offset from logical midnight
-        const startOffsetSec = session.start_epoch - Math.floor(logicalMidnight.getTime() / 1000);
+        const startOffsetSec = sStart - Math.floor(logicalMidnight.getTime() / 1000);
         g.startSum += startOffsetSec;
         g.startCount++;
 
@@ -723,9 +762,9 @@ function updateStatistics() {
             g.endCount++;
         }
 
-        // Playtime by logical day
-        if (!g.playByDay[logicalDateKey]) g.playByDay[logicalDateKey] = 0;
-        g.playByDay[logicalDateKey] += liveDuration;
+        // Collect interval by logical day for union calculation
+        if (!g.dayIntervals[logicalDateKey]) g.dayIntervals[logicalDateKey] = [];
+        g.dayIntervals[logicalDateKey].push([sStart, sEnd]);
     });
 
     // Update Daily Cards DOM
@@ -741,45 +780,66 @@ function updateGroupDOM(idPrefix, group) {
     const durAvgEl = document.getElementById(`stat-${idPrefix}-duration`);
 
     if (group.startCount === 0) {
-        startAvgEl.innerText = "Sin registros";
-        endAvgEl.innerText = "Sin registros";
-        durAvgEl.innerText = "0s";
+        if (startAvgEl) { startAvgEl.textContent = "Sin registros"; startAvgEl.innerText = "Sin registros"; }
+        if (endAvgEl) { endAvgEl.textContent = "Sin registros"; endAvgEl.innerText = "Sin registros"; }
+        if (durAvgEl) { durAvgEl.textContent = "0s"; durAvgEl.innerText = "0s"; }
         return;
     }
 
     // Start Average format
     const avgStartSec = group.startSum / group.startCount;
-    startAvgEl.innerText = formatTimeFromSeconds(avgStartSec);
-
-    // End Average format
-    if (group.endCount > 0) {
-        const avgEndSec = group.endSum / group.endCount;
-        endAvgEl.innerText = formatTimeFromSeconds(avgEndSec);
-    } else {
-        endAvgEl.innerText = "Sin registros";
+    if (startAvgEl) {
+        const startStr = formatTimeFromSeconds(avgStartSec);
+        startAvgEl.textContent = startStr;
+        startAvgEl.innerText = startStr;
     }
 
-    // Playtime Average format
-    const uniqueDays = Object.keys(group.playByDay);
-    if (uniqueDays.length > 0) {
-        const totalSec = uniqueDays.reduce((sum, k) => sum + group.playByDay[k], 0);
-        const avgSec = totalSec / uniqueDays.length;
-        durAvgEl.innerText = formatDuration(Math.round(avgSec));
-    } else {
-        durAvgEl.innerText = "0s";
+    // End Average format
+    if (endAvgEl) {
+        if (group.endCount > 0) {
+            const avgEndSec = group.endSum / group.endCount;
+            const endStr = formatTimeFromSeconds(avgEndSec);
+            endAvgEl.textContent = endStr;
+            endAvgEl.innerText = endStr;
+        } else {
+            endAvgEl.textContent = "Sin registros";
+            endAvgEl.innerText = "Sin registros";
+        }
+    }
+
+    // Playtime Average format using merged intervals per logical day
+    if (durAvgEl) {
+        const uniqueDays = Object.keys(group.dayIntervals);
+        if (uniqueDays.length > 0) {
+            let groupTotalSec = 0;
+            uniqueDays.forEach(dayKey => {
+                groupTotalSec += computeMergedDuration(group.dayIntervals[dayKey]);
+            });
+            const avgSec = groupTotalSec / uniqueDays.length;
+            const durStr = formatDuration(Math.round(avgSec));
+            durAvgEl.textContent = durStr;
+            durAvgEl.innerText = durStr;
+        } else {
+            durAvgEl.textContent = "0s";
+            durAvgEl.innerText = "0s";
+        }
     }
 }
 
 function resetStatsDisplay() {
-    document.getElementById('stat-weekly-hours-avg').innerText = "0 horas / semana";
+    const avgEl = document.getElementById('stat-weekly-hours-avg');
+    if (avgEl) { avgEl.textContent = "0 horas / semana"; avgEl.innerText = "0 horas / semana"; }
     const totalHoursEl = document.getElementById('stat-total-hours');
-    if (totalHoursEl) totalHoursEl.innerText = "0s";
+    if (totalHoursEl) { totalHoursEl.textContent = "0s"; totalHoursEl.innerText = "0s"; }
     
     const prefixes = ['mon-thu', 'fri', 'sat', 'sun'];
     prefixes.forEach(prefix => {
-        document.getElementById(`stat-${prefix}-start`).innerText = "Sin registros";
-        document.getElementById(`stat-${prefix}-end`).innerText = "Sin registros";
-        document.getElementById(`stat-${prefix}-duration`).innerText = "0s";
+        const s = document.getElementById(`stat-${prefix}-start`);
+        const e = document.getElementById(`stat-${prefix}-end`);
+        const d = document.getElementById(`stat-${prefix}-duration`);
+        if (s) { s.textContent = "Sin registros"; s.innerText = "Sin registros"; }
+        if (e) { e.textContent = "Sin registros"; e.innerText = "Sin registros"; }
+        if (d) { d.textContent = "0s"; d.innerText = "0s"; }
     });
 }
 
