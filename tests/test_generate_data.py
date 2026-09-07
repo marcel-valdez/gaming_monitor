@@ -173,6 +173,25 @@ class TestDataGenerator(unittest.TestCase):
         self.assertEqual(data[0]['duration_sec'], 68)
         self.assertEqual(data[0]['duration_str'], '1m 8s')
 
+    def test_cross_day_session_days_diff(self):
+        """Verify that sessions that cross into subsequent calendar days include days_diff."""
+        log_content = """[2026-09-03 14:39:34] | PC - Roblox | TCP | ACTIVE | Session started.
+[2026-09-05 01:38:13] | PC - Roblox | TCP | IDLE   | Session ended. Total Duration: 125919s.
+"""
+        with open(self.log_file, 'w') as f:
+            f.write(log_content)
+
+        self.generator.generate()
+
+        with open(self.data_file, 'r') as f:
+            data = json.load(f)
+
+        self.assertEqual(len(data), 1)
+        session = data[0]
+        self.assertEqual(session['days_diff'], 2)
+        self.assertEqual(session['start_time_fmt'], '2:39 PM')
+        self.assertEqual(session['end_time_fmt'], '1:38 AM')
+
 if __name__ == '__main__':
     unittest.main()
 

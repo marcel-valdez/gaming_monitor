@@ -116,6 +116,13 @@ class DataGenerator:
                         last['end_epoch'] = max(last['end_epoch'], s['end_epoch'])
                         last['duration_sec'] = last['end_epoch'] - last['start_epoch']
                         last['duration_str'] = self.format_duration(last['duration_sec'])
+                        dt_start = datetime.fromtimestamp(last['start_epoch'])
+                        dt_end = datetime.fromtimestamp(last['end_epoch'])
+                        days_diff = (dt_end.date() - dt_start.date()).days
+                        if days_diff > 0:
+                            last['days_diff'] = days_diff
+                        elif 'days_diff' in last:
+                            del last['days_diff']
                     else:
                         stream.append(dict(s))
 
@@ -185,6 +192,10 @@ class DataGenerator:
                         session['end_epoch'] = epoch
                         session['duration_sec'] = duration_sec
                         session['duration_str'] = self.format_duration(duration_sec)
+                        dt_start = datetime.fromtimestamp(session['start_epoch'])
+                        days_diff = (dt.date() - dt_start.date()).days
+                        if days_diff > 0:
+                            session['days_diff'] = days_diff
                         completed_sessions.append(session)
 
         # Apply session stitching

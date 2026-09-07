@@ -50,6 +50,27 @@ function formatTimeFromSeconds(seconds) {
     return `${hrs12}:${mins.toString().padStart(2, '0')} ${ampm}`;
 }
 
+function formatSessionEndTime(session) {
+    if (session.end === '🟢 Activa') return '🟢 Activa';
+    const baseTime = session.end_time_fmt || session.end || '';
+    let daysDiff = session.days_diff;
+    if (daysDiff === undefined && session.start_epoch && session.end_epoch) {
+        const d1 = new Date(session.start_epoch * 1000);
+        const d2 = new Date(session.end_epoch * 1000);
+        const date1 = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
+        const date2 = new Date(d2.getFullYear(), d2.getMonth(), d2.getDate());
+        daysDiff = Math.round((date2 - date1) / (1000 * 60 * 60 * 24));
+    }
+    if (daysDiff > 0) {
+        const tooltipText = daysDiff === 1
+            ? "Esta sesión terminó 1 día después de su inicio"
+            : `Esta sesión terminó ${daysDiff} días después de su inicio`;
+        return `${baseTime} <span class="badge-next-day" title="${tooltipText}">+${daysDiff}d</span>`;
+    }
+    return baseTime;
+}
+window.formatSessionEndTime = formatSessionEndTime;
+
 function sortDaysByEpoch(sessionsByDay) {
     return Object.keys(sessionsByDay).sort((a, b) => {
         const epochA = Math.max(...(sessionsByDay[a]?.map(s => s.start_epoch || 0) || [0]));
@@ -372,11 +393,13 @@ function render(data) {
                 ? `<td class="duration active-duration" data-start="${session.start_epoch}">...</td>`
                 : `<td class="duration">${session.duration_str}</td>`;
 
+            const endHtml = formatSessionEndTime(session);
+
             row.innerHTML = `
                 <td>${deviceHtml}</td>
                 <td>${typeHtml}</td>
                 <td>${session.start_time_fmt}</td>
-                <td>${session.end === '🟢 Activa' ? '🟢 Activa' : session.end_time_fmt}</td>
+                <td>${endHtml}</td>
                 ${durationHtml}
             `;
             table.appendChild(row);

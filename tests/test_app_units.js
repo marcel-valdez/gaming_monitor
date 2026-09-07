@@ -92,6 +92,28 @@ async function runUnitTests() {
     assertEqual(mockDaySessions[0].start_time_fmt, "12:10 PM", "First intra-day session should be latest (12:10 PM)");
     assertEqual(mockDaySessions[1].start_time_fmt, "9:20 AM", "Second intra-day session should be intermediate (9:20 AM)");
     assertEqual(mockDaySessions[2].start_time_fmt, "6:30 AM", "Third intra-day session should be earliest (6:30 AM)");
+    // Test 6: formatSessionEndTime tests
+    // 6a: Active session
+    assertEqual(window.formatSessionEndTime({ end: '🟢 Activa' }), '🟢 Activa', "Active session should return 🟢 Activa");
+    
+    // 6b: Same-day session (no badge)
+    assertEqual(window.formatSessionEndTime({ end_time_fmt: '5:30 PM', days_diff: 0 }), '5:30 PM', "Same-day session should return plain time string without badge");
+
+    // 6c: +1 day session (badge +1d with tooltip)
+    const nextDayResult = window.formatSessionEndTime({ end_time_fmt: '12:15 AM', days_diff: 1 });
+    assertEqual(nextDayResult, '12:15 AM <span class="badge-next-day" title="Esta sesión terminó 1 día después de su inicio">+1d</span>', "+1d session should include badge and 1 day tooltip");
+
+    // 6d: +2 days session (badge +2d with tooltip)
+    const multiDayResult = window.formatSessionEndTime({ end_time_fmt: '1:38 AM', days_diff: 2 });
+    assertEqual(multiDayResult, '1:38 AM <span class="badge-next-day" title="Esta sesión terminó 2 días después de su inicio">+2d</span>', "+2d session should include badge and 2 days tooltip");
+
+    // 6e: Fallback calculation from start_epoch and end_epoch
+    const fallbackResult = window.formatSessionEndTime({
+        start_epoch: 1788471574, // 2026-09-03 14:39:34
+        end_epoch: 1788597493,   // 2026-09-05 01:38:13
+        end_time_fmt: '1:38 AM'
+    });
+    assertEqual(fallbackResult, '1:38 AM <span class="badge-next-day" title="Esta sesión terminó 2 días después de su inicio">+2d</span>', "Fallback calculation using epoch timestamps should produce +2d badge");
 
     if (allPassed) {
         console.log("=== All JS Unit Tests Passed Successfully ===");
