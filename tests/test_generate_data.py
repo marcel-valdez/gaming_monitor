@@ -192,6 +192,73 @@ class TestDataGenerator(unittest.TestCase):
         self.assertEqual(session['start_time_fmt'], '2:39 PM')
         self.assertEqual(session['end_time_fmt'], '1:38 AM')
 
+    def test_tcp_aware_stitching_within_threshold(self):
+        """Verify that UDP sessions separated by >300s but <=1320s (22m) stitch when TCP is active."""
+        log_content = """[2026-09-06 10:00:00] | PC - Roblox | TCP | ACTIVE | Session started.
+[2026-09-06 10:00:00] | PC - Roblox | UDP | ACTIVE | Session started.
+[2026-09-06 10:30:00] | PC - Roblox | UDP | IDLE   | Session ended. Total Duration: 1800s.
+[2026-09-06 10:50:00] | PC - Roblox | UDP | ACTIVE | Session started.
+[2026-09-06 11:20:00] | PC - Roblox | UDP | IDLE   | Session ended. Total Duration: 1800s.
+[2026-09-06 11:30:00] | PC - Roblox | TCP | IDLE   | Session ended. Total Duration: 5400s.
+"""
+        with open(self.log_file, 'w') as f:
+            f.write(log_content)
+
+        self.generator.generate()
+
+        with open(self.data_file, 'r') as f:
+            data = json.load(f)
+
+        udp_sessions = [s for s in data if s['proto'] == 'UDP']
+        tcp_sessions = [s for s in data if s['proto'] == 'TCP']
+
+        # 20 min gap (1200s <= 1320s) while TCP is active -> stitches to 1 single UDP session
+        self.assertEqual(len(udp_sessions), 1)
+        self.assertEqual(udp_sessions[0]['start_time_fmt'], '10:00 AM')
+        self.assertEqual(udp_sessions[0]['end_time_fmt'], '11:20 AM')
+        self.assertEqual(udp_sessions[0]['duration_sec'], 4800) # 80 minutes
+        self.assertEqual(len(tcp_sessions), 1)
+
+    def test_tcp_aware_stitching_without_tcp_remains_split(self):
+        """Verify that UDP sessions separated by 15m without TCP remain separate."""
+        log_content = """[2026-09-06 10:00:00] | PC - Roblox | UDP | ACTIVE | Session started.
+[2026-09-06 10:30:00] | PC - Roblox | UDP | IDLE   | Session ended. Total Duration: 1800s.
+[2026-09-06 10:45:00] | PC - Roblox | UDP | ACTIVE | Session started.
+[2026-09-06 11:15:00] | PC - Roblox | UDP | IDLE   | Session ended. Total Duration: 1800s.
+"""
+        with open(self.log_file, 'w') as f:
+            f.write(log_content)
+
+        self.generator.generate()
+
+        with open(self.data_file, 'r') as f:
+            data = json.load(f)
+
+        udp_sessions = [s for s in data if s['proto'] == 'UDP']
+        # Gap is 15 minutes (900s > 300s base gap) without TCP -> remains 2 sessions
+        self.assertEqual(len(udp_sessions), 2)
+
+    def test_tcp_aware_stitching_exceeds_threshold_remains_split(self):
+        """Verify that UDP sessions separated by 25m (>22m threshold) remain separate even with TCP active."""
+        log_content = """[2026-09-06 10:00:00] | PC - Roblox | TCP | ACTIVE | Session started.
+[2026-09-06 10:00:00] | PC - Roblox | UDP | ACTIVE | Session started.
+[2026-09-06 10:30:00] | PC - Roblox | UDP | IDLE   | Session ended. Total Duration: 1800s.
+[2026-09-06 10:55:00] | PC - Roblox | UDP | ACTIVE | Session started.
+[2026-09-06 11:30:00] | PC - Roblox | UDP | IDLE   | Session ended. Total Duration: 2100s.
+[2026-09-06 12:00:00] | PC - Roblox | TCP | IDLE   | Session ended. Total Duration: 7200s.
+"""
+        with open(self.log_file, 'w') as f:
+            f.write(log_content)
+
+        self.generator.generate()
+
+        with open(self.data_file, 'r') as f:
+            data = json.load(f)
+
+        udp_sessions = [s for s in data if s['proto'] == 'UDP']
+        # Gap is 25 minutes (1500s > 1320s threshold) -> remains 2 sessions
+        self.assertEqual(len(udp_sessions), 2)
+
 if __name__ == '__main__':
     unittest.main()
 

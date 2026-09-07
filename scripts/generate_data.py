@@ -61,14 +61,22 @@ class DataGenerator:
 
     # Default gap threshold: 300 seconds (5 minutes)
     DEFAULT_GAP_THRESHOLD = 300
+    # Default TCP-aware gap threshold: 1320 seconds (22 minutes)
+    DEFAULT_TCP_AWARE_GAP_THRESHOLD = 1320
 
-    def __init__(self, log_file='roblox_connections.log', data_file='public/data.json', gap_threshold=None):
+    def __init__(self, log_file='roblox_connections.log', data_file='public/data.json',
+                 gap_threshold=None, tcp_aware_gap_threshold=None):
         self.log_file = log_file
         self.data_file = data_file
         if gap_threshold is not None:
             self.gap_threshold = int(gap_threshold)
         else:
             self.gap_threshold = int(os.getenv("SESSION_GAP_THRESHOLD", self.DEFAULT_GAP_THRESHOLD))
+
+        if tcp_aware_gap_threshold is not None:
+            self.tcp_aware_gap_threshold = int(tcp_aware_gap_threshold)
+        else:
+            self.tcp_aware_gap_threshold = int(os.getenv("SESSION_TCP_AWARE_GAP_THRESHOLD", self.DEFAULT_TCP_AWARE_GAP_THRESHOLD))
 
     def get_current_time(self):
         return int(time.time())
@@ -88,29 +96,45 @@ class DataGenerator:
 
     def stitch_sessions(self, completed_sessions, active_sessions):
         """
-        Merges consecutive sessions on the same device and protocol if the gap
-        between the previous session's end and the next session's start is <= gap_threshold.
-        Also merges the latest completed session into an ongoing active session if within gap.
+        Stitches consecutive sessions on the same device.
+        - TCP sessions are stitched using base self.gap_threshold (default 300s).
+        - UDP sessions are stitched using self.tcp_aware_gap_threshold (default 1320s / 22m)
+          if a TCP session on the same device was active during the gap, or self.gap_threshold (300s)
+          if TCP was not active.
+        - Also merges completed sessions into currently active sessions when within threshold.
         """
-        by_key = {}
-        for s in completed_sessions:
-            k = f"{s['device']}_{s['proto']}"
-            by_key.setdefault(k, []).append(s)
-
-        stitched_completed = []
         current_time = self.get_current_time()
 
-        for k, s_list in by_key.items():
-            s_list.sort(key=lambda x: x['start_epoch'])
-            stream = []
-            for s in s_list:
-                if not stream:
-                    stream.append(dict(s))
+        # Group sessions by device and protocol
+        by_device = {}
+        for s in completed_sessions:
+            dev = s['device']
+            by_device.setdefault(dev, {'TCP': [], 'UDP': []})
+            by_device[dev][s['proto']].append(dict(s))
+
+        for k, active_s in active_sessions.items():
+            dev = active_s['device']
+            by_device.setdefault(dev, {'TCP': [], 'UDP': []})
+
+        all_stitched = []
+
+        for dev, protos in by_device.items():
+            tcp_list = protos['TCP']
+            udp_list = protos['UDP']
+
+            tcp_key = f"{dev}_TCP"
+            udp_key = f"{dev}_UDP"
+
+            # 1. Stitch TCP sessions (using base gap_threshold)
+            tcp_list.sort(key=lambda x: x['start_epoch'])
+            tcp_stream = []
+            for s in tcp_list:
+                if not tcp_stream:
+                    tcp_stream.append(dict(s))
                 else:
-                    last = stream[-1]
+                    last = tcp_stream[-1]
                     gap = s['start_epoch'] - last['end_epoch']
                     if gap <= self.gap_threshold:
-                        # Merge s into last
                         last['end'] = s['end']
                         last['end_time_fmt'] = s['end_time_fmt']
                         last['end_epoch'] = max(last['end_epoch'], s['end_epoch'])
@@ -124,23 +148,72 @@ class DataGenerator:
                         elif 'days_diff' in last:
                             del last['days_diff']
                     else:
-                        stream.append(dict(s))
+                        tcp_stream.append(dict(s))
 
-            # Merge with active session if within gap threshold
-            if k in active_sessions and stream:
-                last = stream[-1]
-                active_s = active_sessions[k]
+            # Merge with active TCP session if within gap_threshold
+            if tcp_key in active_sessions and tcp_stream:
+                last = tcp_stream[-1]
+                active_s = active_sessions[tcp_key]
                 gap = active_s['start_epoch'] - last['end_epoch']
                 if gap <= self.gap_threshold:
                     active_s['date'] = last['date']
                     active_s['start_time_fmt'] = last['start_time_fmt']
                     active_s['start_epoch'] = last['start_epoch']
-                    stream.pop()
+                    tcp_stream.pop()
 
-            stitched_completed.extend(stream)
+            # Build TCP active timeline for this device
+            tcp_timeline = []
+            for t in tcp_stream:
+                tcp_timeline.append((t['start_epoch'], t['end_epoch']))
+            if tcp_key in active_sessions:
+                tcp_timeline.append((active_sessions[tcp_key]['start_epoch'], current_time))
+
+            def is_tcp_active_during_gap(gap_start, gap_end):
+                return any(t[0] <= gap_start and t[1] >= gap_end for t in tcp_timeline)
+
+            # 2. Stitch UDP sessions (using tcp_aware_gap_threshold when TCP is active)
+            udp_list.sort(key=lambda x: x['start_epoch'])
+            udp_stream = []
+            for s in udp_list:
+                if not udp_stream:
+                    udp_stream.append(dict(s))
+                else:
+                    last = udp_stream[-1]
+                    gap = s['start_epoch'] - last['end_epoch']
+                    thresh = self.tcp_aware_gap_threshold if is_tcp_active_during_gap(last['end_epoch'], s['start_epoch']) else self.gap_threshold
+                    if gap <= thresh:
+                        last['end'] = s['end']
+                        last['end_time_fmt'] = s['end_time_fmt']
+                        last['end_epoch'] = max(last['end_epoch'], s['end_epoch'])
+                        last['duration_sec'] = last['end_epoch'] - last['start_epoch']
+                        last['duration_str'] = self.format_duration(last['duration_sec'])
+                        dt_start = datetime.fromtimestamp(last['start_epoch'])
+                        dt_end = datetime.fromtimestamp(last['end_epoch'])
+                        days_diff = (dt_end.date() - dt_start.date()).days
+                        if days_diff > 0:
+                            last['days_diff'] = days_diff
+                        elif 'days_diff' in last:
+                            del last['days_diff']
+                    else:
+                        udp_stream.append(dict(s))
+
+            # Merge with active UDP session if within threshold
+            if udp_key in active_sessions and udp_stream:
+                last = udp_stream[-1]
+                active_s = active_sessions[udp_key]
+                gap = active_s['start_epoch'] - last['end_epoch']
+                thresh = self.tcp_aware_gap_threshold if is_tcp_active_during_gap(last['end_epoch'], active_s['start_epoch']) else self.gap_threshold
+                if gap <= thresh:
+                    active_s['date'] = last['date']
+                    active_s['start_time_fmt'] = last['start_time_fmt']
+                    active_s['start_epoch'] = last['start_epoch']
+                    udp_stream.pop()
+
+            all_stitched.extend(tcp_stream)
+            all_stitched.extend(udp_stream)
 
         # Append currently active sessions
-        final_sessions = list(stitched_completed)
+        final_sessions = list(all_stitched)
         for k, session in active_sessions.items():
             duration_sec = current_time - session['start_epoch']
             if duration_sec < 0: duration_sec = 0
@@ -216,9 +289,12 @@ if __name__ == "__main__":
     parser.add_argument("--data-file", default=os.getenv("DATA_FILE", "public/data.json"), help="Path to output data.json file")
     parser.add_argument("--gap-threshold", type=int, default=int(os.getenv("SESSION_GAP_THRESHOLD", DataGenerator.DEFAULT_GAP_THRESHOLD)),
                         help="Maximum gap in seconds between micro-connections to stitch into a single logical session (default: 300s)")
+    parser.add_argument("--tcp-aware-gap-threshold", type=int, default=int(os.getenv("SESSION_TCP_AWARE_GAP_THRESHOLD", DataGenerator.DEFAULT_TCP_AWARE_GAP_THRESHOLD)),
+                        help="Maximum gap in seconds between UDP micro-sessions while a TCP session is active on the same device (default: 1320s / 22m)")
     args, _ = parser.parse_known_args()
 
-    generator = DataGenerator(log_file=args.log_file, data_file=args.data_file, gap_threshold=args.gap_threshold)
+    generator = DataGenerator(log_file=args.log_file, data_file=args.data_file,
+                              gap_threshold=args.gap_threshold, tcp_aware_gap_threshold=args.tcp_aware_gap_threshold)
     generator.generate()
     print(f"[{datetime.now().strftime('%H:%M:%S')}] JSON data updated -> {generator.data_file}")
 
