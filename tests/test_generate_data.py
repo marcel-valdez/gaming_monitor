@@ -59,5 +59,120 @@ class TestDataGenerator(unittest.TestCase):
         self.assertEqual(pc_session['end_time_fmt'], '🟢 Activa')
         self.assertEqual(pc_session['duration_sec'], 300) # 10:15 - 10:10 = 5 mins
 
+    def test_session_stitching_within_gap(self):
+        """Verify that micro-sessions within gap_threshold (<=300s) are stitched into one session."""
+        log_content = """[2026-09-06 18:39:32] | PC - Roblox | UDP | ACTIVE | Session started.
+[2026-09-06 18:40:40] | PC - Roblox | UDP | IDLE   | Session ended. Total Duration: 68s.
+[2026-09-06 18:44:03] | PC - Roblox | UDP | ACTIVE | Session started.
+[2026-09-06 18:45:12] | PC - Roblox | UDP | IDLE   | Session ended. Total Duration: 69s.
+[2026-09-06 18:49:43] | PC - Roblox | UDP | ACTIVE | Session started.
+[2026-09-06 18:50:51] | PC - Roblox | UDP | IDLE   | Session ended. Total Duration: 68s.
+"""
+        with open(self.log_file, 'w') as f:
+            f.write(log_content)
+
+        self.generator.generate()
+
+        with open(self.data_file, 'r') as f:
+            data = json.load(f)
+
+        # 3 micro-sessions within ~3-4 minute gaps should stitch into 1 single session
+        self.assertEqual(len(data), 1)
+        session = data[0]
+        self.assertEqual(session['device'], 'PC')
+        self.assertEqual(session['proto'], 'UDP')
+        self.assertEqual(session['start_time_fmt'], '6:39 PM')
+        self.assertEqual(session['end_time_fmt'], '6:50 PM')
+        # Total duration: 18:50:51 - 18:39:32 = 679s (11m 19s)
+        self.assertEqual(session['duration_sec'], 679)
+        self.assertEqual(session['duration_str'], '11m 19s')
+
+    def test_session_stitching_exceeds_gap(self):
+        """Verify that sessions separated by > gap_threshold remain distinct."""
+        log_content = """[2026-09-06 10:00:00] | PC - Roblox | UDP | ACTIVE | Session started.
+[2026-09-06 10:05:00] | PC - Roblox | UDP | IDLE   | Session ended. Total Duration: 300s.
+[2026-09-06 10:20:00] | PC - Roblox | UDP | ACTIVE | Session started.
+[2026-09-06 10:30:00] | PC - Roblox | UDP | IDLE   | Session ended. Total Duration: 600s.
+"""
+        with open(self.log_file, 'w') as f:
+            f.write(log_content)
+
+        self.generator.generate()
+
+        with open(self.data_file, 'r') as f:
+            data = json.load(f)
+
+        # Gap is 15 minutes (900s > 300s), so they should remain 2 separate sessions
+        self.assertEqual(len(data), 2)
+        self.assertEqual(data[0]['duration_sec'], 300)
+        self.assertEqual(data[1]['duration_sec'], 600)
+
+    def test_different_devices_and_protocols_isolated(self):
+        """Verify that stitching is isolated by (device, proto)."""
+        log_content = """[2026-09-06 10:00:00] | PC - Roblox    | UDP | ACTIVE | Session started.
+[2026-09-06 10:00:00] | PC - Roblox    | TCP | ACTIVE | Session started.
+[2026-09-06 10:00:00] | Phone - Roblox | UDP | ACTIVE | Session started.
+[2026-09-06 10:02:00] | PC - Roblox    | UDP | IDLE   | Session ended. Total Duration: 120s.
+[2026-09-06 10:02:00] | PC - Roblox    | TCP | IDLE   | Session ended. Total Duration: 120s.
+[2026-09-06 10:02:00] | Phone - Roblox | UDP | IDLE   | Session ended. Total Duration: 120s.
+"""
+        with open(self.log_file, 'w') as f:
+            f.write(log_content)
+
+        self.generator.generate()
+
+        with open(self.data_file, 'r') as f:
+            data = json.load(f)
+
+        # Even though they happen simultaneously, they are 3 distinct streams
+        self.assertEqual(len(data), 3)
+        streams = {(s['device'], s['proto']) for s in data}
+        self.assertEqual(streams, {('PC', 'UDP'), ('PC', 'TCP'), ('Phone', 'UDP')})
+
+    def test_active_session_merges_with_recent_completed(self):
+        """Verify that an ongoing active session merges with a completed session within gap."""
+        log_content = """[2026-09-06 10:00:00] | Phone - Roblox | UDP | ACTIVE | Session started.
+[2026-09-06 10:05:00] | Phone - Roblox | UDP | IDLE   | Session ended. Total Duration: 300s.
+[2026-09-06 10:08:00] | Phone - Roblox | UDP | ACTIVE | Session started.
+"""
+        with open(self.log_file, 'w') as f:
+            f.write(log_content)
+
+        # Mock current time at 10:15:00 (15 minutes after 10:00)
+        now_dt = datetime.strptime('2026-09-06 10:15:00', '%Y-%m-%d %H:%M:%S')
+        self.generator.get_current_time = lambda: int(now_dt.timestamp())
+
+        self.generator.generate()
+
+        with open(self.data_file, 'r') as f:
+            data = json.load(f)
+
+        # 10:00-10:05 completed merged into the 10:08 active session (gap is 3m <= 300s)
+        self.assertEqual(len(data), 1)
+        active_session = data[0]
+        self.assertEqual(active_session['end_time_fmt'], '🟢 Activa')
+        self.assertEqual(active_session['start_time_fmt'], '10:00 AM')
+        # Total duration from 10:00 to 10:15 = 15m = 900s
+        self.assertEqual(active_session['duration_sec'], 900)
+        self.assertEqual(active_session['duration_str'], '15m 0s')
+
+    def test_isolated_short_session_preserved(self):
+        """Verify that isolated short sessions (<120s) without neighbors are retained for evasion detection."""
+        log_content = """[2026-09-06 02:00:00] | PC - Roblox | UDP | ACTIVE | Session started.
+[2026-09-06 02:01:08] | PC - Roblox | UDP | IDLE   | Session ended. Total Duration: 68s.
+"""
+        with open(self.log_file, 'w') as f:
+            f.write(log_content)
+
+        self.generator.generate()
+
+        with open(self.data_file, 'r') as f:
+            data = json.load(f)
+
+        self.assertEqual(len(data), 1)
+        self.assertEqual(data[0]['duration_sec'], 68)
+        self.assertEqual(data[0]['duration_str'], '1m 8s')
+
 if __name__ == '__main__':
     unittest.main()
+
