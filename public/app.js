@@ -711,10 +711,10 @@ function updateStatistics() {
 
     // 4. Daily Breakdown Logical Math with 5 AM and Midnight Rollover Rules
     const groups = {
-        'mon-thu': { startSum: 0, startCount: 0, endSum: 0, endCount: 0, dayIntervals: {} },
-        'fri': { startSum: 0, startCount: 0, endSum: 0, endCount: 0, dayIntervals: {} },
-        'sat': { startSum: 0, startCount: 0, endSum: 0, endCount: 0, dayIntervals: {} },
-        'sun': { startSum: 0, startCount: 0, endSum: 0, endCount: 0, dayIntervals: {} }
+        'mon-thu': { days: {} },
+        'fri': { days: {} },
+        'sat': { days: {} },
+        'sun': { days: {} }
     };
 
     filtered.forEach(session => {
@@ -727,7 +727,6 @@ function updateStatistics() {
                 sEnd = sStart + (session.duration_sec || 0);
             }
         }
-        const liveDuration = Math.max(0, sEnd - sStart);
         const startCalDate = new Date(sStart * 1000);
         const startHour = startCalDate.getHours();
 
@@ -749,22 +748,28 @@ function updateStatistics() {
         else if (logicalDayOfWeek === 0) groupKey = 'sun';
 
         const g = groups[groupKey];
-
-        // Start seconds offset from logical midnight
-        const startOffsetSec = sStart - Math.floor(logicalMidnight.getTime() / 1000);
-        g.startSum += startOffsetSec;
-        g.startCount++;
-
-        // End seconds offset from logical midnight (only for completed sessions)
-        if (session.end !== '🟢 Activa') {
-            const endOffsetSec = startOffsetSec + liveDuration;
-            g.endSum += endOffsetSec;
-            g.endCount++;
+        if (!g.days[logicalDateKey]) {
+            g.days[logicalDateKey] = {
+                minStart: Infinity,
+                maxEnd: -Infinity,
+                hasActive: false,
+                hasCompleted: false,
+                intervals: []
+            };
         }
 
-        // Collect interval by logical day for union calculation
-        if (!g.dayIntervals[logicalDateKey]) g.dayIntervals[logicalDateKey] = [];
-        g.dayIntervals[logicalDateKey].push([sStart, sEnd]);
+        const logicalMidnightSec = Math.floor(logicalMidnight.getTime() / 1000);
+        const startOffsetSec = sStart - logicalMidnightSec;
+        g.days[logicalDateKey].minStart = Math.min(g.days[logicalDateKey].minStart, startOffsetSec);
+        g.days[logicalDateKey].intervals.push([sStart, sEnd]);
+
+        if (session.end === '🟢 Activa') {
+            g.days[logicalDateKey].hasActive = true;
+        } else {
+            const endOffsetSec = sEnd - logicalMidnightSec;
+            g.days[logicalDateKey].maxEnd = Math.max(g.days[logicalDateKey].maxEnd, endOffsetSec);
+            g.days[logicalDateKey].hasCompleted = true;
+        }
     });
 
     // Update Daily Cards DOM
@@ -779,25 +784,50 @@ function updateGroupDOM(idPrefix, group) {
     const endAvgEl = document.getElementById(`stat-${idPrefix}-end`);
     const durAvgEl = document.getElementById(`stat-${idPrefix}-duration`);
 
-    if (group.startCount === 0) {
+    const dayKeys = Object.keys(group.days || {});
+    if (dayKeys.length === 0) {
         if (startAvgEl) { startAvgEl.textContent = "Sin registros"; startAvgEl.innerText = "Sin registros"; }
         if (endAvgEl) { endAvgEl.textContent = "Sin registros"; endAvgEl.innerText = "Sin registros"; }
         if (durAvgEl) { durAvgEl.textContent = "0s"; durAvgEl.innerText = "0s"; }
         return;
     }
 
-    // Start Average format
-    const avgStartSec = group.startSum / group.startCount;
+    let startSum = 0;
+    let startCount = 0;
+    let endSum = 0;
+    let endCount = 0;
+    let groupTotalSec = 0;
+
+    dayKeys.forEach(dayKey => {
+        const d = group.days[dayKey];
+        if (d.minStart !== Infinity) {
+            startSum += d.minStart;
+            startCount++;
+        }
+        if (!d.hasActive && d.hasCompleted && d.maxEnd !== -Infinity) {
+            endSum += d.maxEnd;
+            endCount++;
+        }
+        groupTotalSec += computeMergedDuration(d.intervals);
+    });
+
+    // Start Average format (first gaming session of the day)
     if (startAvgEl) {
-        const startStr = formatTimeFromSeconds(avgStartSec);
-        startAvgEl.textContent = startStr;
-        startAvgEl.innerText = startStr;
+        if (startCount > 0) {
+            const avgStartSec = startSum / startCount;
+            const startStr = formatTimeFromSeconds(avgStartSec);
+            startAvgEl.textContent = startStr;
+            startAvgEl.innerText = startStr;
+        } else {
+            startAvgEl.textContent = "Sin registros";
+            startAvgEl.innerText = "Sin registros";
+        }
     }
 
-    // End Average format
+    // End Average format (last gaming session of the day for completed days)
     if (endAvgEl) {
-        if (group.endCount > 0) {
-            const avgEndSec = group.endSum / group.endCount;
+        if (endCount > 0) {
+            const avgEndSec = endSum / endCount;
             const endStr = formatTimeFromSeconds(avgEndSec);
             endAvgEl.textContent = endStr;
             endAvgEl.innerText = endStr;
@@ -809,20 +839,10 @@ function updateGroupDOM(idPrefix, group) {
 
     // Playtime Average format using merged intervals per logical day
     if (durAvgEl) {
-        const uniqueDays = Object.keys(group.dayIntervals);
-        if (uniqueDays.length > 0) {
-            let groupTotalSec = 0;
-            uniqueDays.forEach(dayKey => {
-                groupTotalSec += computeMergedDuration(group.dayIntervals[dayKey]);
-            });
-            const avgSec = groupTotalSec / uniqueDays.length;
-            const durStr = formatDuration(Math.round(avgSec));
-            durAvgEl.textContent = durStr;
-            durAvgEl.innerText = durStr;
-        } else {
-            durAvgEl.textContent = "0s";
-            durAvgEl.innerText = "0s";
-        }
+        const avgSec = groupTotalSec / dayKeys.length;
+        const durStr = formatDuration(Math.round(avgSec));
+        durAvgEl.textContent = durStr;
+        durAvgEl.innerText = durStr;
     }
 }
 

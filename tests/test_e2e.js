@@ -307,8 +307,8 @@ async function runTest() {
     await window.fetchData();
 
     // Verify Mon-Thu group values
-    // Average start time: (23:00 + 26:00) / 2 = 24.5 hours = 12:30 AM next day
-    // Average end time: (25.5 + 27.5) / 2 = 26.5 hours = 2:30 AM next day
+    // Day-level start time (first session of Thursday started at 11:00 PM)
+    // Day-level end time (last session of Thursday ended at 3:30 AM)
     // Average playtime per unique logical day (Thursday had both, total playtime = 1.5 + 2.5 = 4.0 hours)
     const monThuStart = window.document.getElementById('stat-mon-thu-start').innerText;
     const monThuEnd = window.document.getElementById('stat-mon-thu-end').innerText;
@@ -316,18 +316,18 @@ async function runTest() {
 
     console.log(`Logical Rollover - Mon-Thu Start: ${monThuStart}, End: ${monThuEnd}, Duration: ${monThuDuration}`);
 
-    if (monThuStart !== "12:30 AM") {
-        console.error(`FAIL: Expected Mon-Thu Average Start Time to be 12:30 AM, found ${monThuStart}`);
+    if (monThuStart !== "11:00 PM") {
+        console.error(`FAIL: Expected Mon-Thu Average Start Time to be 11:00 PM, found ${monThuStart}`);
         allPassed = false;
     } else {
-        console.log("✅ PASS: Mon-Thu Average Start Time is correct (12:30 AM)");
+        console.log("✅ PASS: Mon-Thu Average Start Time is correct (11:00 PM)");
     }
 
-    if (monThuEnd !== "2:30 AM") {
-        console.error(`FAIL: Expected Mon-Thu Average End Time to be 2:30 AM, found ${monThuEnd}`);
+    if (monThuEnd !== "3:30 AM") {
+        console.error(`FAIL: Expected Mon-Thu Average End Time to be 3:30 AM, found ${monThuEnd}`);
         allPassed = false;
     } else {
-        console.log("✅ PASS: Mon-Thu Average End Time is correct (2:30 AM)");
+        console.log("✅ PASS: Mon-Thu Average End Time is correct (3:30 AM)");
     }
 
     if (monThuDuration !== "4h 0m 0s") {

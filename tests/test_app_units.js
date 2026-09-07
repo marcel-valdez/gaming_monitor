@@ -178,6 +178,25 @@ async function runUnitTests() {
         assertEqual(realSatDurationAll.includes('11h'), true, "Saturday average in 'all' mode should be ~11.5h (not 21.3h)");
         assertEqual(!realSatDurationAll.includes('21h'), true, "Saturday average must not be inflated to 21.3h");
 
+        // Day-level start and end time assertions ('all' mode)
+        const realSatStartAll = window.document.getElementById('stat-sat-start').textContent;
+        const realSatEndAll = window.document.getElementById('stat-sat-end').textContent;
+        const realSunStartAll = window.document.getElementById('stat-sun-start').textContent;
+        const realSunEndAll = window.document.getElementById('stat-sun-end').textContent;
+        const realFriStartAll = window.document.getElementById('stat-fri-start').textContent;
+        const realFriEndAll = window.document.getElementById('stat-fri-end').textContent;
+        const realMonThuStartAll = window.document.getElementById('stat-mon-thu-start').textContent;
+        const realMonThuEndAll = window.document.getElementById('stat-mon-thu-end').textContent;
+
+        assertEqual(realSatStartAll, '10:57 AM', "Saturday start in 'all' mode should be 10:57 AM (starts before 12 PM)");
+        assertEqual(realSatEndAll, '12:16 AM', "Saturday end in 'all' mode should be 12:16 AM (ends after 11 PM)");
+        assertEqual(realSunStartAll, '11:57 AM', "Sunday start in 'all' mode should be 11:57 AM (starts before 12 PM)");
+        assertEqual(realSunEndAll, '9:35 PM', "Sunday end in 'all' mode should be 9:35 PM");
+        assertEqual(realFriStartAll, '6:00 PM', "Friday start in 'all' mode should be 6:00 PM");
+        assertEqual(realFriEndAll, '1:03 AM', "Friday end in 'all' mode should be 1:03 AM (ends after 11 PM)");
+        assertEqual(realMonThuStartAll, '4:05 PM', "Mon-Thu start in 'all' mode should be 4:05 PM");
+        assertEqual(realMonThuEndAll, '8:02 PM', "Mon-Thu end in 'all' mode should be 8:02 PM");
+
         // Verify 'game' mode (En Juego Activo)
         window.setStatsActivityType('game');
         window.updateStatistics();
@@ -188,6 +207,14 @@ async function runUnitTests() {
         assertEqual(realTotalHoursGame.includes('127h'), true, "Total hours in 'game' mode should be ~127h");
         assertEqual(realWeeklyAvgGame.includes('31.') || realWeeklyAvgGame.includes('32.'), true, "Weekly average in 'game' mode should be ~31.7h / semana");
         assertEqual(realSatDurationGame.includes('9h') || realSatDurationGame.includes('10h'), true, "Saturday average in 'game' mode should be ~9.8h");
+
+        // Day-level start and end time assertions ('game' mode)
+        const realSatStartGame = window.document.getElementById('stat-sat-start').textContent;
+        const realSatEndGame = window.document.getElementById('stat-sat-end').textContent;
+        const realFriEndGame = window.document.getElementById('stat-fri-end').textContent;
+        assertEqual(realSatStartGame, '10:57 AM', "Saturday start in 'game' mode should be 10:57 AM");
+        assertEqual(realSatEndGame, '12:16 AM', "Saturday end in 'game' mode should be 12:16 AM");
+        assertEqual(realFriEndGame, '1:03 AM', "Friday end in 'game' mode should be 1:03 AM");
     }
 
     if (allPassed) {
